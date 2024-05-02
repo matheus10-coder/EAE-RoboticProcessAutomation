@@ -1,0 +1,189 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="CSW_Claim_GetDTOFExclRemarks" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="out_dtExclRemarks" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="io_browserClaim" Type="InOutArgument(ui:Browser)" />
+    <x:Property Name="in_dictConfig" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+  </x:Members>
+  <VisualBasic.Settings>
+    <x:Null />
+  </VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>536,1118</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>CSW_Claim_GetDTOFExclRemarks_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+      <x:String>UiPath.UIAutomationCore.Contracts</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities</x:String>
+      <x:String>UiPath.Platform.ObjectLibrary</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>UiPath.UIAutomationNext.Models.ExtractData</x:String>
+      <x:String>UiPath.UIAutomationNext.Contracts</x:String>
+      <x:String>UiPath.UIAutomationNext.Models.CV</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
+      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Data.SqlClient</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.EventBasedAsync</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>Microsoft.Win32.Primitives</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Primitives</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
+      <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
+      <AssemblyReference>System.Private.Xml</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Python.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Web.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.ViewModels</AssemblyReference>
+      <AssemblyReference>NPOI</AssemblyReference>
+      <AssemblyReference>System.Memory.Data</AssemblyReference>
+      <AssemblyReference>UiPath.Python</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="CSW_Claim_GetDTOFExclRemarks" sap:VirtualizedContainerService.HintSize="546,1053" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Default="CSW_Claim_GetDTOFExclRemarks" Name="strComponentName" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="484,141" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Start: &quot;+strComponentName]" />
+    <uix:NApplicationCard AttachMode="ByInstance" CloseMode="Never" DisplayName="Use Application/Browser-amisys claim" sap:VirtualizedContainerService.HintSize="484,580" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InUiElement="[io_browserClaim]" InteractionMode="DebuggerApi" OpenMode="Never" OutUiElement="[io_browserClaim]" ScopeGuid="160bce63-3b73-4848-9d3d-7467ad297f1a" Timeout="[convert.ToInt32(in_dictconfig(&quot;TimeoutMediumSeconds&quot;))]" Version="V2">
+      <uix:NApplicationCard.Body>
+        <ActivityAction x:TypeArguments="x:Object">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do-extract datatable" sap:VirtualizedContainerService.HintSize="450,443" sap2010:WorkflowViewState.IdRef="Sequence_2">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click  member flag" sap:VirtualizedContainerService.HintSize="388,52" sap2010:WorkflowViewState.IdRef="NClick_1" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="160bce63-3b73-4848-9d3d-7467ad297f1a" Timeout="[convert.ToInt32(in_dictconfig(&quot;TimeoutMediumSeconds&quot;))]" Version="V3">
+              <uix:NClick.Target>
+                <uix:TargetAnchorable BrowserURL="https://csw/claim/huClaimDetail.aspx?nonav=Y&amp;companyId=H&amp;claimId=230823Q12PEB&amp;DisplayBus=" DesignTimeRectangle="604, 493, 22, 17" DesignTimeScaleFactor="1.5" ElementType="Icon" FriendlyName="'IMG Image51'" FullSelectorArgument="&lt;webctrl id='lnkMemberFlag' parentid='tblClaimHdr' parentname='frmHUClaimDetail' class='CSW_Bold_Hdr' rowName='Member:' /&gt;" FuzzySelectorArgument="&lt;webctrl id='frameDetail' tag='FRAME' /&gt;&lt;webctrl id='tblClaimHdr' tag='TABLE' /&gt;&lt;webctrl id='Image51' type='' tag='IMG' class='' aaname='' /&gt;" Guid="e2b4d602-3e1c-436b-b206-60a5621c5546" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAABoAAAAVCAYAAABYHP4bAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAFiUAABYlAUlSJPAAAAOlSURBVEhL3ZNrTFNnHMYLVC2XQWUXBrYsBEJAUQiJ7ia3AUbABUpCFMWN1Sm6LGEBlxGWbJJlK3zZkkXmUCQgQ8AFvFSIhhHcvnBxchMaIXEX6ly9bIgDWizlt5f2yCgu2Rf0w57kyTnnPe//+Z3/e95XxhPS/xh0//YvVBZEc3P0R2lkebUAmpq8z1df6Piho00aWV4tgCyWGY4erUFfUIS1uhqbsLWujvH6ekbPNdPXepZbF1qY6+9nbmCA2eFhbFNTUvV/awE0M/OAyspavlV4YpbJeCBsEm5zlVPi8zSH3b0Yka/AqlAw5uFJRUAY+ueDsCiV9K5R8/ELIVxTrsYqns1+fszk5zN39aqUvgg0O2vjxIkGzio8sAqARfiyzIUat5XoPLypkSs44qNil2oT22J3ER6WSlrqARJVkezzepZ2+Sp73WLPBAdjMxrt+Y+A2iWQUfi8i9wOKvR8joiwOLKy9qPJ2EtCQg7JSVqKiz8nIiSWZJ8gjK4rFlZiMWy6osKe/6+gv8SEK6KbT1d6Ee8bQnREHK9vy2N/3kecOtXK0NAok5PTlJaWk5b2FklJO9mb9S4fRCVy0juAm65ujo6ETQffs+cvATVywd2bfvF1B33URAa/jFr9IoUFJYyN/cb162MMDl7DYPiJrq4B8rSFlOm+5M6dP0Wtnoz0d9izp5jUmBzKAsK54u3L3Z7L9nwnUF1dM7VKNfle/qxbm0B4eDIhwa9SdbwJs9mCyXSbGzdu0dk5SFGRjsyMN0SNnnv3JtDr29BqP2TD+nR2ZheRGL+bssISbLOz9vxHQCd91tAtlq1U7k62KorIgCgSX8slZes+qqtP09troKCgjKzMXHS6wxw6VM6WZK3oJo+kxFzezsrnTfUmStdvlJIdcgI1Nuo5JkDtLq58IzZBu4sbRjc5X68OJHajhvj4HLJ3HGDz5nQB3k7MKxoiN2jIzn6fHWvjOPZMED+LuhFxJIwtrVKyQ06ghobzdtBFAagX/2lI2jnznhBd1j7lz+7wl/D3iyQ0NAZt9BaqA9fRKzbN/HF4OLczJo7J8XEp2aEloBY7qEVsa72A3V1U7IDJ7J2m+AZSvkrp9O6hfxW++MlnUuo/ksnqRvld3MyDmpvbqVCF0h2XwPDWFP5Iz8Ci0SzYlJlJd/kRRjq+Z9pgwDw0hLWvD1tPD3NdXUxVVTHRccmRvEROoDNnLtFaf87xZpnlBGpq+u7xgaTrY9cTAsHf1drV/+59D9AAAAAASUVORK5CYII=" InformativeScreenshot="e48819c5844ed58d37be096c91f08a1d.png" SearchSteps="Selector" Version="V2" Visibility="Interactive" WaitForReadyArgument="Interactive" />
+              </uix:NClick.Target>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </uix:NClick>
+            <uix:NExtractData AppendResults="False" ContinueOnError="True" DataTable="[out_dtExclRemarks]" DisplayName="Extract Table Data-exclusion remarks" ExtractDataSettings="&lt;Table xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' Type='Table'&gt;&#xA;&#x9;&lt;Column xsi:type='DataColumn' Name='Flag' ReferenceName='Column-0' ReferenceIdx='0'&gt;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xA;&#x9;&lt;/Column&gt;&#xA;&#x9;&lt;Column xsi:type='DataColumn' Name='Date' ReferenceName='Column-1' ReferenceIdx='1'&gt;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xA;&#x9;&lt;/Column&gt;&#xA;&#x9;&lt;Column xsi:type='DataColumn' Name='Description' ReferenceName='Column-3' ReferenceIdx='3'&gt;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xA;&#x9;&lt;/Column&gt;&#xA;&lt;/Table&gt;" ExtractMetadata="&lt;extract-table get_columns_name='1' get_empty_columns='1' columns_name_source='Longest'&gt;&lt;column name='Column-0' attr='fulltext' /&gt;&lt;column name='Column-1' attr='fulltext' /&gt;&lt;column name='Column-2' attr='fulltext' /&gt;&lt;column name='Column-3' attr='fulltext' /&gt;&lt;column name='Column-4' attr='fulltext' /&gt;&lt;column name='Column-5' attr='fulltext' /&gt;&lt;column name='Column-6' attr='fulltext' /&gt;&lt;/extract-table&gt;" sap:VirtualizedContainerService.HintSize="388,52" sap2010:WorkflowViewState.IdRef="NExtractData_1" LimitExtractionTo="None" MaximumResults="0" Version="V3">
+              <uix:NExtractData.Target>
+                <uix:TargetAnchorable DesignTimeRectangle="16, 272, 904, 58" DesignTimeScaleFactor="1" FriendlyName="'FlagEff DateTerm'" FullSelectorArgument="&lt;webctrl id='tblFlags' tag='TABLE' /&gt;" Guid="0841f872-142e-4dd1-bc52-d4345ec236ae" InformativeScreenshot="d205df059ceb1863405ee28c62545b0f.png" SearchSteps="Selector" Version="V2" Visibility="Interactive" />
+              </uix:NExtractData.Target>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </uix:NExtractData>
+            <ui:RemoveDataRow Row="{x:Null}" DataTable="[out_dtExclRemarks]" DisplayName="Remove Data Row-headers" sap:VirtualizedContainerService.HintSize="388,52" sap2010:WorkflowViewState.IdRef="RemoveDataRow_1" RowIndex="0">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:RemoveDataRow>
+            <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click 'AMISYS Claim Detail'" sap:VirtualizedContainerService.HintSize="388,52" sap2010:WorkflowViewState.IdRef="NClick_2" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="160bce63-3b73-4848-9d3d-7467ad297f1a" Timeout="[convert.ToInt32(in_dictconfig(&quot;TimeoutMediumSeconds&quot;))]" Version="V3">
+              <uix:NClick.Target>
+                <uix:TargetAnchorable BrowserURL="https://csw/NavHistoryBar.aspx" DesignTimeRectangle="310, 153, 207, 24" DesignTimeScaleFactor="1.5" ElementType="Text" FriendlyName="'AMISYS Claim Detail'" FullSelectorArgument="&lt;webctrl parentid='tdLinks' aaname='AMISYS Claim Detail' parentclass='CSW_Detail_Table_Hdr' visibleinnertext='AMISYS Claim Detail' /&gt;" FuzzySelectorArgument="&lt;webctrl id='frameHeader' tag='FRAME' /&gt;&lt;webctrl tag='TABLE' /&gt;&lt;webctrl parentid='tdLinks' type='' tag='A' class='' aaname='AMISYS Claim Detail' check:innerText='AMISYS Claim Detail' /&gt;" Guid="c904a9ef-a5a0-44f1-ad07-5b2249bf07f4" ImageBase64="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" InformativeScreenshot="7b1c2ee1f6acea90092dec3008826890.png" SearchSteps="Selector" Version="V2" Visibility="Interactive" WaitForReadyArgument="Interactive" />
+              </uix:NClick.Target>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </uix:NClick>
+          </Sequence>
+        </ActivityAction>
+      </uix:NApplicationCard.Body>
+      <uix:NApplicationCard.TargetApp>
+        <uix:TargetApp Area="0, 0, 0, 0" />
+      </uix:NApplicationCard.TargetApp>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </uix:NApplicationCard>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="484,141" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;End: &quot;+strComponentName]" />
+  </Sequence>
+</Activity>

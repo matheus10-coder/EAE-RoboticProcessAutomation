@@ -1,0 +1,14 @@
+﻿Dear [InquirerName],
+
+Claim: [CLAIMNO]
+Date of Service: [CLAIMDATE]
+Amount: $[CLAIMAMOUNT]
+ID: [ID]
+
+This email is in response to your recent inquiry regarding a claim for a member of Arkansas Blue Cross Blue Shield.
+
+[RESPONSEBOT]
+
+To access a member’s benefits, eligibility, and claim status information online, register or login to Availity at https://apps.availity.com/. Availity is available twenty-four hours a day, seven days a week. If we may be of further assistance, please contact Customer Service toll free at 1-800-238-8379 or via e-mail at CustomerServiceABCBS@arkbluecross.com. Thank you for choosing to partner with Arkansas Blue Cross and Blue Shield.
+
+Confirmation: [TrackingControlNumber]

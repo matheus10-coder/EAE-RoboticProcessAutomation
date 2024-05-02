@@ -1,0 +1,375 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="AmisysGetServiceDate" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_Browser" Type="InArgument(ui:Browser)" />
+    <x:Property Name="in_OriginalClaimNumber" Type="InArgument(x:String)" />
+    <x:Property Name="out_FromDate" Type="OutArgument(s:DateTime)" />
+    <x:Property Name="out_ToDate" Type="OutArgument(s:DateTime)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1234,4380</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>AmisysGetServiceDate_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>UiPath.UIAutomationCore.Contracts</x:String>
+      <x:String>System.Globalization</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Due to the PHE ending 6.09.23, enhancement to HVA BOTS needed to include the following:&#xA;- If DOS is on or before 6/09/2023- continue with current process to override LM with Y0&#xA;- If DOS is on or after 6/10/2023—do not Override LM with Y0" DisplayName="AmisysGetServiceDate" sap:VirtualizedContainerService.HintSize="865,4315" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="fromDate" />
+      <Variable x:TypeArguments="x:String" Name="toDate" />
+      <Variable x:TypeArguments="s:DateTime" Name="test" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="803,92" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Trace" Message="[&quot;Amisys Get Service Date has started&quot;]" />
+    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="803,52" sap2010:WorkflowViewState.IdRef="CommentOut_4">
+      <ui:CommentOut.Body>
+        <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="496,235" sap2010:WorkflowViewState.IdRef="Sequence_19">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" BrowserType="Chrome" DisplayName="Check For Adjusment Page" sap:VirtualizedContainerService.HintSize="434,124" sap2010:WorkflowViewState.IdRef="BrowserScope_6" Selector="&lt;html app='chrome.exe' title='*Adjustment *AMISYS Advance *' /&gt;" UiBrowser="[in_Browser]">
+            <ui:BrowserScope.Body>
+              <ActivityAction x:TypeArguments="x:Object">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                </ActivityAction.Argument>
+              </ActivityAction>
+            </ui:BrowserScope.Body>
+          </ui:BrowserScope>
+        </Sequence>
+      </ui:CommentOut.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:CommentOut>
+    <Sequence sap2010:Annotation.AnnotationText="Check the selector. Send the screen and enter" DisplayName="Pre Condition" sap:VirtualizedContainerService.HintSize="803,881" sap2010:WorkflowViewState.IdRef="Sequence_2">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:BrowserScope SearchScope="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" Browser="[in_Browser]" BrowserType="Chrome" DisplayName="Check For Adjusment Page" sap:VirtualizedContainerService.HintSize="675,739" sap2010:WorkflowViewState.IdRef="BrowserScope_1">
+        <ui:BrowserScope.Body>
+          <ActivityAction x:TypeArguments="x:Object">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="641,630" sap2010:WorkflowViewState.IdRef="Sequence_5">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="x:Boolean" Name="search_exists" />
+              </Sequence.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:UiElementExists DisplayName="Search Bar" Exists="[search_exists]" sap:VirtualizedContainerService.HintSize="579,69" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
+                <ui:UiElementExists.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="4155b7ab-e3b7-444a-b9d6-387a78769d9a" Selector="&lt;webctrl id='Main' tag='IFRAME' /&gt;&lt;webctrl id='Form' tag='IFRAME' /&gt;&lt;webctrl tag='INPUT' type='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:UiElementExists.Target>
+              </ui:UiElementExists>
+              <If Condition="[search_exists]" sap:VirtualizedContainerService.HintSize="579,255" sap2010:WorkflowViewState.IdRef="If_1">
+                <If.Then>
+                  <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" DisplayName="Type Into" sap:VirtualizedContainerService.HintSize="334,97" sap2010:WorkflowViewState.IdRef="TypeInto_1" Text="IQ1200">
+                    <ui:TypeInto.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="4597228e-a1b8-4199-be9b-0af7721a6046" Selector="&lt;html app='chrome.exe' title='*Adjustment - AMISYS Advance*' /&gt;&lt;webctrl id='Main' tag='IFRAME' /&gt;&lt;webctrl id='Form' tag='IFRAME' /&gt;&lt;webctrl tag='INPUT' type='text' /&gt;">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
+                        <ui:Target.WaitForReady>
+                          <InArgument x:TypeArguments="ui:WaitForReady" />
+                        </ui:Target.WaitForReady>
+                      </ui:Target>
+                    </ui:TypeInto.Target>
+                  </ui:TypeInto>
+                </If.Then>
+                <If.Else>
+                  <Throw DisplayName="Throw AE - Pre Condition" Exception="[new Exception(&quot;Pre Condition: Failed : Get Service Date&quot;)]" sap:VirtualizedContainerService.HintSize="200,25" sap2010:WorkflowViewState.IdRef="Throw_1" />
+                </If.Else>
+              </If>
+              <ui:SendHotkey ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" Activate="True" DisplayName="Send Hotkey" sap:VirtualizedContainerService.HintSize="579,115" sap2010:WorkflowViewState.IdRef="SendHotkey_1" Key="enter" KeyModifiers="None" SpecialKey="True">
+                <ui:SendHotkey.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="81df9cca-340d-4e99-986e-ffbbcf828744" Selector="&lt;html app='chrome.exe' title='*Adjustment - AMISYS Advance*' /&gt;&lt;webctrl id='Main' tag='IFRAME' /&gt;&lt;webctrl id='Form' tag='IFRAME' /&gt;&lt;webctrl tag='INPUT' type='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:SendHotkey.Target>
+              </ui:SendHotkey>
+            </Sequence>
+          </ActivityAction>
+        </ui:BrowserScope.Body>
+      </ui:BrowserScope>
+    </Sequence>
+    <Sequence sap2010:Annotation.AnnotationText="Check for IQ1200 screen and send the claim number" DisplayName="Action" sap:VirtualizedContainerService.HintSize="803,1992" sap2010:WorkflowViewState.IdRef="Sequence_3">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="x:Boolean" Name="iq1200_exists" />
+        <Variable x:TypeArguments="ui:Browser" Name="iq1200_browser" />
+      </Sequence.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:UiElementExists DisplayName="Find IQ1200" Exists="[iq1200_exists]" sap:VirtualizedContainerService.HintSize="729,69" sap2010:WorkflowViewState.IdRef="UiElementExists_2">
+        <ui:UiElementExists.Target>
+          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="4155b7ab-e3b7-444a-b9d6-387a78769d9a" Selector="&lt;wnd app='chrome.exe' cls='Chrome_WidgetWin_1' title='IQ1200 Claim Summary Inquiry - AMISYS Advance*' /&gt;&lt;ctrl name='IQ1200 Claim Summary Inquiry - AMISYS Advance - Rel 8.4 - Acct B*' role='pane' /&gt;&lt;ctrl idx='2' role='pane' /&gt;" TimeoutMS="10000" WaitForReady="COMPLETE" />
+        </ui:UiElementExists.Target>
+      </ui:UiElementExists>
+      <If Condition="[iq1200_exists]" sap:VirtualizedContainerService.HintSize="729,631" sap2010:WorkflowViewState.IdRef="If_2">
+        <If.Then>
+          <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" BrowserType="Chrome" DisplayName="Attach Browser 'chrome.exe IQ1200'" sap:VirtualizedContainerService.HintSize="484,472" sap2010:WorkflowViewState.IdRef="BrowserScope_4" Selector="&lt;html app='chrome.exe' title='IQ1200 Claim Summary Inquiry*AMISYS Advance*' /&gt;" UiBrowser="[iq1200_browser]">
+            <ui:BrowserScope.Body>
+              <ActivityAction x:TypeArguments="x:Object">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                </ActivityAction.Argument>
+                <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="450,363" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:TypeInto AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" Activate="True" ClickBeforeTyping="True" DelayMS="2000" DisplayName="Type Into 'INPUT  txtCLAIM_NO'" sap:VirtualizedContainerService.HintSize="388,97" sap2010:WorkflowViewState.IdRef="TypeInto_2" SimulateType="True" Text="[in_OriginalClaimNumber]">
+                    <ui:TypeInto.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="4597228e-a1b8-4199-be9b-0af7721a6046" Selector="&lt;html app='chrome.exe' title='IQ1200 Claim Summary Inquiry*AMISYS Advance*' /&gt;&lt;webctrl src='Controller?view=jsp/ScreenDesigner.jsp&amp;amp;screenURL=forms/IQ/IQ1200*' tag='IFRAME' /&gt;&lt;webctrl id='txtCLAIM_NO' tag='INPUT' type='TEXT' /&gt;">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
+                        <ui:Target.WaitForReady>
+                          <InArgument x:TypeArguments="ui:WaitForReady" />
+                        </ui:Target.WaitForReady>
+                      </ui:Target>
+                    </ui:TypeInto.Target>
+                  </ui:TypeInto>
+                  <ui:SendHotkey ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" Activate="True" DisplayName="Send Hotkey" sap:VirtualizedContainerService.HintSize="388,115" sap2010:WorkflowViewState.IdRef="SendHotkey_2" Key="enter" KeyModifiers="None" SpecialKey="True">
+                    <ui:SendHotkey.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="81df9cca-340d-4e99-986e-ffbbcf828744" Selector="&lt;html app='chrome.exe' title='IQ1200 Claim Summary Inquiry*AMISYS Advance*' /&gt;&lt;webctrl src='Controller?view=jsp/ScreenDesigner.jsp&amp;amp;screenURL=forms/IQ/IQ1200*' tag='IFRAME' /&gt;&lt;webctrl id='txtCLAIM_NO' tag='INPUT' type='TEXT' /&gt;">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
+                        <ui:Target.WaitForReady>
+                          <InArgument x:TypeArguments="ui:WaitForReady" />
+                        </ui:Target.WaitForReady>
+                      </ui:Target>
+                    </ui:SendHotkey.Target>
+                  </ui:SendHotkey>
+                </Sequence>
+              </ActivityAction>
+            </ui:BrowserScope.Body>
+          </ui:BrowserScope>
+        </If.Then>
+        <If.Else>
+          <Throw DisplayName="Throw AE - Action" Exception="[new Exception(&quot;IQ1200 Screen failed : Page not found&quot;)]" sap:VirtualizedContainerService.HintSize="200,25" sap2010:WorkflowViewState.IdRef="Throw_2" />
+        </If.Else>
+      </If>
+      <Delay DisplayName="3'' " Duration="00:00:02" sap:VirtualizedContainerService.HintSize="729,25" sap2010:WorkflowViewState.IdRef="Delay_2" />
+      <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="value" DisplayName="Get Attribute 'INPUT  txtYMDEND'" sap:VirtualizedContainerService.HintSize="729,165" sap2010:WorkflowViewState.IdRef="GetAttribute_1">
+        <ui:GetAttribute.Result>
+          <OutArgument x:TypeArguments="x:String">[fromDate]</OutArgument>
+        </ui:GetAttribute.Result>
+        <ui:GetAttribute.Target>
+          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="47edbf23-b6d5-4f7e-9db3-1154e0ccd1d4" Selector="&lt;html app='chrome.exe' title='IQ1200 Claim Summary Inquiry - AMISYS Advance *' /&gt;&lt;webctrl src='Controller?view=jsp/ScreenDesigner.jsp&amp;amp;screenURL=forms/IQ/IQ1200*' tag='IFRAME' /&gt;&lt;webctrl id='txtYMDEFF' tag='INPUT' type='TEXT' /&gt;" TimeoutMS="20000" WaitForReady="COMPLETE" />
+        </ui:GetAttribute.Target>
+      </ui:GetAttribute>
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="729,92" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Trace" Message="[&quot;From service date: &quot; + fromDate]" />
+      <Delay DisplayName="3'' " Duration="00:00:02" sap:VirtualizedContainerService.HintSize="729,25" sap2010:WorkflowViewState.IdRef="Delay_1" />
+      <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="value" DisplayName="Get Attribute 'INPUT  txtYMDEND'" sap:VirtualizedContainerService.HintSize="729,165" sap2010:WorkflowViewState.IdRef="GetAttribute_2">
+        <ui:GetAttribute.Result>
+          <OutArgument x:TypeArguments="x:String">[toDate]</OutArgument>
+        </ui:GetAttribute.Result>
+        <ui:GetAttribute.Target>
+          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="47edbf23-b6d5-4f7e-9db3-1154e0ccd1d4" Selector="&lt;html app='chrome.exe' title='IQ1200 Claim Summary Inquiry*AMISYS Advance*' /&gt;&lt;webctrl src='Controller?view=jsp/ScreenDesigner.jsp&amp;amp;screenURL=forms/IQ/IQ1200*' tag='IFRAME' /&gt;&lt;webctrl id='txtYMDEND' tag='INPUT' type='TEXT' /&gt;">
+            <ui:Target.TimeoutMS>
+              <InArgument x:TypeArguments="x:Int32" />
+            </ui:Target.TimeoutMS>
+            <ui:Target.WaitForReady>
+              <InArgument x:TypeArguments="ui:WaitForReady" />
+            </ui:Target.WaitForReady>
+          </ui:Target>
+        </ui:GetAttribute.Target>
+      </ui:GetAttribute>
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="729,92" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Trace" Message="[&quot;To service date: &quot; + toDate]" />
+      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Clear Page" sap:VirtualizedContainerService.HintSize="729,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="AmisysModules\AmisysClearPage_F4.xaml">
+        <ui:InvokeWorkflowFile.Arguments>
+          <InArgument x:TypeArguments="ui:Browser" x:Key="in_Browser">[iq1200_browser]</InArgument>
+          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="io_DictConfig" />
+        </ui:InvokeWorkflowFile.Arguments>
+      </ui:InvokeWorkflowFile>
+      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Close Tab" sap:VirtualizedContainerService.HintSize="729,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="AmisysModules\AmisysCloseTab.xaml">
+        <ui:InvokeWorkflowFile.Arguments>
+          <InArgument x:TypeArguments="ui:Browser" x:Key="in_Browser">[iq1200_browser]</InArgument>
+        </ui:InvokeWorkflowFile.Arguments>
+      </ui:InvokeWorkflowFile>
+    </Sequence>
+    <Sequence sap2010:Annotation.AnnotationText="Check for the screen if we have successfully retrieved date of service then parse to date time " DisplayName="Post Condition" sap:VirtualizedContainerService.HintSize="803,838" sap2010:WorkflowViewState.IdRef="Sequence_4">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <If Condition="[fromDate isNot Nothing and toDate IsNot Nothing]" sap:VirtualizedContainerService.HintSize="741,696" sap2010:WorkflowViewState.IdRef="If_3">
+        <If.Then>
+          <Sequence DisplayName="Parse Object" sap:VirtualizedContainerService.HintSize="496,537" sap2010:WorkflowViewState.IdRef="Sequence_9">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="434,92" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Trace" Message="[&quot;Service dates have been retrieved successfully&quot;]" />
+            <Assign sap:VirtualizedContainerService.HintSize="434,81" sap2010:WorkflowViewState.IdRef="Assign_1">
+              <Assign.To>
+                <OutArgument x:TypeArguments="s:DateTime">[out_FromDate]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="s:DateTime">[DateTime.ParseExact(fromDate,"MM/dd/yyyy",System.Globalization.CultureInfo.InvariantCulture)]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="434,81" sap2010:WorkflowViewState.IdRef="Assign_2">
+              <Assign.To>
+                <OutArgument x:TypeArguments="s:DateTime">[out_ToDate]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="s:DateTime">[DateTime.ParseExact(toDate,"MM/dd/yyyy",System.Globalization.CultureInfo.InvariantCulture)]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="434,52" sap2010:WorkflowViewState.IdRef="CommentOut_3">
+              <ui:CommentOut.Body>
+                <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="1007,597" sap2010:WorkflowViewState.IdRef="Sequence_18">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <Assign sap:VirtualizedContainerService.HintSize="945,81" sap2010:WorkflowViewState.IdRef="Assign_3">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="s:DateTime">[test]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="s:DateTime">[DateTime.ParseExact("06/09/23","MM/dd/yy",System.Globalization.CultureInfo.InvariantCulture)]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <If Condition="[out_FromDate &gt; test and out_ToDate &gt; test]" sap:VirtualizedContainerService.HintSize="945,363" sap2010:WorkflowViewState.IdRef="If_5">
+                    <If.Then>
+                      <Sequence sap:VirtualizedContainerService.HintSize="450,205" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="388,94" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Info" Message="[&quot;DOS is after 06/09/2023&quot;]" />
+                      </Sequence>
+                    </If.Then>
+                    <If.Else>
+                      <Sequence sap:VirtualizedContainerService.HintSize="450,205" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="388,94" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Info" Message="[&quot;DOS is on or before 06/09/2023&quot;]" />
+                      </Sequence>
+                    </If.Else>
+                  </If>
+                </Sequence>
+              </ui:CommentOut.Body>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:CommentOut>
+          </Sequence>
+        </If.Then>
+        <If.Else>
+          <Throw DisplayName="Throw BE " Exception="[New BusinessRuleException(&quot;Date of service has not been found for this claim. Manual review is necessary&quot;)]" sap:VirtualizedContainerService.HintSize="200,25" sap2010:WorkflowViewState.IdRef="Throw_3" />
+        </If.Else>
+      </If>
+    </Sequence>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="803,92" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Trace" Message="[&quot;Amisys Get Service Date has ended&quot;]" />
+  </Sequence>
+</Activity>

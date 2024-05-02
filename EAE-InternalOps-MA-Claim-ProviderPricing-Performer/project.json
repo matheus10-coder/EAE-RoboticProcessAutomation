@@ -1,0 +1,65 @@
+{
+  "name": "InternalOps-MA-Claim-ProviderPricing-Performer",
+  "description": "InternalOps-MA-Claim-ProviderPricing-Performer",
+  "main": "Main.xaml",
+  "dependencies": {
+    "ABCBS.Process.Activities": "[1.0.10]",
+    "CreateRuntimeDirectory": "[1.0.7]",
+    "Microsoft.Activities.Extensions": "[2.0.6.9]",
+    "RetrieveCredentials": "[1.0.8]",
+    "RetrieveOutputPath": "[1.0.1]",
+    "UiPath.Excel.Activities": "[2.11.4]",
+    "UiPath.Mail.Activities": "[1.12.3]",
+    "UiPath.System.Activities": "[23.4.2]",
+    "UiPath.UIAutomation.Activities": "[23.4.4]"
+  },
+  "webServices": [],
+  "entitiesStores": [],
+  "schemaVersion": "4.0",
+  "studioVersion": "19.10.4.0",
+  "projectVersion": "1.0.64",
+  "runtimeOptions": {
+    "autoDispose": false,
+    "netFrameworkLazyLoading": false,
+    "isPausable": true,
+    "isAttended": false,
+    "requiresUserInteraction": true,
+    "supportsPersistence": false,
+    "workflowSerialization": "DataContract",
+    "excludedLoggedData": [
+      "Private:*",
+      "*password*"
+    ],
+    "executionType": "Workflow",
+    "readyForPiP": false,
+    "startsInPiP": false,
+    "mustRestoreAllDependencies": false,
+    "pipType": "ChildSession"
+  },
+  "designOptions": {
+    "projectProfile": "Developement",
+    "outputType": "Process",
+    "libraryOptions": {
+      "includeOriginalXaml": false,
+      "privateWorkflows": []
+    },
+    "processOptions": {
+      "ignoredFiles": []
+    },
+    "fileInfoCollection": [],
+    "modernBehavior": false
+  },
+  "expressionLanguage": "VisualBasic",
+  "entryPoints": [
+    {
+      "filePath": "Main.xaml",
+      "uniqueId": "7c5405b1-2def-4a40-aa39-5a0b3c3e4e9e",
+      "input": [],
+      "output": []
+    }
+  ],
+  "isTemplate": false,
+  "templateProjectData": {},
+  "publishData": {},
+  "targetFramework": "Legacy"
+}

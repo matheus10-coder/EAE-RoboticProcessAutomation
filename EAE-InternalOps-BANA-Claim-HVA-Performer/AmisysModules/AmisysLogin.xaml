@@ -1,0 +1,1034 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="AmisysLogin" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ss="clr-namespace:System.Security;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property sap2010:Annotation.AnnotationText="Amisys credentials" Name="in_Password" Type="InArgument(ss:SecureString)" />
+    <x:Property sap2010:Annotation.AnnotationText="Amisys username" Name="in_Username" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Amisys url " Name="in_AmisysURL" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Browser Object type. Amisys Home Page" Name="out_AmisysHomePage" Type="OutArgument(ui:BrowserType)" />
+    <x:Property sap2010:Annotation.AnnotationText="Amisys counter to keep track of the amisys sessions" Name="inOut_AmisysCounter" Type="InOutArgument(x:Int32)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1557.6,777.6</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>AmisysLogin_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="36">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+      <x:String>UiPath.UIAutomationCore.Contracts</x:String>
+      <x:String>UiPath.Mail</x:String>
+      <x:String>UiPath.Excel</x:String>
+      <x:String>UiPath.Mail.Outlook.Activities</x:String>
+      <x:String>UiPath.Mail.Activities</x:String>
+      <x:String>UiPath.Excel.Activities</x:String>
+      <x:String>LogInOut</x:String>
+      <x:String>System.ComponentModel</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="32">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>LogInOut</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Flowchart sap2010:Annotation.AnnotationText="Amisys login it will check for two attempts to login. This workflow will be successful when login is tried at most twice and completed. For errors we should have a screenshot and rethrow to send the process to terminate immediatly and check Amisys login manually.&#xA;MULTIPLE AMISYS SESSIONS: This function is allowed to particular users, so amisys counter will keep track of how many sessions we have it and it will not allow more than 10. If an maximum of 10 is already opened we will restore the original session by waiting 20 min " DisplayName="AmisysLogin" sap:VirtualizedContainerService.HintSize="1105.6,712.8" sap2010:WorkflowViewState.IdRef="Flowchart_1">
+    <Flowchart.Variables>
+      <Variable x:TypeArguments="x:Boolean" Default="False" Name="loginSuccess" />
+      <Variable x:TypeArguments="x:Int32" Default="1" Name="loginAttempts" />
+      <Variable x:TypeArguments="x:Boolean" Name="mainPage" />
+      <Variable x:TypeArguments="x:Boolean" Name="homePageAttempt" />
+      <Variable x:TypeArguments="x:Boolean" sap2010:Annotation.AnnotationText="Checking if we still have the login page" Name="loginPage" />
+      <Variable x:TypeArguments="x:Boolean" sap2010:Annotation.AnnotationText="Unhandled situation in login and must terminate the application" Name="throwOne" />
+      <Variable x:TypeArguments="x:Boolean" sap2010:Annotation.AnnotationText="Unhandled situation in login and must terminate the application. Probably server or password are down" Default="False" Name="throwTwo" />
+      <Variable x:TypeArguments="x:Boolean" Name="popup_exists" />
+    </Flowchart.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <av:Point x:Key="ShapeLocation">490,2.4</av:Point>
+        <av:Size x:Key="ShapeSize">60,75.2</av:Size>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        <av:PointCollection x:Key="ConnectorLocation">520,77.6 520,175.6</av:PointCollection>
+        <x:Double x:Key="Width">1072.0000000000002</x:Double>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Flowchart.StartNode>
+      <x:Reference>__ReferenceID6</x:Reference>
+    </Flowchart.StartNode>
+    <FlowStep x:Name="__ReferenceID6">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <av:Point x:Key="ShapeLocation">420,175.6</av:Point>
+          <av:Size x:Key="ShapeSize">200,68.8</av:Size>
+          <av:PointCollection x:Key="ConnectorLocation">520,244.4 520,306.4</av:PointCollection>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Sequence DisplayName="Amisys Advance Login" sap:VirtualizedContainerService.HintSize="200,68.8" sap2010:WorkflowViewState.IdRef="Sequence_1">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="1404.8,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_36" Level="Info" Message="[&quot;Amisys login has started&quot;]" />
+        <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="1404.8,1027.2" sap2010:WorkflowViewState.IdRef="TryCatch_2">
+          <TryCatch.Try>
+            <If Condition="[loginAttempts &lt; 4]" sap:VirtualizedContainerService.HintSize="1368,796" sap2010:WorkflowViewState.IdRef="If_10">
+              <If.Then>
+                <Flowchart DisplayName="Login Center" sap:VirtualizedContainerService.HintSize="1020,636.8" sap2010:WorkflowViewState.IdRef="Flowchart_2">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      <av:Point x:Key="ShapeLocation">460,2.4</av:Point>
+                      <av:Size x:Key="ShapeSize">60,75.2</av:Size>
+                      <av:PointCollection x:Key="ConnectorLocation">490,77.6 490,126.4</av:PointCollection>
+                      <x:Double x:Key="Width">986.03156164772349</x:Double>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <Flowchart.StartNode>
+                    <x:Reference>__ReferenceID5</x:Reference>
+                  </Flowchart.StartNode>
+                  <FlowDecision x:Name="__ReferenceID5" Condition="[loginAttempts = 1]" DisplayName="Fist Time Login" sap:VirtualizedContainerService.HintSize="85.6,87.2" sap2010:WorkflowViewState.IdRef="FlowDecision_2">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <av:Point x:Key="ShapeLocation">447.2,126.4</av:Point>
+                        <av:Size x:Key="ShapeSize">85.6,87.2</av:Size>
+                        <av:PointCollection x:Key="TrueConnector">447.2,170 250,170</av:PointCollection>
+                        <av:PointCollection x:Key="FalseConnector">532.8,170 700,170</av:PointCollection>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <FlowDecision.True>
+                      <FlowStep x:Name="__ReferenceID0">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <av:Point x:Key="ShapeLocation">50,135.6</av:Point>
+                            <av:Size x:Key="ShapeSize">200,68.8</av:Size>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <Sequence DisplayName="1. Open Amisys" sap:VirtualizedContainerService.HintSize="200,68.8" sap2010:WorkflowViewState.IdRef="Sequence_64">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:CommentOut DisplayName="Log Console" sap:VirtualizedContainerService.HintSize="810.4,52.8" sap2010:WorkflowViewState.IdRef="CommentOut_3">
+                            <ui:CommentOut.Body>
+                              <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="375.2,185.6" sap2010:WorkflowViewState.IdRef="Sequence_107">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="333.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_15" Level="Info" Message="[&quot;Amisys Advance login has started&quot;]" />
+                              </Sequence>
+                            </ui:CommentOut.Body>
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </ui:CommentOut>
+                          <Sequence DisplayName="Open Amisys" sap:VirtualizedContainerService.HintSize="810.4,2189.6" sap2010:WorkflowViewState.IdRef="Sequence_92">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <ui:KillProcess AppliesTo="{x:Null}" ContinueOnError="{x:Null}" Process="{x:Null}" sap2010:Annotation.AnnotationText="It shouldn't have any more chrome page opened, but this will be a double check" DisplayName="Kill Process" sap:VirtualizedContainerService.HintSize="768.8,178.4" sap2010:WorkflowViewState.IdRef="KillProcess_3" ProcessName="chrome">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                            </ui:KillProcess>
+                            <ui:OpenBrowser AutomaticallyDownloadWebDriver="{x:Null}" CommunicationMethod="{x:Null}" Hidden="{x:Null}" NewSession="{x:Null}" Private="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Open Browser" sap:VirtualizedContainerService.HintSize="768.8,1878.4" sap2010:WorkflowViewState.IdRef="OpenBrowser_3" Url="[in_AmisysURL]">
+                              <ui:OpenBrowser.Body>
+                                <ActivityAction x:TypeArguments="x:Object">
+                                  <ActivityAction.Argument>
+                                    <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                                  </ActivityAction.Argument>
+                                  <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="735.2,1776" sap2010:WorkflowViewState.IdRef="Sequence_91">
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                    <ui:MaximizeWindow Window="{x:Null}" DisplayName="Maximize Window" sap:VirtualizedContainerService.HintSize="693.6,22.4" sap2010:WorkflowViewState.IdRef="MaximizeWindow_3" />
+                                    <Sequence DisplayName="Insert Credential" sap:VirtualizedContainerService.HintSize="693.6,428" sap2010:WorkflowViewState.IdRef="Sequence_84">
+                                      <sap:WorkflowViewStateService.ViewState>
+                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                        </scg:Dictionary>
+                                      </sap:WorkflowViewStateService.ViewState>
+                                      <ui:SetValue AlterIfDisabled="{x:Null}" ContinueOnError="{x:Null}" DelayAfter="1000" DelayBefore="1000" DisplayName="Set Text" sap:VirtualizedContainerService.HintSize="333.6,117.6" sap2010:WorkflowViewState.IdRef="SetValue_5" Text="[in_Username]">
+                                        <ui:SetValue.Target>
+                                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="e51d8f0a-6764-42f1-b6d3-35687022b8e8" Selector="&lt;html app='chrome.exe' title='AMISYS Advance Login' /&gt;&lt;webctrl name='j_username' tag='INPUT' /&gt;" TimeoutMS="15000" WaitForReady="COMPLETE" />
+                                        </ui:SetValue.Target>
+                                      </ui:SetValue>
+                                      <ui:TypeSecureText AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" Activate="True" DelayMS="1000" DeselectAfter="True" DisplayName="Type Secure Text" sap:VirtualizedContainerService.HintSize="333.6,68.8" sap2010:WorkflowViewState.IdRef="TypeSecureText_5" SecureText="[in_Password]" SimulateType="True">
+                                        <ui:TypeSecureText.Target>
+                                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="bf8869f2-3a5f-4ac3-af09-e8b32f5ab425" Selector="&lt;html app='chrome.exe' title='AMISYS Advance Login' /&gt;&lt;webctrl name='j_password' tag='INPUT' /&gt;" TimeoutMS="15000" WaitForReady="COMPLETE" />
+                                        </ui:TypeSecureText.Target>
+                                      </ui:TypeSecureText>
+                                      <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" ClickType="CLICK_SINGLE" DelayMS="1000" sap:VirtualizedContainerService.HintSize="333.6,68.8" sap2010:WorkflowViewState.IdRef="Click_5" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+                                        <ui:Click.CursorPosition>
+                                          <ui:CursorPosition Position="Center">
+                                            <ui:CursorPosition.OffsetX>
+                                              <InArgument x:TypeArguments="x:Int32" />
+                                            </ui:CursorPosition.OffsetX>
+                                            <ui:CursorPosition.OffsetY>
+                                              <InArgument x:TypeArguments="x:Int32" />
+                                            </ui:CursorPosition.OffsetY>
+                                          </ui:CursorPosition>
+                                        </ui:Click.CursorPosition>
+                                        <ui:Click.Target>
+                                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="6f0c5384-38d3-4d96-acdc-e267b3a37685" Selector="&lt;html app='chrome.exe' title='AMISYS Advance Login' /&gt;&lt;webctrl id='btnSubmit' tag='INPUT' /&gt;" TimeoutMS="15000" WaitForReady="COMPLETE" />
+                                        </ui:Click.Target>
+                                      </ui:Click>
+                                    </Sequence>
+                                    <Sequence DisplayName="Chrome Welcome Popup Check" sap:VirtualizedContainerService.HintSize="693.6,599.2" sap2010:WorkflowViewState.IdRef="Sequence_87">
+                                      <Sequence.Variables>
+                                        <Variable x:TypeArguments="x:Boolean" Name="popup_exists" />
+                                      </Sequence.Variables>
+                                      <sap:WorkflowViewStateService.ViewState>
+                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                        </scg:Dictionary>
+                                      </sap:WorkflowViewStateService.ViewState>
+                                      <ui:UiElementExists DisplayName="Element Exists" Exists="[popup_exists]" sap:VirtualizedContainerService.HintSize="483.2,68.8" sap2010:WorkflowViewState.IdRef="UiElementExists_23">
+                                        <ui:UiElementExists.Target>
+                                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="49f77305-67b0-496a-a2aa-ae2cfeccc1af" Selector="&lt;html app='chrome.exe' title='*' /&gt;&lt;ctrl name='*' role='*pane*' /&gt;&lt;ctrl role='*dialog*' /&gt;" TimeoutMS="5000">
+                                            <ui:Target.WaitForReady>
+                                              <InArgument x:TypeArguments="ui:WaitForReady" />
+                                            </ui:Target.WaitForReady>
+                                          </ui:Target>
+                                        </ui:UiElementExists.Target>
+                                      </ui:UiElementExists>
+                                      <If Condition="[popup_exists]" sap:VirtualizedContainerService.HintSize="483.2,397.6" sap2010:WorkflowViewState.IdRef="If_22">
+                                        <If.Then>
+                                          <Sequence DisplayName="Send Message" sap:VirtualizedContainerService.HintSize="375.2,208.8" sap2010:WorkflowViewState.IdRef="Sequence_85">
+                                            <sap:WorkflowViewStateService.ViewState>
+                                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                              </scg:Dictionary>
+                                            </sap:WorkflowViewStateService.ViewState>
+                                            <ui:SendHotkey ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" Activate="True" DisplayName="Send Hotkey" sap:VirtualizedContainerService.HintSize="333.6,116" sap2010:WorkflowViewState.IdRef="SendHotkey_7" Key="enter" KeyModifiers="None" SendWindowMessages="True" SpecialKey="True">
+                                              <ui:SendHotkey.Target>
+                                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="25daed6f-8bdd-47f7-8853-93d0862b034d" TimeoutMS="3000" WaitForReady="COMPLETE" />
+                                              </ui:SendHotkey.Target>
+                                            </ui:SendHotkey>
+                                          </Sequence>
+                                        </If.Then>
+                                        <If.Else>
+                                          <Sequence sap2010:WorkflowViewState.IdRef="Sequence_86">
+                                            <sap:WorkflowViewStateService.ViewState>
+                                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                              </scg:Dictionary>
+                                            </sap:WorkflowViewStateService.ViewState>
+                                          </Sequence>
+                                        </If.Else>
+                                      </If>
+                                    </Sequence>
+                                    <Sequence DisplayName="Checking for Sucess" sap:VirtualizedContainerService.HintSize="693.6,513.6" sap2010:WorkflowViewState.IdRef="Sequence_90">
+                                      <sap:WorkflowViewStateService.ViewState>
+                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                        </scg:Dictionary>
+                                      </sap:WorkflowViewStateService.ViewState>
+                                      <ui:UiElementExists DisplayName="Element Exists Home Page" Exists="[mainPage]" sap:VirtualizedContainerService.HintSize="652,68.8" sap2010:WorkflowViewState.IdRef="UiElementExists_24">
+                                        <ui:UiElementExists.Target>
+                                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="acc1b531-9bc3-4a47-afce-8c9ca533e138" Selector="&lt;html app='chrome.exe' title='AMISYS Advance Welcome*' /&gt;&lt;webctrl id='Main' tag='IFRAME' /&gt;&lt;webctrl id='Form' tag='IFRAME' /&gt;&lt;webctrl tag='BODY' /&gt;" TimeoutMS="5000" WaitForReady="COMPLETE" />
+                                        </ui:UiElementExists.Target>
+                                      </ui:UiElementExists>
+                                      <If Condition="[mainPage]" sap:VirtualizedContainerService.HintSize="652,312" sap2010:WorkflowViewState.IdRef="If_23">
+                                        <If.Then>
+                                          <Sequence DisplayName="True" sap:VirtualizedContainerService.HintSize="304,152.8" sap2010:WorkflowViewState.IdRef="Sequence_88">
+                                            <sap:WorkflowViewStateService.ViewState>
+                                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                              </scg:Dictionary>
+                                            </sap:WorkflowViewStateService.ViewState>
+                                            <Assign sap:VirtualizedContainerService.HintSize="262.4,60" sap2010:WorkflowViewState.IdRef="Assign_17">
+                                              <Assign.To>
+                                                <OutArgument x:TypeArguments="x:Boolean">[loginSuccess]</OutArgument>
+                                              </Assign.To>
+                                              <Assign.Value>
+                                                <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                                              </Assign.Value>
+                                            </Assign>
+                                          </Sequence>
+                                        </If.Then>
+                                        <If.Else>
+                                          <Sequence DisplayName="False" sap:VirtualizedContainerService.HintSize="304,152.8" sap2010:WorkflowViewState.IdRef="Sequence_89">
+                                            <sap:WorkflowViewStateService.ViewState>
+                                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                              </scg:Dictionary>
+                                            </sap:WorkflowViewStateService.ViewState>
+                                            <Assign sap:VirtualizedContainerService.HintSize="262.4,60" sap2010:WorkflowViewState.IdRef="Assign_18">
+                                              <Assign.To>
+                                                <OutArgument x:TypeArguments="x:Boolean">[loginSuccess]</OutArgument>
+                                              </Assign.To>
+                                              <Assign.Value>
+                                                <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+                                              </Assign.Value>
+                                            </Assign>
+                                          </Sequence>
+                                        </If.Else>
+                                      </If>
+                                    </Sequence>
+                                  </Sequence>
+                                </ActivityAction>
+                              </ui:OpenBrowser.Body>
+                            </ui:OpenBrowser>
+                          </Sequence>
+                        </Sequence>
+                      </FlowStep>
+                    </FlowDecision.True>
+                    <FlowDecision.False>
+                      <FlowStep x:Name="__ReferenceID4">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <av:Point x:Key="ShapeLocation">700,135.6</av:Point>
+                            <av:Size x:Key="ShapeSize">200,68.8</av:Size>
+                            <av:PointCollection x:Key="ConnectorLocation">800,204.4 800,264.95882393722 480,264.95882393722 480,326.4</av:PointCollection>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <Sequence DisplayName="2. AA New Attempt" sap:VirtualizedContainerService.HintSize="200,68.8" sap2010:WorkflowViewState.IdRef="Sequence_97">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="333.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_16" Level="Info" Message="[&quot;Amisys Advance login retry&quot;]" />
+                          <ui:UiElementExists DisplayName="Home Page Attempt" Exists="[homePageAttempt]" sap:VirtualizedContainerService.HintSize="333.6,68.8" sap2010:WorkflowViewState.IdRef="UiElementExists_25">
+                            <ui:UiElementExists.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="13ec2c5e-25d6-40b4-aaad-cc971949ae50" Selector="&lt;html app='chrome.exe' title='AMISYS Advance Welcome*' /&gt;" TimeoutMS="3000" WaitForReady="COMPLETE" />
+                            </ui:UiElementExists.Target>
+                          </ui:UiElementExists>
+                        </Sequence>
+                        <FlowStep.Next>
+                          <FlowDecision x:Name="__ReferenceID3" Condition="[homePageAttempt]" DisplayName="Home Page" sap:VirtualizedContainerService.HintSize="70.4,87.2" sap2010:WorkflowViewState.IdRef="FlowDecision_4">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                <av:Point x:Key="ShapeLocation">444.8,326.4</av:Point>
+                                <av:Size x:Key="ShapeSize">70.4,87.2</av:Size>
+                                <av:PointCollection x:Key="TrueConnector">444.8,370 250,370</av:PointCollection>
+                                <av:PointCollection x:Key="FalseConnector">515.2,370 700,370</av:PointCollection>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <FlowDecision.True>
+                              <FlowStep x:Name="__ReferenceID1">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <av:Point x:Key="ShapeLocation">50,335.6</av:Point>
+                                    <av:Size x:Key="ShapeSize">200,68.8</av:Size>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <Sequence DisplayName="2.1 Chrome PopUp" sap:VirtualizedContainerService.HintSize="200,68.8" sap2010:WorkflowViewState.IdRef="Sequence_65">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Attach Browser" sap:VirtualizedContainerService.HintSize="768.8,1487.2" sap2010:WorkflowViewState.IdRef="BrowserScope_2" Selector="&lt;html app='chrome.exe' title='AMISYS Advance*' /&gt;">
+                                    <ui:BrowserScope.Body>
+                                      <ActivityAction x:TypeArguments="x:Object">
+                                        <ActivityAction.Argument>
+                                          <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                                        </ActivityAction.Argument>
+                                        <Sequence sap2010:Annotation.AnnotationText="" DisplayName="Popus exists" sap:VirtualizedContainerService.HintSize="735.2,1378.4" sap2010:WorkflowViewState.IdRef="Sequence_83">
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                              <x:Boolean x:Key="IsAnnotationDocked">False</x:Boolean>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="693.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_11" Level="Trace" Message="[&quot;Login has been done, but a Chrome popUp exists&quot;]" />
+                                          <Sequence DisplayName="Chrome Welcome Popup Check" sap:VirtualizedContainerService.HintSize="693.6,599.2" sap2010:WorkflowViewState.IdRef="Sequence_79">
+                                            <sap:WorkflowViewStateService.ViewState>
+                                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                              </scg:Dictionary>
+                                            </sap:WorkflowViewStateService.ViewState>
+                                            <ui:UiElementExists DisplayName="Element Exists" Exists="[popup_exists]" sap:VirtualizedContainerService.HintSize="483.2,68.8" sap2010:WorkflowViewState.IdRef="UiElementExists_21">
+                                              <ui:UiElementExists.Target>
+                                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="49f77305-67b0-496a-a2aa-ae2cfeccc1af" Selector="&lt;html app='chrome.exe' title='*' /&gt;&lt;ctrl name='*' role='*pane*' /&gt;&lt;ctrl role='*dialog*' /&gt;" TimeoutMS="5000" WaitForReady="COMPLETE" />
+                                              </ui:UiElementExists.Target>
+                                            </ui:UiElementExists>
+                                            <If Condition="[popup_exists]" sap:VirtualizedContainerService.HintSize="483.2,397.6" sap2010:WorkflowViewState.IdRef="If_20">
+                                              <If.Then>
+                                                <Sequence DisplayName="Send Message" sap:VirtualizedContainerService.HintSize="375.2,208.8" sap2010:WorkflowViewState.IdRef="Sequence_77">
+                                                  <sap:WorkflowViewStateService.ViewState>
+                                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                    </scg:Dictionary>
+                                                  </sap:WorkflowViewStateService.ViewState>
+                                                  <ui:SendHotkey ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" Activate="True" DisplayName="Send Hotkey" sap:VirtualizedContainerService.HintSize="333.6,116" sap2010:WorkflowViewState.IdRef="SendHotkey_6" Key="enter" KeyModifiers="None" SendWindowMessages="True" SpecialKey="True">
+                                                    <ui:SendHotkey.Target>
+                                                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="25daed6f-8bdd-47f7-8853-93d0862b034d" TimeoutMS="3000" WaitForReady="COMPLETE" />
+                                                    </ui:SendHotkey.Target>
+                                                  </ui:SendHotkey>
+                                                </Sequence>
+                                              </If.Then>
+                                              <If.Else>
+                                                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_78">
+                                                  <sap:WorkflowViewStateService.ViewState>
+                                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                    </scg:Dictionary>
+                                                  </sap:WorkflowViewStateService.ViewState>
+                                                </Sequence>
+                                              </If.Else>
+                                            </If>
+                                          </Sequence>
+                                          <Sequence DisplayName="Checking for Sucess" sap:VirtualizedContainerService.HintSize="693.6,513.6" sap2010:WorkflowViewState.IdRef="Sequence_82">
+                                            <sap:WorkflowViewStateService.ViewState>
+                                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                              </scg:Dictionary>
+                                            </sap:WorkflowViewStateService.ViewState>
+                                            <ui:UiElementExists DisplayName="Element Exists Home Page" Exists="[mainPage]" sap:VirtualizedContainerService.HintSize="652,68.8" sap2010:WorkflowViewState.IdRef="UiElementExists_22">
+                                              <ui:UiElementExists.Target>
+                                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="acc1b531-9bc3-4a47-afce-8c9ca533e138" Selector="&lt;html app='chrome.exe' title='AMISYS Advance Welcome*' /&gt;&lt;webctrl id='Main' tag='IFRAME' /&gt;&lt;webctrl id='Form' tag='IFRAME' /&gt;&lt;webctrl tag='BODY' /&gt;" TimeoutMS="5000" WaitForReady="COMPLETE" />
+                                              </ui:UiElementExists.Target>
+                                            </ui:UiElementExists>
+                                            <If Condition="[mainPage]" sap:VirtualizedContainerService.HintSize="652,312" sap2010:WorkflowViewState.IdRef="If_21">
+                                              <If.Then>
+                                                <Sequence DisplayName="True" sap:VirtualizedContainerService.HintSize="304,152.8" sap2010:WorkflowViewState.IdRef="Sequence_80">
+                                                  <sap:WorkflowViewStateService.ViewState>
+                                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                    </scg:Dictionary>
+                                                  </sap:WorkflowViewStateService.ViewState>
+                                                  <Assign sap:VirtualizedContainerService.HintSize="262.4,60" sap2010:WorkflowViewState.IdRef="Assign_15">
+                                                    <Assign.To>
+                                                      <OutArgument x:TypeArguments="x:Boolean">[loginSuccess]</OutArgument>
+                                                    </Assign.To>
+                                                    <Assign.Value>
+                                                      <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                                                    </Assign.Value>
+                                                  </Assign>
+                                                </Sequence>
+                                              </If.Then>
+                                              <If.Else>
+                                                <Sequence DisplayName="False" sap:VirtualizedContainerService.HintSize="304,152.8" sap2010:WorkflowViewState.IdRef="Sequence_81">
+                                                  <sap:WorkflowViewStateService.ViewState>
+                                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                    </scg:Dictionary>
+                                                  </sap:WorkflowViewStateService.ViewState>
+                                                  <Assign sap:VirtualizedContainerService.HintSize="262.4,60" sap2010:WorkflowViewState.IdRef="Assign_16">
+                                                    <Assign.To>
+                                                      <OutArgument x:TypeArguments="x:Boolean">[loginSuccess]</OutArgument>
+                                                    </Assign.To>
+                                                    <Assign.Value>
+                                                      <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+                                                    </Assign.Value>
+                                                  </Assign>
+                                                </Sequence>
+                                              </If.Else>
+                                            </If>
+                                          </Sequence>
+                                        </Sequence>
+                                      </ActivityAction>
+                                    </ui:BrowserScope.Body>
+                                  </ui:BrowserScope>
+                                </Sequence>
+                              </FlowStep>
+                            </FlowDecision.True>
+                            <FlowDecision.False>
+                              <FlowStep x:Name="__ReferenceID2">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <av:Point x:Key="ShapeLocation">700,335.6</av:Point>
+                                    <av:Size x:Key="ShapeSize">200,68.8</av:Size>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <Sequence DisplayName="2.2 Login Page" sap:VirtualizedContainerService.HintSize="200,68.8" sap2010:WorkflowViewState.IdRef="Sequence_66">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <ui:UiElementExists DisplayName="Amysis Advance Login Page Exists " Exists="[loginPage]" sap:VirtualizedContainerService.HintSize="1589.6,68.8" sap2010:WorkflowViewState.IdRef="UiElementExists_18">
+                                    <ui:UiElementExists.Target>
+                                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="cadf2077-f458-4ca6-be42-3d19a039babb" Selector="&lt;html app='chrome.exe' title='AMISYS Advance Login' /&gt;" TimeoutMS="3000" WaitForReady="COMPLETE" />
+                                    </ui:UiElementExists.Target>
+                                  </ui:UiElementExists>
+                                  <If Condition="[loginPage]" sap:VirtualizedContainerService.HintSize="1589.6,2472.8" sap2010:WorkflowViewState.IdRef="If_19">
+                                    <If.Then>
+                                      <Sequence DisplayName="Login Page is Up" sap:VirtualizedContainerService.HintSize="735.2,1915.2" sap2010:WorkflowViewState.IdRef="Sequence_74">
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                        <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Attach Browser" sap:VirtualizedContainerService.HintSize="693.6,1268.8" sap2010:WorkflowViewState.IdRef="BrowserScope_1" Selector="&lt;html app='chrome.exe' title='AMISYS Advance*' /&gt;">
+                                          <ui:BrowserScope.Body>
+                                            <ActivityAction x:TypeArguments="x:Object">
+                                              <ActivityAction.Argument>
+                                                <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                                              </ActivityAction.Argument>
+                                              <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="566.4,1160" sap2010:WorkflowViewState.IdRef="Sequence_94">
+                                                <sap:WorkflowViewStateService.ViewState>
+                                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                  </scg:Dictionary>
+                                                </sap:WorkflowViewStateService.ViewState>
+                                                <Sequence DisplayName="Insert Credential" sap:VirtualizedContainerService.HintSize="524.8,428" sap2010:WorkflowViewState.IdRef="Sequence_67">
+                                                  <sap:WorkflowViewStateService.ViewState>
+                                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                                    </scg:Dictionary>
+                                                  </sap:WorkflowViewStateService.ViewState>
+                                                  <ui:SetValue AlterIfDisabled="{x:Null}" ContinueOnError="{x:Null}" DelayAfter="1000" DelayBefore="1000" DisplayName="Set Text" sap:VirtualizedContainerService.HintSize="333.6,117.6" sap2010:WorkflowViewState.IdRef="SetValue_4" Text="[in_Username]">
+                                                    <ui:SetValue.Target>
+                                                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="e51d8f0a-6764-42f1-b6d3-35687022b8e8" Selector="&lt;html app='chrome.exe' title='AMISYS Advance Login' /&gt;&lt;webctrl name='j_username' tag='INPUT' /&gt;" TimeoutMS="15000" WaitForReady="COMPLETE" />
+                                                    </ui:SetValue.Target>
+                                                  </ui:SetValue>
+                                                  <ui:TypeSecureText AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" Activate="True" DelayMS="1000" DeselectAfter="True" DisplayName="Type Secure Text" sap:VirtualizedContainerService.HintSize="333.6,68.8" sap2010:WorkflowViewState.IdRef="TypeSecureText_4" SecureText="[in_Password]" SimulateType="True">
+                                                    <ui:TypeSecureText.Target>
+                                                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="bf8869f2-3a5f-4ac3-af09-e8b32f5ab425" Selector="&lt;html app='chrome.exe' title='AMISYS Advance Login' /&gt;&lt;webctrl name='j_password' tag='INPUT' /&gt;" TimeoutMS="15000" WaitForReady="COMPLETE" />
+                                                    </ui:TypeSecureText.Target>
+                                                  </ui:TypeSecureText>
+                                                  <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" ClickType="CLICK_SINGLE" DelayMS="1000" sap:VirtualizedContainerService.HintSize="333.6,68.8" sap2010:WorkflowViewState.IdRef="Click_4" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+                                                    <ui:Click.CursorPosition>
+                                                      <ui:CursorPosition Position="Center">
+                                                        <ui:CursorPosition.OffsetX>
+                                                          <InArgument x:TypeArguments="x:Int32" />
+                                                        </ui:CursorPosition.OffsetX>
+                                                        <ui:CursorPosition.OffsetY>
+                                                          <InArgument x:TypeArguments="x:Int32" />
+                                                        </ui:CursorPosition.OffsetY>
+                                                      </ui:CursorPosition>
+                                                    </ui:Click.CursorPosition>
+                                                    <ui:Click.Target>
+                                                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="6f0c5384-38d3-4d96-acdc-e267b3a37685" Selector="&lt;html app='chrome.exe' title='AMISYS Advance Login' /&gt;&lt;webctrl id='btnSubmit' tag='INPUT' /&gt;" TimeoutMS="15000" WaitForReady="COMPLETE" />
+                                                    </ui:Click.Target>
+                                                  </ui:Click>
+                                                </Sequence>
+                                                <Sequence DisplayName="Chrome Welcome Popup Check" sap:VirtualizedContainerService.HintSize="524.8,599.2" sap2010:WorkflowViewState.IdRef="Sequence_70">
+                                                  <Sequence.Variables>
+                                                    <Variable x:TypeArguments="x:Boolean" Name="popup_exists" />
+                                                  </Sequence.Variables>
+                                                  <sap:WorkflowViewStateService.ViewState>
+                                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                                    </scg:Dictionary>
+                                                  </sap:WorkflowViewStateService.ViewState>
+                                                  <ui:UiElementExists DisplayName="Element Exists" Exists="[popup_exists]" sap:VirtualizedContainerService.HintSize="483.2,68.8" sap2010:WorkflowViewState.IdRef="UiElementExists_19">
+                                                    <ui:UiElementExists.Target>
+                                                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="49f77305-67b0-496a-a2aa-ae2cfeccc1af" Selector="&lt;html app='chrome.exe' title='*' /&gt;&lt;ctrl name='*' role='*pane*' /&gt;&lt;ctrl role='*dialog*' /&gt;" TimeoutMS="5000">
+                                                        <ui:Target.WaitForReady>
+                                                          <InArgument x:TypeArguments="ui:WaitForReady" />
+                                                        </ui:Target.WaitForReady>
+                                                      </ui:Target>
+                                                    </ui:UiElementExists.Target>
+                                                  </ui:UiElementExists>
+                                                  <If Condition="[popup_exists]" sap:VirtualizedContainerService.HintSize="483.2,397.6" sap2010:WorkflowViewState.IdRef="If_17">
+                                                    <If.Then>
+                                                      <Sequence DisplayName="Send Message" sap:VirtualizedContainerService.HintSize="375.2,208.8" sap2010:WorkflowViewState.IdRef="Sequence_68">
+                                                        <sap:WorkflowViewStateService.ViewState>
+                                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                          </scg:Dictionary>
+                                                        </sap:WorkflowViewStateService.ViewState>
+                                                        <ui:SendHotkey ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" Activate="True" DisplayName="Send Hotkey" sap:VirtualizedContainerService.HintSize="333.6,116" sap2010:WorkflowViewState.IdRef="SendHotkey_5" Key="enter" KeyModifiers="None" SendWindowMessages="True" SpecialKey="True">
+                                                          <ui:SendHotkey.Target>
+                                                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="25daed6f-8bdd-47f7-8853-93d0862b034d" TimeoutMS="3000" WaitForReady="COMPLETE" />
+                                                          </ui:SendHotkey.Target>
+                                                        </ui:SendHotkey>
+                                                      </Sequence>
+                                                    </If.Then>
+                                                    <If.Else>
+                                                      <Sequence sap2010:WorkflowViewState.IdRef="Sequence_69">
+                                                        <sap:WorkflowViewStateService.ViewState>
+                                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                          </scg:Dictionary>
+                                                        </sap:WorkflowViewStateService.ViewState>
+                                                      </Sequence>
+                                                    </If.Else>
+                                                  </If>
+                                                </Sequence>
+                                              </Sequence>
+                                            </ActivityAction>
+                                          </ui:BrowserScope.Body>
+                                        </ui:BrowserScope>
+                                        <Sequence DisplayName="Checking for Sucess" sap:VirtualizedContainerService.HintSize="693.6,513.6" sap2010:WorkflowViewState.IdRef="Sequence_73">
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                          <ui:UiElementExists DisplayName="Element Exists Home Page" Exists="[mainPage]" sap:VirtualizedContainerService.HintSize="652,68.8" sap2010:WorkflowViewState.IdRef="UiElementExists_20">
+                                            <ui:UiElementExists.Target>
+                                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="acc1b531-9bc3-4a47-afce-8c9ca533e138" Selector="&lt;html app='chrome.exe' title='AMISYS Advance Welcome*' /&gt;&lt;webctrl id='Main' tag='IFRAME' /&gt;&lt;webctrl id='Form' tag='IFRAME' /&gt;&lt;webctrl tag='BODY' /&gt;" TimeoutMS="5000" WaitForReady="COMPLETE" />
+                                            </ui:UiElementExists.Target>
+                                          </ui:UiElementExists>
+                                          <If Condition="[mainPage]" sap:VirtualizedContainerService.HintSize="652,312" sap2010:WorkflowViewState.IdRef="If_18">
+                                            <If.Then>
+                                              <Sequence DisplayName="True" sap:VirtualizedContainerService.HintSize="304,152.8" sap2010:WorkflowViewState.IdRef="Sequence_71">
+                                                <sap:WorkflowViewStateService.ViewState>
+                                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                  </scg:Dictionary>
+                                                </sap:WorkflowViewStateService.ViewState>
+                                                <Assign sap:VirtualizedContainerService.HintSize="262.4,60" sap2010:WorkflowViewState.IdRef="Assign_13">
+                                                  <Assign.To>
+                                                    <OutArgument x:TypeArguments="x:Boolean">[loginSuccess]</OutArgument>
+                                                  </Assign.To>
+                                                  <Assign.Value>
+                                                    <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                                                  </Assign.Value>
+                                                </Assign>
+                                              </Sequence>
+                                            </If.Then>
+                                            <If.Else>
+                                              <Sequence DisplayName="False" sap:VirtualizedContainerService.HintSize="304,152.8" sap2010:WorkflowViewState.IdRef="Sequence_72">
+                                                <sap:WorkflowViewStateService.ViewState>
+                                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                  </scg:Dictionary>
+                                                </sap:WorkflowViewStateService.ViewState>
+                                                <Assign sap:VirtualizedContainerService.HintSize="262.4,60" sap2010:WorkflowViewState.IdRef="Assign_14">
+                                                  <Assign.To>
+                                                    <OutArgument x:TypeArguments="x:Boolean">[loginSuccess]</OutArgument>
+                                                  </Assign.To>
+                                                  <Assign.Value>
+                                                    <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+                                                  </Assign.Value>
+                                                </Assign>
+                                              </Sequence>
+                                            </If.Else>
+                                          </If>
+                                        </Sequence>
+                                      </Sequence>
+                                    </If.Then>
+                                    <If.Else>
+                                      <Sequence sap2010:Annotation.AnnotationText="This will be an attempt to open AA again" DisplayName="Login Page Not Found" sap:VirtualizedContainerService.HintSize="810.4,2313.6" sap2010:WorkflowViewState.IdRef="Sequence_75">
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                        <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="768.8,52.8" sap2010:WorkflowViewState.IdRef="CommentOut_2">
+                                          <ui:CommentOut.Body>
+                                            <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="375.2,348" sap2010:WorkflowViewState.IdRef="Sequence_98">
+                                              <sap:WorkflowViewStateService.ViewState>
+                                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                </scg:Dictionary>
+                                              </sap:WorkflowViewStateService.ViewState>
+                                              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="333.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_10" Level="Error" Message="[&quot;Unable to login correctly, Login Page or Home page not found, please check if Amisys server is up.&quot;]" />
+                                              <Assign sap:VirtualizedContainerService.HintSize="333.6,60" sap2010:WorkflowViewState.IdRef="Assign_22">
+                                                <Assign.To>
+                                                  <OutArgument x:TypeArguments="x:Boolean">[throwTwo]</OutArgument>
+                                                </Assign.To>
+                                                <Assign.Value>
+                                                  <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                                                </Assign.Value>
+                                              </Assign>
+                                              <Throw DisplayName="Throw #2" Exception="[new SystemException(&quot;An exception has been encountered during login, please review screenshots&quot;)]" sap:VirtualizedContainerService.HintSize="333.6,22.4" sap2010:WorkflowViewState.IdRef="Throw_4" />
+                                            </Sequence>
+                                          </ui:CommentOut.Body>
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                        </ui:CommentOut>
+                                        <ui:KillProcess AppliesTo="{x:Null}" ContinueOnError="{x:Null}" Process="{x:Null}" sap2010:Annotation.AnnotationText="It shouldn't have any more chrome page opened, but this will be a double check" DisplayName="Kill Process" sap:VirtualizedContainerService.HintSize="768.8,178.4" sap2010:WorkflowViewState.IdRef="KillProcess_4" ProcessName="chrome">
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                        </ui:KillProcess>
+                                        <ui:OpenBrowser AutomaticallyDownloadWebDriver="{x:Null}" CommunicationMethod="{x:Null}" Hidden="{x:Null}" NewSession="{x:Null}" Private="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Open Browser" sap:VirtualizedContainerService.HintSize="768.8,1878.4" sap2010:WorkflowViewState.IdRef="OpenBrowser_4" Url="[in_AmisysURL]">
+                                          <ui:OpenBrowser.Body>
+                                            <ActivityAction x:TypeArguments="x:Object">
+                                              <ActivityAction.Argument>
+                                                <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                                              </ActivityAction.Argument>
+                                              <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="735.2,1776" sap2010:WorkflowViewState.IdRef="Sequence_106">
+                                                <sap:WorkflowViewStateService.ViewState>
+                                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                  </scg:Dictionary>
+                                                </sap:WorkflowViewStateService.ViewState>
+                                                <ui:MaximizeWindow Window="{x:Null}" DisplayName="Maximize Window" sap:VirtualizedContainerService.HintSize="693.6,22.4" sap2010:WorkflowViewState.IdRef="MaximizeWindow_4" />
+                                                <Sequence DisplayName="Insert Credential" sap:VirtualizedContainerService.HintSize="693.6,428" sap2010:WorkflowViewState.IdRef="Sequence_99">
+                                                  <sap:WorkflowViewStateService.ViewState>
+                                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                                    </scg:Dictionary>
+                                                  </sap:WorkflowViewStateService.ViewState>
+                                                  <ui:SetValue AlterIfDisabled="{x:Null}" ContinueOnError="{x:Null}" DelayAfter="1000" DelayBefore="1000" DisplayName="Set Text" sap:VirtualizedContainerService.HintSize="333.6,117.6" sap2010:WorkflowViewState.IdRef="SetValue_6" Text="[in_Username]">
+                                                    <ui:SetValue.Target>
+                                                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="e51d8f0a-6764-42f1-b6d3-35687022b8e8" Selector="&lt;html app='chrome.exe' title='AMISYS Advance Login' /&gt;&lt;webctrl name='j_username' tag='INPUT' /&gt;" TimeoutMS="15000" WaitForReady="COMPLETE" />
+                                                    </ui:SetValue.Target>
+                                                  </ui:SetValue>
+                                                  <ui:TypeSecureText AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" Activate="True" DelayMS="1000" DeselectAfter="True" DisplayName="Type Secure Text" sap:VirtualizedContainerService.HintSize="333.6,68.8" sap2010:WorkflowViewState.IdRef="TypeSecureText_6" SecureText="[in_Password]" SimulateType="True">
+                                                    <ui:TypeSecureText.Target>
+                                                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="bf8869f2-3a5f-4ac3-af09-e8b32f5ab425" Selector="&lt;html app='chrome.exe' title='AMISYS Advance Login' /&gt;&lt;webctrl name='j_password' tag='INPUT' /&gt;" TimeoutMS="15000" WaitForReady="COMPLETE" />
+                                                    </ui:TypeSecureText.Target>
+                                                  </ui:TypeSecureText>
+                                                  <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" ClickType="CLICK_SINGLE" DelayMS="1000" sap:VirtualizedContainerService.HintSize="333.6,68.8" sap2010:WorkflowViewState.IdRef="Click_6" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+                                                    <ui:Click.CursorPosition>
+                                                      <ui:CursorPosition Position="Center">
+                                                        <ui:CursorPosition.OffsetX>
+                                                          <InArgument x:TypeArguments="x:Int32" />
+                                                        </ui:CursorPosition.OffsetX>
+                                                        <ui:CursorPosition.OffsetY>
+                                                          <InArgument x:TypeArguments="x:Int32" />
+                                                        </ui:CursorPosition.OffsetY>
+                                                      </ui:CursorPosition>
+                                                    </ui:Click.CursorPosition>
+                                                    <ui:Click.Target>
+                                                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="6f0c5384-38d3-4d96-acdc-e267b3a37685" Selector="&lt;html app='chrome.exe' title='AMISYS Advance Login' /&gt;&lt;webctrl id='btnSubmit' tag='INPUT' /&gt;" TimeoutMS="15000" WaitForReady="COMPLETE" />
+                                                    </ui:Click.Target>
+                                                  </ui:Click>
+                                                </Sequence>
+                                                <Sequence DisplayName="Chrome Welcome Popup Check" sap:VirtualizedContainerService.HintSize="693.6,599.2" sap2010:WorkflowViewState.IdRef="Sequence_102">
+                                                  <Sequence.Variables>
+                                                    <Variable x:TypeArguments="x:Boolean" Name="popup_exists" />
+                                                  </Sequence.Variables>
+                                                  <sap:WorkflowViewStateService.ViewState>
+                                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                                    </scg:Dictionary>
+                                                  </sap:WorkflowViewStateService.ViewState>
+                                                  <ui:UiElementExists DisplayName="Element Exists" Exists="[popup_exists]" sap:VirtualizedContainerService.HintSize="483.2,68.8" sap2010:WorkflowViewState.IdRef="UiElementExists_26">
+                                                    <ui:UiElementExists.Target>
+                                                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="49f77305-67b0-496a-a2aa-ae2cfeccc1af" Selector="&lt;html app='chrome.exe' title='*' /&gt;&lt;ctrl name='*' role='*pane*' /&gt;&lt;ctrl role='*dialog*' /&gt;" TimeoutMS="5000">
+                                                        <ui:Target.WaitForReady>
+                                                          <InArgument x:TypeArguments="ui:WaitForReady" />
+                                                        </ui:Target.WaitForReady>
+                                                      </ui:Target>
+                                                    </ui:UiElementExists.Target>
+                                                  </ui:UiElementExists>
+                                                  <If Condition="[popup_exists]" sap:VirtualizedContainerService.HintSize="483.2,397.6" sap2010:WorkflowViewState.IdRef="If_26">
+                                                    <If.Then>
+                                                      <Sequence DisplayName="Send Message" sap:VirtualizedContainerService.HintSize="375.2,208.8" sap2010:WorkflowViewState.IdRef="Sequence_100">
+                                                        <sap:WorkflowViewStateService.ViewState>
+                                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                          </scg:Dictionary>
+                                                        </sap:WorkflowViewStateService.ViewState>
+                                                        <ui:SendHotkey ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" Activate="True" DisplayName="Send Hotkey" sap:VirtualizedContainerService.HintSize="333.6,116" sap2010:WorkflowViewState.IdRef="SendHotkey_8" Key="enter" KeyModifiers="None" SendWindowMessages="True" SpecialKey="True">
+                                                          <ui:SendHotkey.Target>
+                                                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="25daed6f-8bdd-47f7-8853-93d0862b034d" TimeoutMS="3000" WaitForReady="COMPLETE" />
+                                                          </ui:SendHotkey.Target>
+                                                        </ui:SendHotkey>
+                                                      </Sequence>
+                                                    </If.Then>
+                                                    <If.Else>
+                                                      <Sequence sap2010:WorkflowViewState.IdRef="Sequence_101">
+                                                        <sap:WorkflowViewStateService.ViewState>
+                                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                          </scg:Dictionary>
+                                                        </sap:WorkflowViewStateService.ViewState>
+                                                      </Sequence>
+                                                    </If.Else>
+                                                  </If>
+                                                </Sequence>
+                                                <Sequence DisplayName="Checking for Sucess" sap:VirtualizedContainerService.HintSize="693.6,513.6" sap2010:WorkflowViewState.IdRef="Sequence_105">
+                                                  <sap:WorkflowViewStateService.ViewState>
+                                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                                    </scg:Dictionary>
+                                                  </sap:WorkflowViewStateService.ViewState>
+                                                  <ui:UiElementExists DisplayName="Element Exists Home Page" Exists="[mainPage]" sap:VirtualizedContainerService.HintSize="652,68.8" sap2010:WorkflowViewState.IdRef="UiElementExists_27">
+                                                    <ui:UiElementExists.Target>
+                                                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="acc1b531-9bc3-4a47-afce-8c9ca533e138" Selector="&lt;html app='chrome.exe' title='AMISYS Advance Welcome*' /&gt;&lt;webctrl id='Main' tag='IFRAME' /&gt;&lt;webctrl id='Form' tag='IFRAME' /&gt;&lt;webctrl tag='BODY' /&gt;" TimeoutMS="5000" WaitForReady="COMPLETE" />
+                                                    </ui:UiElementExists.Target>
+                                                  </ui:UiElementExists>
+                                                  <If Condition="[mainPage]" sap:VirtualizedContainerService.HintSize="652,312" sap2010:WorkflowViewState.IdRef="If_27">
+                                                    <If.Then>
+                                                      <Sequence DisplayName="True" sap:VirtualizedContainerService.HintSize="304,152.8" sap2010:WorkflowViewState.IdRef="Sequence_103">
+                                                        <sap:WorkflowViewStateService.ViewState>
+                                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                          </scg:Dictionary>
+                                                        </sap:WorkflowViewStateService.ViewState>
+                                                        <Assign sap:VirtualizedContainerService.HintSize="262.4,60" sap2010:WorkflowViewState.IdRef="Assign_23">
+                                                          <Assign.To>
+                                                            <OutArgument x:TypeArguments="x:Boolean">[loginSuccess]</OutArgument>
+                                                          </Assign.To>
+                                                          <Assign.Value>
+                                                            <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                                                          </Assign.Value>
+                                                        </Assign>
+                                                      </Sequence>
+                                                    </If.Then>
+                                                    <If.Else>
+                                                      <Sequence DisplayName="False" sap:VirtualizedContainerService.HintSize="304,152.8" sap2010:WorkflowViewState.IdRef="Sequence_104">
+                                                        <sap:WorkflowViewStateService.ViewState>
+                                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                          </scg:Dictionary>
+                                                        </sap:WorkflowViewStateService.ViewState>
+                                                        <Assign sap:VirtualizedContainerService.HintSize="262.4,60" sap2010:WorkflowViewState.IdRef="Assign_24">
+                                                          <Assign.To>
+                                                            <OutArgument x:TypeArguments="x:Boolean">[loginSuccess]</OutArgument>
+                                                          </Assign.To>
+                                                          <Assign.Value>
+                                                            <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+                                                          </Assign.Value>
+                                                        </Assign>
+                                                      </Sequence>
+                                                    </If.Else>
+                                                  </If>
+                                                </Sequence>
+                                              </Sequence>
+                                            </ActivityAction>
+                                          </ui:OpenBrowser.Body>
+                                        </ui:OpenBrowser>
+                                      </Sequence>
+                                    </If.Else>
+                                  </If>
+                                </Sequence>
+                              </FlowStep>
+                            </FlowDecision.False>
+                          </FlowDecision>
+                        </FlowStep.Next>
+                      </FlowStep>
+                    </FlowDecision.False>
+                  </FlowDecision>
+                  <x:Reference>__ReferenceID0</x:Reference>
+                  <x:Reference>__ReferenceID1</x:Reference>
+                  <x:Reference>__ReferenceID2</x:Reference>
+                  <x:Reference>__ReferenceID3</x:Reference>
+                  <x:Reference>__ReferenceID4</x:Reference>
+                </Flowchart>
+              </If.Then>
+              <If.Else>
+                <Sequence DisplayName="Login Failure" sap:VirtualizedContainerService.HintSize="304,215.2" sap2010:WorkflowViewState.IdRef="Sequence_41">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <Assign sap:VirtualizedContainerService.HintSize="262.4,60" sap2010:WorkflowViewState.IdRef="Assign_21">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:Boolean">[throwOne]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Throw DisplayName="Login Failure" Exception="[new SystemException(&quot;Maximum attempts to login has been reached. Please, check screenshots and try again later&quot;)]" sap:VirtualizedContainerService.HintSize="262.4,22.4" sap2010:WorkflowViewState.IdRef="Throw_1" />
+                </Sequence>
+              </If.Else>
+            </If>
+          </TryCatch.Try>
+          <TryCatch.Catches>
+            <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="1371.2,22.4" sap2010:WorkflowViewState.IdRef="Catch`1_2">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ActivityAction x:TypeArguments="s:Exception">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                </ActivityAction.Argument>
+                <Sequence DisplayName="Login Exception" sap:VirtualizedContainerService.HintSize="524.8,488" sap2010:WorkflowViewState.IdRef="Sequence_42">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="ui:Image" Name="botKilled" />
+                    <Variable x:TypeArguments="x:String" Name="login_count" />
+                  </Sequence.Variables>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <If Condition="[loginAttempts &gt; 3 or throwOne]" sap:VirtualizedContainerService.HintSize="483.2,436.8" sap2010:WorkflowViewState.IdRef="If_24">
+                    <If.Then>
+                      <Sequence DisplayName="Unhandled Exception" sap:VirtualizedContainerService.HintSize="375.2,248" sap2010:WorkflowViewState.IdRef="Sequence_95">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="333.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_35" Level="Info" Message="[&quot;Amisys Advance login failed. Maximum #attempts reached.&quot;]" />
+                        <Rethrow sap:VirtualizedContainerService.HintSize="333.6,22.4" sap2010:WorkflowViewState.IdRef="Rethrow_1" />
+                      </Sequence>
+                    </If.Then>
+                    <If.Else>
+                      <Sequence DisplayName="Another Try" sap:VirtualizedContainerService.HintSize="200,84.8" sap2010:WorkflowViewState.IdRef="Sequence_96">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </Sequence>
+                    </If.Else>
+                  </If>
+                </Sequence>
+              </ActivityAction>
+            </Catch>
+          </TryCatch.Catches>
+        </TryCatch>
+      </Sequence>
+      <FlowStep.Next>
+        <FlowDecision x:Name="__ReferenceID7" Condition="[loginSuccess]" DisplayName="Login Successful" sap:VirtualizedContainerService.HintSize="92,87.2" sap2010:WorkflowViewState.IdRef="FlowDecision_1">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <av:Point x:Key="ShapeLocation">474,306.4</av:Point>
+              <av:Size x:Key="ShapeSize">92,87.2</av:Size>
+              <av:PointCollection x:Key="FalseConnector">566,350 690,350</av:PointCollection>
+              <av:PointCollection x:Key="TrueConnector">474,350 360,350</av:PointCollection>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <FlowDecision.True>
+            <FlowStep x:Name="__ReferenceID9">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <av:Point x:Key="ShapeLocation">160,315.6</av:Point>
+                  <av:Size x:Key="ShapeSize">200,68.8</av:Size>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <Sequence DisplayName="Home Page - AA increment" sap:VirtualizedContainerService.HintSize="375.2,752" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="333.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Trace" Message="[&quot;Welcome to Amisys Advance - Home Page &quot;]" />
+                <Assign sap2010:Annotation.AnnotationText="The most important counter that will be responsible to keep track of each session we are and maximum re-open amisys session allowed 10" DisplayName="Amisys Counter Increment" sap:VirtualizedContainerService.HintSize="333.6,136" sap2010:WorkflowViewState.IdRef="Assign_32">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:Int32">[inOut_AmisysCounter]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:Int32">[inOut_AmisysCounter + 1]</InArgument>
+                  </Assign.Value>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </Assign>
+                <Delay DisplayName="1s Delay" Duration="00:00:01" sap:VirtualizedContainerService.HintSize="333.6,22.4" sap2010:WorkflowViewState.IdRef="Delay_2" />
+                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="333.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_34" Level="Trace" Message="[&quot;Amisys Session #&quot; + inOut_AmisysCounter.ToString]" />
+                <Delay DisplayName="1s Delay" Duration="00:00:01" sap:VirtualizedContainerService.HintSize="333.6,22.4" sap2010:WorkflowViewState.IdRef="Delay_1" />
+                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="333.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_37" Level="Info" Message="[&quot;Amisys login has finished&quot;]" />
+              </Sequence>
+            </FlowStep>
+          </FlowDecision.True>
+          <FlowDecision.False>
+            <FlowStep x:Name="__ReferenceID8">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <av:Point x:Key="ShapeLocation">690,315.6</av:Point>
+                  <av:Size x:Key="ShapeSize">200,68.8</av:Size>
+                  <av:PointCollection x:Key="ConnectorLocation">890,350 920,350 920,210 620,210</av:PointCollection>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <Sequence DisplayName="Login LogMessage" sap:VirtualizedContainerService.HintSize="200,68.8" sap2010:WorkflowViewState.IdRef="Sequence_2">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="333.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_12" Level="Trace" Message="[&quot;Amisys Advance login failed. Attempts remaining: &quot; + (3 - loginAttempts).ToString]" />
+                <Assign sap:VirtualizedContainerService.HintSize="333.6,60" sap2010:WorkflowViewState.IdRef="Assign_19">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:Int32">[loginAttempts]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:Int32">[loginAttempts + 1]</InArgument>
+                  </Assign.Value>
+                </Assign>
+              </Sequence>
+              <FlowStep.Next>
+                <x:Reference>__ReferenceID6</x:Reference>
+              </FlowStep.Next>
+            </FlowStep>
+          </FlowDecision.False>
+        </FlowDecision>
+      </FlowStep.Next>
+    </FlowStep>
+    <x:Reference>__ReferenceID7</x:Reference>
+    <x:Reference>__ReferenceID8</x:Reference>
+    <x:Reference>__ReferenceID9</x:Reference>
+  </Flowchart>
+</Activity>

@@ -1,0 +1,563 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="CSW_Inquiry_AttachFaxCoverSheet" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_dictConfig" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="io_browserCSW" Type="InOutArgument(ui:Browser)" />
+    <x:Property Name="in_strFaxCoverSheetPath" Type="InArgument(x:String)" />
+  </x:Members>
+  <VisualBasic.Settings>
+    <x:Null />
+  </VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>598,2845</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>CSW_Inquiry_AttachFaxCoverSheet_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>UiPath.UIAutomationCore.Contracts</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities</x:String>
+      <x:String>UiPath.Platform.ObjectLibrary</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>System.Activities.Runtime.Collections</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
+      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Python</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
+      <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>NPOI</AssemblyReference>
+      <AssemblyReference>System.Memory.Data</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.PDF.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Python.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Web.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Word.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.ViewModels</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="CSW_Inquiry_AttachFaxCoverSheet" sap:VirtualizedContainerService.HintSize="608,2780" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Default="CSW_Inquiry_AttachFaxCoverSheet" Name="strComponentName" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="546,141" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Start: &quot;+strComponentName]" />
+    <ui:BrowserScope SearchScope="{x:Null}" Selector="{x:Null}" Browser="[io_BrowserCSW]" BrowserType="Chrome" DisplayName="Attach Browser csw" sap:VirtualizedContainerService.HintSize="546,52" sap2010:WorkflowViewState.IdRef="BrowserScope_1" TimeoutMS="[Convert.ToInt32(in_dictConfig(&quot;TimeoutMedium&quot;))]" UiBrowser="[io_BrowserCSW]">
+      <ui:BrowserScope.Body>
+        <ActivityAction x:TypeArguments="x:Object">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do view related inquiry" sap:VirtualizedContainerService.HintSize="450,539" sap2010:WorkflowViewState.IdRef="Sequence_2">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="388,141" sap2010:WorkflowViewState.IdRef="LogMessage_4" Message="[&quot;Pulling AddDocument screen.&quot;]" />
+            <ui:SelectItem AlterIfDisabled="{x:Null}" ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Item  Attach document" sap:VirtualizedContainerService.HintSize="388,155" sap2010:WorkflowViewState.IdRef="SelectItem_1" Item="Add Document">
+              <ui:SelectItem.Items>
+                <scg:List x:TypeArguments="x:String" Capacity="32">
+                  <x:String></x:String>
+                  <x:String>Add Document</x:String>
+                  <x:String>Appeal</x:String>
+                  <x:String>Authorization</x:String>
+                  <x:String>B2 Gen Inq Update</x:String>
+                  <x:String>Check</x:String>
+                  <x:String>Claim</x:String>
+                  <x:String>CSW Letter Request</x:String>
+                  <x:String>CSW Med Rec Request</x:String>
+                  <x:String>Duplicate Claim</x:String>
+                  <x:String>Invoice</x:String>
+                  <x:String>Letter</x:String>
+                  <x:String>Pre-Note</x:String>
+                  <x:String>PreCert Milliman</x:String>
+                  <x:String>P8 Document</x:String>
+                  <x:String>Related Inquiry</x:String>
+                  <x:String>Related MRR Inquiry</x:String>
+                  <x:String>Related SCCF</x:String>
+                  <x:String>Returned Clm Letter</x:String>
+                  <x:String>SCCF Number</x:String>
+                </scg:List>
+              </ui:SelectItem.Items>
+              <ui:SelectItem.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="627a41d7-5bbe-484c-a232-8c52163fb4f3" InformativeScreenshot="6f7c88e789cb279910c4d532a53c8f7c" Selector="&lt;webctrl id='lstAttachType' tag='SELECT' name='lstAttachType' /&gt;" TimeoutMS="[Convert.ToInt32(in_dictConfig(&quot;TimeoutMedium&quot;))]" WaitForReady="INTERACTIVE" />
+              </ui:SelectItem.Target>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:SelectItem>
+            <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SimulateClick="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click  search" sap:VirtualizedContainerService.HintSize="388,52" sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="True">
+              <ui:Click.CursorPosition>
+                <ui:CursorPosition Position="Center">
+                  <ui:CursorPosition.OffsetX>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:CursorPosition.OffsetX>
+                  <ui:CursorPosition.OffsetY>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:CursorPosition.OffsetY>
+                </ui:CursorPosition>
+              </ui:Click.CursorPosition>
+              <ui:Click.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="ea758df4-cf96-4fcd-abe5-9b29deaf8200" InformativeScreenshot="e47b0c79e5ea4510d570469c489713d6" Selector="&lt;webctrl id='imgAttCsw' tag='INPUT' /&gt;" TimeoutMS="[Convert.ToInt32(in_dictConfig(&quot;TimeoutMedium&quot;))]" WaitForReady="INTERACTIVE" />
+              </ui:Click.Target>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:Click>
+          </Sequence>
+        </ActivityAction>
+      </ui:BrowserScope.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:BrowserScope>
+    <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Attach Browser add document" sap:VirtualizedContainerService.HintSize="546,2123" sap2010:WorkflowViewState.IdRef="BrowserScope_2" InformativeScreenshot="c1a043846423f4f53e6f734197640d40" Selector="&lt;html app='chrome.exe' htmlwindowname='FileNetSearchandAttach' title='Add Documents' /&gt;" TimeoutMS="[Convert.ToInt32(in_dictConfig(&quot;TimeoutMedium&quot;))]">
+      <ui:BrowserScope.Body>
+        <ActivityAction x:TypeArguments="x:Object">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do Attach document" sap:VirtualizedContainerService.HintSize="512,1976" sap2010:WorkflowViewState.IdRef="Sequence_3">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:Boolean" Name="boolAddedSuccesully" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="450,52" sap2010:WorkflowViewState.IdRef="LogMessage_5" Message="[&quot;Attached to AddDocument screen. Attaching the document...&quot;]">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:LogMessage>
+            <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SimulateClick="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'INPUT  FileUpload1'" sap:VirtualizedContainerService.HintSize="450,52" sap2010:WorkflowViewState.IdRef="Click_2" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="True">
+              <ui:Click.CursorPosition>
+                <ui:CursorPosition Position="Center">
+                  <ui:CursorPosition.OffsetX>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:CursorPosition.OffsetX>
+                  <ui:CursorPosition.OffsetY>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:CursorPosition.OffsetY>
+                </ui:CursorPosition>
+              </ui:Click.CursorPosition>
+              <ui:Click.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="8d0124e1-1383-4d91-97d3-59bf19d1a965" InformativeScreenshot="25437b91cdb8dbf1c147b98466380c67" Selector="&lt;webctrl id='tblFileUplad' tag='TABLE' /&gt;&lt;webctrl id='FileUpload1' tag='INPUT' name='FileUpload1' parentid='tblFileUplad' parentname='frmSearchFileNet' /&gt;" TimeoutMS="[Convert.ToInt32(in_dictConfig(&quot;TimeoutMedium&quot;))]" WaitForReady="INTERACTIVE" />
+              </ui:Click.Target>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:Click>
+            <Sequence DisplayName="Sequence-pop up, enter location" sap:VirtualizedContainerService.HintSize="450,347" sap2010:WorkflowViewState.IdRef="Sequence_4">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="388,52" sap2010:WorkflowViewState.IdRef="LogMessage_6" Message="[&quot;Entering filepath.&quot;]">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+              </ui:LogMessage>
+              <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SimulateType="{x:Null}" Activate="True" DisplayName="Type Into  filepath" sap:VirtualizedContainerService.HintSize="388,52" sap2010:WorkflowViewState.IdRef="TypeInto_1" SendWindowMessages="True" Text="[in_strFaxCoverSheetPath]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="b803fc7b-9f91-4e63-ad8e-7555a633960b" InformativeScreenshot="f88a5b352f9ef19e9de4e76c29b2abaa" Selector="&lt;wnd app='chrome.exe' cls='#32770' title='Open' /&gt;&lt;ctrl name='File name:' role='combo box' /&gt;&lt;ctrl name='File name:' role='editable text' /&gt;" TimeoutMS="[Convert.ToInt32(in_dictConfig(&quot;TimeoutMedium&quot;))]" WaitForReady="INTERACTIVE" />
+                </ui:TypeInto.Target>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+              </ui:TypeInto>
+              <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" SendWindowMessages="{x:Null}" ClickType="CLICK_SINGLE" DelayMS="1000" DisplayName="Click open" sap:VirtualizedContainerService.HintSize="388,52" sap2010:WorkflowViewState.IdRef="Click_3" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
+                <ui:Click.CursorPosition>
+                  <ui:CursorPosition Position="Center">
+                    <ui:CursorPosition.OffsetX>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:CursorPosition.OffsetX>
+                    <ui:CursorPosition.OffsetY>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:CursorPosition.OffsetY>
+                  </ui:CursorPosition>
+                </ui:Click.CursorPosition>
+                <ui:Click.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="074ee7a2-0fce-4bdb-85a7-4c9a886cd6a6" InformativeScreenshot="f9fb290531280df7cf4a2e0e891ee412" Selector="&lt;wnd app='chrome.exe' cls='#32770' title='Open' /&gt;&lt;ctrl name='Open' role='push button' aastate='focusable' text='Open' /&gt;" TimeoutMS="[Convert.ToInt32(in_dictConfig(&quot;TimeoutMedium&quot;))]" WaitForReady="INTERACTIVE" />
+                </ui:Click.Target>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+              </ui:Click>
+            </Sequence>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="450,52" sap2010:WorkflowViewState.IdRef="LogMessage_7" Message="[&quot;Attaching document.&quot;]">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:LogMessage>
+            <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click  add file" sap:VirtualizedContainerService.HintSize="450,52" sap2010:WorkflowViewState.IdRef="Click_4" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
+              <ui:Click.CursorPosition>
+                <ui:CursorPosition Position="Center">
+                  <ui:CursorPosition.OffsetX>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:CursorPosition.OffsetX>
+                  <ui:CursorPosition.OffsetY>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:CursorPosition.OffsetY>
+                </ui:CursorPosition>
+              </ui:Click.CursorPosition>
+              <ui:Click.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="03cb3999-42b0-41ad-a74e-640e7defc15d" InformativeScreenshot="031b64c08fb15543e11448504c55b634" Selector="&lt;webctrl id='tblFileUplad' tag='TABLE' /&gt;&lt;webctrl id='btnAddFile' tag='INPUT' aaname='Add this File' class='INQ_Buttons' name='btnAddFile' parentid='tblFileUplad' /&gt;" TimeoutMS="[Convert.ToInt32(in_dictConfig(&quot;TimeoutMedium&quot;))]" WaitForReady="INTERACTIVE" />
+              </ui:Click.Target>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:Click>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="450,52" sap2010:WorkflowViewState.IdRef="LogMessage_8" Message="[&quot;Handling drop-downs.&quot;]">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:LogMessage>
+            <ui:SelectItem AlterIfDisabled="{x:Null}" ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Item P8 LOB" sap:VirtualizedContainerService.HintSize="450,52" sap2010:WorkflowViewState.IdRef="SelectItem_2" Item="[in_dictConfig(&quot;AttachDocument_P8LOB&quot;).ToString]">
+              <ui:SelectItem.Items>
+                <scg:List x:TypeArguments="x:String" Capacity="32">
+                  <x:String></x:String>
+                  <x:String>Access Only</x:String>
+                  <x:String>ABCBS</x:String>
+                  <x:String>ABCBS - Exchange</x:String>
+                  <x:String>ABCBS - Off Exchange</x:String>
+                  <x:String>ABCBS Shop</x:String>
+                  <x:String>Blue Advantage Level Funded</x:String>
+                  <x:String>Blue Advantage Reg Bus</x:String>
+                  <x:String>BANA</x:String>
+                  <x:String>BLUE ADVANTAGE</x:String>
+                  <x:String>ENTERPRISE WIDE</x:String>
+                  <x:String>FEP</x:String>
+                  <x:String>Health Advantage Exchange</x:String>
+                  <x:String>HEALTH ADVANTAGE</x:String>
+                  <x:String>ITS</x:String>
+                  <x:String>Medipak</x:String>
+                  <x:String>Medipak Advantage</x:String>
+                  <x:String>Tyson</x:String>
+                  <x:String>USAble Mutual</x:String>
+                  <x:String>Walmart</x:String>
+                </scg:List>
+              </ui:SelectItem.Items>
+              <ui:SelectItem.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="ab105911-2f60-4b26-977b-879b26db20b4" InformativeScreenshot="e950e4c48c01da3e2932ff3f99c1d44a" Selector="&lt;webctrl id='Table1' tag='TABLE' /&gt;&lt;webctrl id='ddlBusiness' tag='SELECT' name='ddlBusiness' parentname='frmSearchFileNet' /&gt;" TimeoutMS="[Convert.ToInt32(in_dictConfig(&quot;TimeoutMedium&quot;))]" WaitForReady="INTERACTIVE" />
+              </ui:SelectItem.Target>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:SelectItem>
+            <ui:SelectItem AlterIfDisabled="{x:Null}" ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Item Class" sap:VirtualizedContainerService.HintSize="450,52" sap2010:WorkflowViewState.IdRef="SelectItem_3" Item="[in_dictConfig(&quot;AttachDocument_Class&quot;).ToString]">
+              <ui:SelectItem.Items>
+                <scg:List x:TypeArguments="x:String" Capacity="32">
+                  <x:String></x:String>
+                  <x:String>Access Only</x:String>
+                  <x:String>ABCBS</x:String>
+                  <x:String>ABCBS - Exchange</x:String>
+                  <x:String>ABCBS - Off Exchange</x:String>
+                  <x:String>ABCBS Shop</x:String>
+                  <x:String>Blue Advantage Level Funded</x:String>
+                  <x:String>Blue Advantage Reg Bus</x:String>
+                  <x:String>BANA</x:String>
+                  <x:String>BLUE ADVANTAGE</x:String>
+                  <x:String>ENTERPRISE WIDE</x:String>
+                  <x:String>FEP</x:String>
+                  <x:String>Health Advantage Exchange</x:String>
+                  <x:String>HEALTH ADVANTAGE</x:String>
+                  <x:String>ITS</x:String>
+                  <x:String>Medipak</x:String>
+                  <x:String>Medipak Advantage</x:String>
+                  <x:String>Tyson</x:String>
+                  <x:String>USAble Mutual</x:String>
+                  <x:String>Walmart</x:String>
+                </scg:List>
+              </ui:SelectItem.Items>
+              <ui:SelectItem.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="ab105911-2f60-4b26-977b-879b26db20b4" InformativeScreenshot="e950e4c48c01da3e2932ff3f99c1d44a" Selector="&lt;webctrl id='Table4' tag='TABLE' /&gt;&lt;webctrl id='ddlClass' tag='SELECT' name='ddlClass' parentname='frmSearchFileNet' /&gt;" TimeoutMS="[Convert.ToInt32(in_dictConfig(&quot;TimeoutMedium&quot;))]" WaitForReady="INTERACTIVE" />
+              </ui:SelectItem.Target>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:SelectItem>
+            <ui:SelectItem AlterIfDisabled="{x:Null}" ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Item Type" sap:VirtualizedContainerService.HintSize="450,52" sap2010:WorkflowViewState.IdRef="SelectItem_4" Item="[in_dictConfig(&quot;AttachDocument_Type&quot;).ToString]">
+              <ui:SelectItem.Items>
+                <scg:List x:TypeArguments="x:String" Capacity="64">
+                  <x:String></x:String>
+                  <x:String>ADJUSTMENT REQUEST</x:String>
+                  <x:String>AUTHORIZATIONS</x:String>
+                  <x:String>CERTIFICATION OF CREDIBLE COVERAGE</x:String>
+                  <x:String>CHECK CONTROL MEMO</x:String>
+                  <x:String>CORRESPONDENCE</x:String>
+                  <x:String>COVERAGE HISTORY</x:String>
+                  <x:String>COB QUESTIONAIRRE</x:String>
+                  <x:String>DEFENSE LETTER</x:String>
+                  <x:String>HIPAA AUTHORIZATION</x:String>
+                  <x:String>MEMBER APPEALS</x:String>
+                  <x:String>MSP - MEDICAL SERVICES PLAN</x:String>
+                  <x:String>MSP DEFENSE LETTER</x:String>
+                  <x:String>MSP DEMAND SUMMARY LETTER</x:String>
+                  <x:String>MSP INTENT TO REFER</x:String>
+                  <x:String>MSP INTEREST LETTER</x:String>
+                  <x:String>MSP RESOLVE LETTER</x:String>
+                  <x:String>MSP TREASURY LETTER</x:String>
+                  <x:String>OVERPAYMENT</x:String>
+                  <x:String>PRIOR AUTH., REVIEWS, PRECERT</x:String>
+                  <x:String>RECONSIDERATIONS AND APPEALS</x:String>
+                  <x:String>SUBROGATION AND WORKERS COMP</x:String>
+                  <x:String></x:String>
+                  <x:String>ADJUSTMENT REQUEST</x:String>
+                  <x:String>AUTHORIZATIONS</x:String>
+                  <x:String>CERTIFICATION OF CREDIBLE COVERAGE</x:String>
+                  <x:String>CHECK CONTROL MEMO</x:String>
+                  <x:String>CORRESPONDENCE</x:String>
+                  <x:String>COVERAGE HISTORY</x:String>
+                  <x:String>COB QUESTIONAIRRE</x:String>
+                  <x:String>DEFENSE LETTER</x:String>
+                  <x:String>HIPAA AUTHORIZATION</x:String>
+                  <x:String>MEMBER APPEALS</x:String>
+                  <x:String>MSP - MEDICAL SERVICES PLAN</x:String>
+                  <x:String>MSP DEFENSE LETTER</x:String>
+                  <x:String>MSP DEMAND SUMMARY LETTER</x:String>
+                  <x:String>MSP INTENT TO REFER</x:String>
+                  <x:String>MSP INTEREST LETTER</x:String>
+                  <x:String>MSP RESOLVE LETTER</x:String>
+                  <x:String>MSP TREASURY LETTER</x:String>
+                  <x:String>OVERPAYMENT</x:String>
+                  <x:String>PRIOR AUTH., REVIEWS, PRECERT</x:String>
+                  <x:String>RECONSIDERATIONS AND APPEALS</x:String>
+                  <x:String>SUBROGATION AND WORKERS COMP</x:String>
+                </scg:List>
+              </ui:SelectItem.Items>
+              <ui:SelectItem.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="ab105911-2f60-4b26-977b-879b26db20b4" InformativeScreenshot="b34f359264011dfcddc8459cd868ce07" Selector="&lt;webctrl id='Table4' tag='TABLE' /&gt;&lt;webctrl id='ddlType' tag='SELECT' name='ddlType' parentid='Table4' parentname='frmSearchFileNet' /&gt;" TimeoutMS="[Convert.ToInt32(in_dictConfig(&quot;TimeoutMedium&quot;))]" WaitForReady="INTERACTIVE" />
+              </ui:SelectItem.Target>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:SelectItem>
+            <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SimulateClick="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click attach to inquiry" sap:VirtualizedContainerService.HintSize="450,52" sap2010:WorkflowViewState.IdRef="Click_5" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="True">
+              <ui:Click.CursorPosition>
+                <ui:CursorPosition Position="Center">
+                  <ui:CursorPosition.OffsetX>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:CursorPosition.OffsetX>
+                  <ui:CursorPosition.OffsetY>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:CursorPosition.OffsetY>
+                </ui:CursorPosition>
+              </ui:Click.CursorPosition>
+              <ui:Click.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="6bee0048-7d41-488e-82f6-de1dc56f7eb7" InformativeScreenshot="17cc5793d0bba4829adc6c39f306a97b" Selector="&lt;webctrl id='tblButton3' tag='TABLE' /&gt;&lt;webctrl id='imgAttInq' tag='IMG' parentid='tblButton3' parentname='frmSearchFileNet' /&gt;" TimeoutMS="[Convert.ToInt32(in_dictConfig(&quot;TimeoutMedium&quot;))]" WaitForReady="INTERACTIVE" />
+              </ui:Click.Target>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:Click>
+            <ui:UiElementExists DisplayName="Element Exists  attached successfully" Exists="[boolAddedSuccesully]" sap:VirtualizedContainerService.HintSize="450,52" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
+              <ui:UiElementExists.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="eddd6006-00cd-41d6-875f-99fc6f3c327f" InformativeScreenshot="895d41686ad3a5cb205df94e19718604" Selector="&lt;wnd app='chrome.exe' cls='Chrome_WidgetWin_1' title='Add Docu*' /&gt;&lt;ctrl name='*says' role='dialog' /&gt;&lt;ctrl name='Your document was added to P8 as DocId *' role='text' /&gt;" TimeoutMS="10000" WaitForReady="INTERACTIVE" />
+              </ui:UiElementExists.Target>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:UiElementExists>
+            <If Condition="[boolAddedSuccesully]" DisplayName="If upload successfull" sap:VirtualizedContainerService.HintSize="450,558" sap2010:WorkflowViewState.IdRef="If_1">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <If.Then>
+                <Sequence sap:VirtualizedContainerService.HintSize="376,376" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:Click AlterIfDisabled="{x:Null}" DelayMS="{x:Null}" SimulateClick="{x:Null}" ClickType="CLICK_SINGLE" DelayBefore="1000" DisplayName="Click 'push button cancel" sap:VirtualizedContainerService.HintSize="334,107" sap2010:WorkflowViewState.IdRef="Click_6" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="True">
+                    <ui:Click.CursorPosition>
+                      <ui:CursorPosition Position="Center">
+                        <ui:CursorPosition.OffsetX>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetX>
+                        <ui:CursorPosition.OffsetY>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetY>
+                      </ui:CursorPosition>
+                    </ui:Click.CursorPosition>
+                    <ui:Click.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="396dec64-910a-40da-a5ac-827b40ce53e7" InformativeScreenshot="20a680b77700e104e6932e23c58d63ee" Selector="&lt;wnd app='chrome.exe' cls='Chrome_WidgetWin_1' title='Add Docume*' /&gt;&lt;ctrl name='* says' role='dialog' /&gt;&lt;ctrl name='Cancel' role='push button' /&gt;" TimeoutMS="[Convert.ToInt32(in_dictConfig(&quot;TimeoutMedium&quot;))]" WaitForReady="INTERACTIVE" />
+                    </ui:Click.Target>
+                  </ui:Click>
+                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,141" sap2010:WorkflowViewState.IdRef="LogMessage_12" Message="[&quot;File successfully attached.&quot;]" />
+                </Sequence>
+              </If.Then>
+              <If.Else>
+                <Sequence sap:VirtualizedContainerService.HintSize="376,178" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <Throw DisplayName="Throw SE unknown error" Exception="[new system.Exception(&quot;Unable to attach FaxCoverSheet.Please check screenshot.&quot;)]" sap:VirtualizedContainerService.HintSize="334,90" sap2010:WorkflowViewState.IdRef="Throw_1" />
+                </Sequence>
+              </If.Else>
+            </If>
+          </Sequence>
+        </ActivityAction>
+      </ui:BrowserScope.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:BrowserScope>
+    <TryCatch DisplayName="Try Catch delete temp fil" sap:VirtualizedContainerService.HintSize="546,52" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <TryCatch.Try>
+        <ui:DeleteFileX DisplayName="Delete File faxcoversheet" sap:VirtualizedContainerService.HintSize="334,80" sap2010:WorkflowViewState.IdRef="DeleteFileX_1" Path="[in_strFaxCoverSheetPath]" />
+      </TryCatch.Try>
+      <TryCatch.Catches>
+        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="400,210" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ActivityAction x:TypeArguments="s:Exception">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+            </ActivityAction.Argument>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,141" sap2010:WorkflowViewState.IdRef="LogMessage_9" Message="[&quot;Unable to delete temporari file from location:&quot;+in_strFaxCoverSheetPath]" />
+          </ActivityAction>
+        </Catch>
+      </TryCatch.Catches>
+    </TryCatch>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="546,141" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;End: &quot;+strComponentName]" />
+  </Sequence>
+</Activity>

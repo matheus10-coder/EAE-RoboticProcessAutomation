@@ -1,0 +1,433 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="SS_C_PricingArrangement" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:maes="clr-namespace:Microsoft.Activities.Extensions.Statements;assembly=Microsoft.Activities.Extensions" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property sap2010:Annotation.AnnotationText="receives pricingui browser object" Name="Browser_in" Type="InArgument(ui:Browser)" />
+    <x:Property sap2010:Annotation.AnnotationText="It receives lenght of ln_num" Name="TotalOfLines_in" Type="InArgument(x:Int32)" />
+    <x:Property Name="Results_out" Type="OutArgument(scg:Dictionary(x:String, scg:List(x:String)))" />
+    <x:Property Name="PP_ln_num_out" Type="OutArgument(scg:List(x:String))" />
+    <x:Property Name="PP_allowed_amt_out" Type="OutArgument(scg:List(x:String))" />
+    <x:Property Name="PP_allowed_unit_out" Type="OutArgument(scg:List(x:String))" />
+    <x:Property Name="PP_failure_code_out" Type="OutArgument(scg:List(x:String))" />
+    <x:Property Name="PP_explanation_out" Type="OutArgument(scg:List(x:String))" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>622,3696</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>SS_C_PricingArrangement_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="21">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="18">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="It receives the browser object. Also, ln_num array. Loop thorugh all the lines and store the values in variables" DisplayName="SS_C_PricingArrangement" sap:VirtualizedContainerService.HintSize="602,3596" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="scg:List(x:String)" Default="[new List(of String)]" Name="ln_num" />
+      <Variable x:TypeArguments="scg:List(x:String)" Default="[new List(of String)]" Name="allowed_amt" />
+      <Variable x:TypeArguments="scg:List(x:String)" Default="[new List(of String)]" Name="allowed_unit" />
+      <Variable x:TypeArguments="scg:List(x:String)" Default="[new List(of String)]" Name="failure_code" />
+      <Variable x:TypeArguments="scg:List(x:String)" Default="[new List(of String)]" Name="explanation" />
+      <Variable x:TypeArguments="scg:Dictionary(x:String, scg:List(x:String))" Default="[New Dictionary(of String, List(of String))]" Name="pricing_results" />
+      <Variable x:TypeArguments="x:Int32" sap2010:Annotation.AnnotationText="Counter for our loop interaction" Default="0" Name="count" />
+      <Variable x:TypeArguments="x:Int32" sap2010:Annotation.AnnotationText="counter for our grid column, in order for the selector to be validated in other columns" Default="1" Name="count_tableCol" />
+      <Variable x:TypeArguments="x:Int32" sap2010:Annotation.AnnotationText="counter for our grid row, in order for the selector to be validated in other rows as long as we keep looping" Default="1" Name="count_tableRow" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:BrowserScope SearchScope="{x:Null}" Selector="{x:Null}" UiBrowser="{x:Null}" sap2010:Annotation.AnnotationText="45 seconds timeout" Browser="[Browser_in]" BrowserType="Chrome" DisplayName="Attach Browser Pricing GUI" sap:VirtualizedContainerService.HintSize="560,3094" sap2010:WorkflowViewState.IdRef="BrowserScope_1" TimeoutMS="45000">
+      <ui:BrowserScope.Body>
+        <ActivityAction x:TypeArguments="x:Object">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="526,2955" sap2010:WorkflowViewState.IdRef="Sequence_10">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:String" Name="fail_cd" />
+              <Variable x:TypeArguments="x:String" Name="explain" />
+              <Variable x:TypeArguments="x:String" Name="allw_unit" />
+              <Variable x:TypeArguments="x:String" Name="allw_amt" />
+              <Variable x:TypeArguments="x:String" Name="line" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <While sap:VirtualizedContainerService.HintSize="484,2601" sap2010:WorkflowViewState.IdRef="While_1">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <While.Condition>
+                <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="TotalOfLines_in &gt; count" sap2010:WorkflowViewState.IdRef="VisualBasicValue`1_1" />
+              </While.Condition>
+              <Sequence DisplayName="Looping" sap:VirtualizedContainerService.HintSize="418,2444" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <Sequence DisplayName="Line#" sap:VirtualizedContainerService.HintSize="376,360" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Text Line#" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="GetValue_1">
+                    <ui:GetValue.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="4503a5f5897c774d6c681723084a479d" Selector="&lt;webctrl tag='DIV' aaname='*' tableCol='{{count_tableCol}}' rowName='{{count_tableRow}}' /&gt;">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
+                        <ui:Target.WaitForReady>
+                          <InArgument x:TypeArguments="ui:WaitForReady" />
+                        </ui:Target.WaitForReady>
+                      </ui:Target>
+                    </ui:GetValue.Target>
+                    <ui:GetValue.Value>
+                      <OutArgument x:TypeArguments="x:String">[line]</OutArgument>
+                    </ui:GetValue.Value>
+                  </ui:GetValue>
+                  <AddToCollection x:TypeArguments="x:String" Collection="[ln_num]" DisplayName="LN_NUM" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="AddToCollection`1_11" Item="[line]" />
+                  <Assign sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:Int32">[count_tableCol]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:Int32">[count_tableCol + 1]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                </Sequence>
+                <Sequence DisplayName="Allowed Amount" sap:VirtualizedContainerService.HintSize="376,360" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Text Allowed Amount" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="GetValue_2">
+                    <ui:GetValue.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="ab63311273edf244d66dc1b332805358" Selector="&lt;webctrl tag='DIV' aaname='*' tableCol='{{count_tableCol}}' rowName='{{count_tableRow}}' /&gt;">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
+                        <ui:Target.WaitForReady>
+                          <InArgument x:TypeArguments="ui:WaitForReady" />
+                        </ui:Target.WaitForReady>
+                      </ui:Target>
+                    </ui:GetValue.Target>
+                    <ui:GetValue.Value>
+                      <OutArgument x:TypeArguments="x:String">[allw_amt]</OutArgument>
+                    </ui:GetValue.Value>
+                  </ui:GetValue>
+                  <AddToCollection x:TypeArguments="x:String" Collection="[allowed_amt]" DisplayName="ALLW_AMT" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="AddToCollection`1_12" Item="[allw_amt]" />
+                  <Assign sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:Int32">[count_tableCol]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:Int32">[count_tableCol + 1]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                </Sequence>
+                <Sequence DisplayName="Allow Units" sap:VirtualizedContainerService.HintSize="376,360" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Text Allow Units" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="GetValue_3">
+                    <ui:GetValue.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="0f0e3979eeb0add0098912b7208afc13" Selector="&lt;webctrl tag='DIV' aaname='*' tableCol='{{count_tableCol}}' rowName='{{count_tableRow}}' /&gt;">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
+                        <ui:Target.WaitForReady>
+                          <InArgument x:TypeArguments="ui:WaitForReady" />
+                        </ui:Target.WaitForReady>
+                      </ui:Target>
+                    </ui:GetValue.Target>
+                    <ui:GetValue.Value>
+                      <OutArgument x:TypeArguments="x:String">[allw_unit]</OutArgument>
+                    </ui:GetValue.Value>
+                  </ui:GetValue>
+                  <AddToCollection x:TypeArguments="x:String" Collection="[allowed_unit]" DisplayName="ALLW_UNITS" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="AddToCollection`1_13" Item="[allw_unit]" />
+                  <Assign sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:Int32">[count_tableCol]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:Int32">[count_tableCol + 1]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                </Sequence>
+                <Sequence DisplayName="Failure Code" sap:VirtualizedContainerService.HintSize="376,360" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Text Failure Code" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="GetValue_4">
+                    <ui:GetValue.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="191df0212a50b062bbc13de6b43ec5b4" Selector="&lt;webctrl tag='DIV' aaname='*' tableCol='{{count_tableCol}}' rowName='{{count_tableRow}}' /&gt;">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
+                        <ui:Target.WaitForReady>
+                          <InArgument x:TypeArguments="ui:WaitForReady" />
+                        </ui:Target.WaitForReady>
+                      </ui:Target>
+                    </ui:GetValue.Target>
+                    <ui:GetValue.Value>
+                      <OutArgument x:TypeArguments="x:String">[fail_cd]</OutArgument>
+                    </ui:GetValue.Value>
+                  </ui:GetValue>
+                  <AddToCollection x:TypeArguments="x:String" Collection="[failure_code]" DisplayName="FAILURE_CODE" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="AddToCollection`1_14" Item="[fail_cd]" />
+                  <Assign sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:Int32">[count_tableCol]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:Int32">[count_tableCol + 1]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                </Sequence>
+                <Sequence DisplayName="Text Explanation" sap:VirtualizedContainerService.HintSize="376,360" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Text Explanation" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="GetValue_5">
+                    <ui:GetValue.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="ab63311273edf244d66dc1b332805358" Selector="&lt;webctrl tag='DIV' aaname='*' tableCol='{{count_tableCol}}' rowName='{{count_tableRow}}' /&gt;">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
+                        <ui:Target.WaitForReady>
+                          <InArgument x:TypeArguments="ui:WaitForReady" />
+                        </ui:Target.WaitForReady>
+                      </ui:Target>
+                    </ui:GetValue.Target>
+                    <ui:GetValue.Value>
+                      <OutArgument x:TypeArguments="x:String">[explain]</OutArgument>
+                    </ui:GetValue.Value>
+                  </ui:GetValue>
+                  <AddToCollection x:TypeArguments="x:String" Collection="[explanation]" DisplayName="EXPLANATION" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="AddToCollection`1_15" Item="[explain]" />
+                  <Assign DisplayName="Counter Col" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_5">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:Int32">[count_tableCol]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:Int32">[count_tableCol + 1]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                </Sequence>
+                <Sequence DisplayName="Counter Increment" sap:VirtualizedContainerService.HintSize="376,352" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <Assign DisplayName="Counter Row" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_6">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:Int32">[count_tableRow]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:Int32">[count_tableRow + 1]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Loop Counter" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_7">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:Int32">[count]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:Int32">[count+ 1]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Counter Col" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_8">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:Int32">[count_tableCol]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:Int32">1</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                </Sequence>
+              </Sequence>
+            </While>
+            <ui:MultipleAssign DisplayName="Retrieved Collection " sap:VirtualizedContainerService.HintSize="484,222" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+              <ui:MultipleAssign.AssignOperations>
+                <scg:List x:TypeArguments="ui:AssignOperation" Capacity="8">
+                  <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
+                    <ui:AssignOperation.To>
+                      <OutArgument x:TypeArguments="scg:List(x:String)">[PP_ln_num_out]</OutArgument>
+                    </ui:AssignOperation.To>
+                    <ui:AssignOperation.Value>
+                      <InArgument x:TypeArguments="scg:List(x:String)">[ln_num]</InArgument>
+                    </ui:AssignOperation.Value>
+                  </ui:AssignOperation>
+                  <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
+                    <ui:AssignOperation.To>
+                      <OutArgument x:TypeArguments="scg:List(x:String)">[PP_allowed_amt_out]</OutArgument>
+                    </ui:AssignOperation.To>
+                    <ui:AssignOperation.Value>
+                      <InArgument x:TypeArguments="scg:List(x:String)">[allowed_amt]</InArgument>
+                    </ui:AssignOperation.Value>
+                  </ui:AssignOperation>
+                  <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_3">
+                    <ui:AssignOperation.To>
+                      <OutArgument x:TypeArguments="scg:List(x:String)">[PP_allowed_unit_out]</OutArgument>
+                    </ui:AssignOperation.To>
+                    <ui:AssignOperation.Value>
+                      <InArgument x:TypeArguments="scg:List(x:String)">[allowed_unit]</InArgument>
+                    </ui:AssignOperation.Value>
+                  </ui:AssignOperation>
+                  <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_4">
+                    <ui:AssignOperation.To>
+                      <OutArgument x:TypeArguments="scg:List(x:String)">[PP_failure_code_out]</OutArgument>
+                    </ui:AssignOperation.To>
+                    <ui:AssignOperation.Value>
+                      <InArgument x:TypeArguments="scg:List(x:String)">[failure_code]</InArgument>
+                    </ui:AssignOperation.Value>
+                  </ui:AssignOperation>
+                  <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_5">
+                    <ui:AssignOperation.To>
+                      <OutArgument x:TypeArguments="scg:List(x:String)">[PP_explanation_out]</OutArgument>
+                    </ui:AssignOperation.To>
+                    <ui:AssignOperation.Value>
+                      <InArgument x:TypeArguments="scg:List(x:String)">[explanation]</InArgument>
+                    </ui:AssignOperation.Value>
+                  </ui:AssignOperation>
+                </scg:List>
+              </ui:MultipleAssign.AssignOperations>
+            </ui:MultipleAssign>
+          </Sequence>
+        </ActivityAction>
+      </ui:BrowserScope.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:BrowserScope>
+    <ui:MultipleAssign DisplayName="Assigning Collection" sap:VirtualizedContainerService.HintSize="560,222" sap2010:WorkflowViewState.IdRef="MultipleAssign_2">
+      <ui:MultipleAssign.AssignOperations>
+        <scg:List x:TypeArguments="ui:AssignOperation" Capacity="8">
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_6">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="scg:List(x:String)">[PP_ln_num_out]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="scg:List(x:String)">[ln_num]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_7">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="scg:List(x:String)">[PP_allowed_amt_out]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="scg:List(x:String)">[allowed_amt]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_8">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="scg:List(x:String)">[PP_allowed_unit_out]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="scg:List(x:String)">[allowed_unit]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_9">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="scg:List(x:String)">[PP_failure_code_out]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="scg:List(x:String)">[failure_code]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_10">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="scg:List(x:String)">[PP_explanation_out]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="scg:List(x:String)">[explanation]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+        </scg:List>
+      </ui:MultipleAssign.AssignOperations>
+    </ui:MultipleAssign>
+    <Sequence DisplayName="Build Dictionary Type" sap:VirtualizedContainerService.HintSize="560,66" sap2010:WorkflowViewState.IdRef="Sequence_12">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <maes:AddToDictionary x:TypeArguments="x:String, scg:List(x:String)" Dictionary="[pricing_results]" DisplayName="Add to dictionary - LINE" sap:VirtualizedContainerService.HintSize="398,138" sap2010:WorkflowViewState.IdRef="AddToDictionary`2_16" Key="Line" Value="[ln_num]" />
+      <maes:AddToDictionary x:TypeArguments="x:String, scg:List(x:String)" Dictionary="[pricing_results]" DisplayName="Add to dictionary - ALLOWED AMOUNT" sap:VirtualizedContainerService.HintSize="398,138" sap2010:WorkflowViewState.IdRef="AddToDictionary`2_17" Key="AllowedAmount" Value="[allowed_amt]" />
+      <maes:AddToDictionary x:TypeArguments="x:String, scg:List(x:String)" Dictionary="[pricing_results]" DisplayName="Add to dictionary - ALLOWED UNIT" sap:VirtualizedContainerService.HintSize="398,138" sap2010:WorkflowViewState.IdRef="AddToDictionary`2_18" Key="AllowedUnit" Value="[allowed_unit]" />
+      <maes:AddToDictionary x:TypeArguments="x:String, scg:List(x:String)" Dictionary="[pricing_results]" DisplayName="Add to dictionary - FAILURE CODE" sap:VirtualizedContainerService.HintSize="398,138" sap2010:WorkflowViewState.IdRef="AddToDictionary`2_19" Key="FailureCode" Value="[failure_code]" />
+      <maes:AddToDictionary x:TypeArguments="x:String, scg:List(x:String)" Dictionary="[pricing_results]" DisplayName="Add to dictionary - EXPLANATION" sap:VirtualizedContainerService.HintSize="398,138" sap2010:WorkflowViewState.IdRef="AddToDictionary`2_20" Key="Explanation" Value="[explanation]" />
+      <Assign sap:VirtualizedContainerService.HintSize="398,60" sap2010:WorkflowViewState.IdRef="Assign_9">
+        <Assign.To>
+          <OutArgument x:TypeArguments="scg:Dictionary(x:String, scg:List(x:String))">[Results_out]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="scg:Dictionary(x:String, scg:List(x:String))">[pricing_results]</InArgument>
+        </Assign.Value>
+      </Assign>
+    </Sequence>
+  </Sequence>
+</Activity>

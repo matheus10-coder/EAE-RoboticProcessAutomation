@@ -1,0 +1,414 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Blue2_CreateNewMessage" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property sap2010:Annotation.AnnotationText="Medium timeout of an actictivy (30 sec)" Name="in_IntTimeoutMedium" Type="InArgument(x:Int32)" />
+    <x:Property sap2010:Annotation.AnnotationText="Long timeout of an actictivy (120 sec)" Name="in_IntTimeoutLong" Type="InArgument(x:Int32)" />
+    <x:Property sap2010:Annotation.AnnotationText="SCCF Number form the queue item" Name="in_StrSCCFNumber" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="End date of the claim from Amysis" Name="in_StrEndDate" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Adjustment Message from Config" Name="in_StrAdjustmentMessage" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Total Pay Amount scraped from Amysis" Name="in_StrPay" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Message ID generated after sending the request" Name="out_StrMessageID" Type="OutArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Browser variable for Blue2 application" Name="io_BrowserBlue2" Type="InOutArgument(ui:Browser)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>2951,3858</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>Blue2_CreateNewMessage_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="28">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>UiPath.UIAutomationCore.Contracts</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="52">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="Blue2_CreateNewMessage" sap:VirtualizedContainerService.HintSize="781,3793" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Default="Blue2_CreateNewMessage" Name="strComponentName" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="739,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Start: &quot;+strComponentName]" />
+    <Sequence DisplayName="Pre-Condition: Sequence" sap:VirtualizedContainerService.HintSize="739,485" sap2010:WorkflowViewState.IdRef="Sequence_2">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="x:Boolean" Name="boolPreCondition" />
+      </Sequence.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:UiElementExists DisplayName="Element Exists 'Reason Code dropdown'" Exists="[boolPreCondition]" sap:VirtualizedContainerService.HintSize="484,106" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
+        <ui:UiElementExists.Target>
+          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="ab19d3d7-12e0-4c43-983b-ab9da889e964" InformativeScreenshot="a6cf3bfe2af4dada08e0e19366b48541" Selector="&lt;html app='chrome.exe' title='Blue² | Create New Message' /&gt;&lt;webctrl tag='SELECT' id='*reasonCode*' name='*reasonCode*' /&gt;">
+            <ui:Target.TimeoutMS>
+              <InArgument x:TypeArguments="x:Int32" />
+            </ui:Target.TimeoutMS>
+            <ui:Target.WaitForReady>
+              <InArgument x:TypeArguments="ui:WaitForReady" />
+            </ui:Target.WaitForReady>
+          </ui:Target>
+        </ui:UiElementExists.Target>
+      </ui:UiElementExists>
+      <If Condition="[boolPreCondition = False]" DisplayName="Checking : 'Reason Code dropdown'" sap:VirtualizedContainerService.HintSize="484,247" sap2010:WorkflowViewState.IdRef="If_1">
+        <If.Then>
+          <Throw DisplayName="Throw AE" Exception="[new Exception(&quot;Pre-Condition: Reason Code dropdown not found&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_1" />
+        </If.Then>
+        <If.Else>
+          <Sequence sap2010:WorkflowViewState.IdRef="Sequence_4">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </Sequence>
+        </If.Else>
+      </If>
+    </Sequence>
+    <Sequence DisplayName="Action : Sequence" sap:VirtualizedContainerService.HintSize="739,2914" sap2010:WorkflowViewState.IdRef="Sequence_3">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:BrowserScope SearchScope="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" Browser="[io_BrowserBlue2]" BrowserType="Chrome" DisplayName="Attach Browser - Blue2" sap:VirtualizedContainerService.HintSize="697,2822" sap2010:WorkflowViewState.IdRef="BrowserScope_1" InformativeScreenshot="a3bf20a0b3ab14824771caebba570fdf">
+        <ui:BrowserScope.Body>
+          <ActivityAction x:TypeArguments="x:Object">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="663,2676" sap2010:WorkflowViewState.IdRef="Sequence_5">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="x:String" Name="strScrapedSCCFNumber" />
+                <Variable x:TypeArguments="x:String" Name="strContactName" />
+                <Variable x:TypeArguments="x:Boolean" Name="boolMessageSentSuccessfully" />
+                <Variable x:TypeArguments="x:String" Name="strMessageID" />
+              </Sequence.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:SelectItem AlterIfDisabled="{x:Null}" ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Item 'SELECT  reasonCodeSel'" sap:VirtualizedContainerService.HintSize="621,134" sap2010:WorkflowViewState.IdRef="SelectItem_1" Item="296 - Retroactive Cancellation">
+                <ui:SelectItem.Items>
+                  <scg:List x:TypeArguments="x:String" Capacity="50">
+                    <x:String>211 - Medicare</x:String>
+                    <x:String>212 - Subrogation</x:String>
+                    <x:String>214 - Incorrect Patient/Member Information/Payment</x:String>
+                    <x:String>21A - Surprise Bill</x:String>
+                    <x:String>222 - HVA Medicare</x:String>
+                    <x:String>225 - Adjustment Denied until Money is recouped</x:String>
+                    <x:String>226 - Home/Control - One Time Exception</x:String>
+                    <x:String>227 - No Fault</x:String>
+                    <x:String>228 - Medicare Audit</x:String>
+                    <x:String>230 - Fraud/Abuse Recoupment</x:String>
+                    <x:String>231 - Provider Appeal</x:String>
+                    <x:String>234 - Member Appeal</x:String>
+                    <x:String>235 - Rejected as Duplicate in Error</x:String>
+                    <x:String>236 - Payment Made Due to Prompt Pay</x:String>
+                    <x:String>237 - Valid Adjustments for Default Claim-Included in End to End Measurements</x:String>
+                    <x:String>238 - Valid Adjustments for Default Claim-Excluded from End to End Measurements</x:String>
+                    <x:String>239 - RAP Claim-New Claim Required</x:String>
+                    <x:String>240 - Medical Records/Pre-Existing</x:String>
+                    <x:String>241 - Incorrect Cost Sharing</x:String>
+                    <x:String>242 - HVA ASO Account Request</x:String>
+                    <x:String>243 - Incorrect sanction</x:String>
+                    <x:String>245 - Incorrect Patient/Member Information</x:String>
+                    <x:String>247 - Benefit Change/Correction</x:String>
+                    <x:String>252 - Lost/damaged check, stop payment on check</x:String>
+                    <x:String>253 - Wrong Payee</x:String>
+                    <x:String>25A - Surprise Bill</x:String>
+                    <x:String>260 - Worker's Comp</x:String>
+                    <x:String>261 - Medicare</x:String>
+                    <x:String>262 - Subrogation</x:String>
+                    <x:String>263 - Updated COB Information (Blue Primary)</x:String>
+                    <x:String>264 - Statistical</x:String>
+                    <x:String>273 - HVA Benefit Change/Correction</x:String>
+                    <x:String>275 - HVA Medicare</x:String>
+                    <x:String>280 - Home/Control - One Time Exception</x:String>
+                    <x:String>281 - No Fault</x:String>
+                    <x:String>282 - Medicare Audit</x:String>
+                    <x:String>283 - Primary Payment Received (Blue Secondary)</x:String>
+                    <x:String>284 - Medicare Paid Primary in Error</x:String>
+                    <x:String>285 - Provider Appeal</x:String>
+                    <x:String>288 - Member Appeal</x:String>
+                    <x:String>289 - Rejected as Duplicate in Error</x:String>
+                    <x:String>290 - Payment Made Due to Prompt Pay</x:String>
+                    <x:String>291 - Valid Adjustments for Default Claim-Included in End to End Measurements</x:String>
+                    <x:String>292 - Valid Adjustments for Default Claim-Excluded from End to End Measurements</x:String>
+                    <x:String>294 - Exchange Adjustment Grace Period</x:String>
+                    <x:String>295 - Fraud/Abuse Adjustment</x:String>
+                    <x:String>296 - Retroactive Cancellation</x:String>
+                    <x:String>297 - Incorrect surcharge amount applied for a Medicare eligible member</x:String>
+                    <x:String>298 - Medicaid Provider Enrollment</x:String>
+                    <x:String>299 - Medicaid Encounter Data Elements Needed</x:String>
+                  </scg:List>
+                </ui:SelectItem.Items>
+                <ui:SelectItem.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="4e7e0558-3900-4f61-95f2-60dae34eb7d4" InformativeScreenshot="a6cf3bfe2af4dada08e0e19366b48541" Selector="&lt;webctrl tag='SELECT' id='*reasonCode*' name='*reasonCode*' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:SelectItem.Target>
+              </ui:SelectItem>
+              <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Text 'Claim SCCF#'" sap:VirtualizedContainerService.HintSize="621,106" sap2010:WorkflowViewState.IdRef="GetValue_1">
+                <ui:GetValue.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="e85cdd73-4e9d-42fa-8df4-7c60ec2fa6ff" InformativeScreenshot="d3840aa8112483abbc3c08f1d4bdb231" Selector="&lt;webctrl tag='INPUT' type='text' aaname='*Claim SCCF*#*' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetValue.Target>
+                <ui:GetValue.Value>
+                  <OutArgument x:TypeArguments="x:String">[strScrapedSCCFNumber]</OutArgument>
+                </ui:GetValue.Value>
+              </ui:GetValue>
+              <If Condition="[in_StrSCCFNumber.trim.Contains(strScrapedSCCFNumber)]" DisplayName="Validating SSCF" sap:VirtualizedContainerService.HintSize="621,246" sap2010:WorkflowViewState.IdRef="If_2">
+                <If.Then>
+                  <Throw DisplayName="Throw AE" Exception="[new Exception(&quot;SCCF number mismatched&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_2" />
+                </If.Then>
+                <If.Else>
+                  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_7">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </Sequence>
+                </If.Else>
+              </If>
+              <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBetweenKeys="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" DelayBefore="3000" DelayMS="2000" DisplayName="Type Into 'Adjustment Receipt Date.'" sap:VirtualizedContainerService.HintSize="621,134" sap2010:WorkflowViewState.IdRef="TypeInto_1" Text="[now.ToString(&quot;MM/dd/yyyy&quot;)]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="c1a65ec1-5e79-4ea5-bae1-9fefeba94bde" InformativeScreenshot="e0c6afd905bf64b745b74862bb6d55d5" Selector="&lt;webctrl tag='INPUT' type='text' name='adjustmentRequestDetail.receiptDt' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:TypeInto.Target>
+              </ui:TypeInto>
+              <ui:SelectItem AlterIfDisabled="{x:Null}" ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Item 'Adjustment SF Indicator'" sap:VirtualizedContainerService.HintSize="621,134" sap2010:WorkflowViewState.IdRef="SelectItem_2" Item="N - Adjustment SF will not be sent">
+                <ui:SelectItem.Items>
+                  <scg:List x:TypeArguments="x:String" Capacity="4">
+                    <x:String>Select One</x:String>
+                    <x:String>Y - Adjustment SF will be sent</x:String>
+                    <x:String>N - Adjustment SF will not be sent</x:String>
+                  </scg:List>
+                </ui:SelectItem.Items>
+                <ui:SelectItem.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="3b270b02-4a2d-4c97-962b-37ef87843ce7" InformativeScreenshot="a56e69a41cd215fd7cc6c3f06ad775bf" Selector="&lt;webctrl tag='SELECT' name='adjustmentRequestDetail.adjustmentSFIndicator' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:SelectItem.Target>
+              </ui:SelectItem>
+              <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" DisplayName="Type Into 'Adjustment Message'" sap:VirtualizedContainerService.HintSize="621,134" sap2010:WorkflowViewState.IdRef="TypeInto_2" Text="[in_StrAdjustmentMessage.Replace(&quot;MM/DD/YYYY&quot;,in_StrEndDate).Replace(&quot;PAY&quot;,in_StrPay)]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="db13a1f5-6bc8-4a9b-ae02-1443004130db" InformativeScreenshot="252690c714252b1063a9ea995ef245a0" Selector="&lt;webctrl tag='TEXTAREA' name='adjustmentRequestDetail.comments' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:TypeInto.Target>
+              </ui:TypeInto>
+              <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" ClickType="CLICK_SINGLE" DelayMS="5000" DisplayName="Click 'Get Contact'" sap:VirtualizedContainerService.HintSize="621,106" sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT">
+                <ui:Click.CursorPosition>
+                  <ui:CursorPosition Position="Center">
+                    <ui:CursorPosition.OffsetX>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:CursorPosition.OffsetX>
+                    <ui:CursorPosition.OffsetY>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:CursorPosition.OffsetY>
+                  </ui:CursorPosition>
+                </ui:Click.CursorPosition>
+                <ui:Click.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="77bebcdf-dc32-48a7-b4d5-11da0f6e9e90" InformativeScreenshot="36b2105ffce5074ae78f1fb41f197e2a" Selector="&lt;webctrl tag='BUTTON' innertext='Get Contact' parentname='message' parentid='*contactButton*' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:Click.Target>
+              </ui:Click>
+              <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Text 'Message-Name'" sap:VirtualizedContainerService.HintSize="621,106" sap2010:WorkflowViewState.IdRef="GetValue_2">
+                <ui:GetValue.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="85ddd1a3-e8a9-4b83-9710-ff7cd97e2376" InformativeScreenshot="d5d4e1f43b971707176cb62576e3098b" Selector="&lt;webctrl aaname='*Name*' type='text' name='contact.name' parentname='message' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetValue.Target>
+                <ui:GetValue.Value>
+                  <OutArgument x:TypeArguments="x:String">[strContactName]</OutArgument>
+                </ui:GetValue.Value>
+              </ui:GetValue>
+              <If Condition="[String.IsNullOrWhiteSpace(strContactName)]" DisplayName="Checking: Get Contact Information was successful" sap:VirtualizedContainerService.HintSize="621,246" sap2010:WorkflowViewState.IdRef="If_3">
+                <If.Then>
+                  <Throw DisplayName="Throw AE" Exception="[new Exception(&quot;Get Contact information for sending the message has failed&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_3" />
+                </If.Then>
+                <If.Else>
+                  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_8">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </Sequence>
+                </If.Else>
+              </If>
+              <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'BUTTON  messageSubmitBt...'" sap:VirtualizedContainerService.HintSize="621,106" sap2010:WorkflowViewState.IdRef="Click_2" KeyModifiers="None" MouseButton="BTN_LEFT">
+                <ui:Click.CursorPosition>
+                  <ui:CursorPosition Position="Center">
+                    <ui:CursorPosition.OffsetX>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:CursorPosition.OffsetX>
+                    <ui:CursorPosition.OffsetY>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:CursorPosition.OffsetY>
+                  </ui:CursorPosition>
+                </ui:Click.CursorPosition>
+                <ui:Click.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="f7890734-0f66-4298-b7af-163faf668816" InformativeScreenshot="924c730a1ea9773cafb30308994bdb51" Selector="&lt;webctrl tag='BUTTON' type='submit' innertext='Send Message' parentname='message' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:Click.Target>
+              </ui:Click>
+              <ui:UiElementExists DisplayName="Element Exists 'Message Sent Successfully'" Exists="[boolMessageSentSuccessfully]" sap:VirtualizedContainerService.HintSize="621,106" sap2010:WorkflowViewState.IdRef="UiElementExists_2">
+                <ui:UiElementExists.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="9414717c-f2b1-4cab-8550-e28173b86f6a" InformativeScreenshot="24c72bac67ed99e0d569465baae98c60" Selector="&lt;webctrl aaname='Your message was sent Successfully!' class='success' /&gt;" TimeoutMS="[in_IntTimeoutLong]">
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:UiElementExists.Target>
+              </ui:UiElementExists>
+              <If Condition="[boolMessageSentSuccessfully = False]" sap:VirtualizedContainerService.HintSize="621,586" sap2010:WorkflowViewState.IdRef="If_4">
+                <If.Then>
+                  <Throw DisplayName="Throw BE" Exception="[new BusinessRuleException(&quot;Failed to send Message&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_4" />
+                </If.Then>
+                <If.Else>
+                  <Sequence sap:VirtualizedContainerService.HintSize="376,429" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Text 'Message ID'" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="GetValue_3">
+                      <ui:GetValue.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="24b89db1-980c-48c7-b8bc-fe18e3f15238" InformativeScreenshot="cb0c4cfc41797a5f91789acdc2eef0ba" Selector="&lt;webctrl aaname='Message ID: *' parentname='message' /&gt;">
+                          <ui:Target.TimeoutMS>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:Target.TimeoutMS>
+                          <ui:Target.WaitForReady>
+                            <InArgument x:TypeArguments="ui:WaitForReady" />
+                          </ui:Target.WaitForReady>
+                        </ui:Target>
+                      </ui:GetValue.Target>
+                      <ui:GetValue.Value>
+                        <OutArgument x:TypeArguments="x:String">[strMessageID]</OutArgument>
+                      </ui:GetValue.Value>
+                    </ui:GetValue>
+                    <Assign sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[out_StrMessageID]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">[strMessageID]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[out_StrMessageID]" />
+                  </Sequence>
+                </If.Else>
+              </If>
+            </Sequence>
+          </ActivityAction>
+        </ui:BrowserScope.Body>
+      </ui:BrowserScope>
+    </Sequence>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="739,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;End: &quot;+strComponentName]" />
+  </Sequence>
+</Activity>

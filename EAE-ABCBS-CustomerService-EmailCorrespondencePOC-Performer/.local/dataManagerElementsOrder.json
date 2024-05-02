@@ -1,0 +1,131 @@
+{
+  "Workflows": [
+    {
+      "Path": null,
+      "SortBy": 0,
+      "VariablesSectionElementsOrder": [],
+      "ArgumentsSectionElementsOrder": null,
+      "ConstantsSectionElementsOrder": [],
+      "AddedNamespaces": null
+    },
+    {
+      "Path": "Main.xaml",
+      "SortBy": 0,
+      "VariablesSectionElementsOrder": [
+        "TransactionItem&StateMachine_1",
+        "SystemException&StateMachine_1",
+        "BusinessException&StateMachine_1",
+        "TransactionNumber&StateMachine_1",
+        "Config&StateMachine_1",
+        "RetryNumber&StateMachine_1",
+        "TransactionField2&StateMachine_1",
+        "TransactionField1&StateMachine_1",
+        "TransactionID&StateMachine_1",
+        "dt_TransactionData&StateMachine_1",
+        "ConsecutiveSystemExceptions&StateMachine_1",
+        "arrCSWQueues&StateMachine_1",
+        "dtEXCodes&StateMachine_1",
+        "dtExclusionCodes&StateMachine_1",
+        "strP8Username&StateMachine_1",
+        "scsP8Password&StateMachine_1",
+        "boolProcessExecuted&StateMachine_1",
+        "strDownloadedConfigFilePath&Sequence_17",
+        "ShouldStop&Sequence_25"
+      ],
+      "ArgumentsSectionElementsOrder": [
+        "in_StrOrchestratorFolder",
+        "in_StrConfigFileName",
+        "in_StrStorageBucketName"
+      ],
+      "ConstantsSectionElementsOrder": [],
+      "AddedNamespaces": null
+    },
+    {
+      "Path": "Framework/KillAllProcesses.xaml",
+      "SortBy": 0,
+      "VariablesSectionElementsOrder": [
+        "sidCurrentSessionID&Sequence_2",
+        "lstProcessList&Sequence_2",
+        "strComponentName&Sequence_2"
+      ],
+      "ArgumentsSectionElementsOrder": [
+        "in_arrKillProcessNames"
+      ],
+      "ConstantsSectionElementsOrder": [],
+      "AddedNamespaces": null
+    },
+    {
+      "Path": "Modules/CSW_Inquiry_GetID_GetInquirerName.xaml",
+      "SortBy": 0,
+      "VariablesSectionElementsOrder": [
+        "strComponentName&Sequence_1",
+        "strFirstName&Sequence_1",
+        "strLastName&Sequence_1",
+        "strDivision&Sequence_1",
+        "strID&Sequence_1"
+      ],
+      "ArgumentsSectionElementsOrder": [
+        "in_dictConfig",
+        "out_strIDResponse",
+        "out_strInquirerName",
+        "io_browserCSW"
+      ],
+      "ConstantsSectionElementsOrder": [],
+      "AddedNamespaces": null
+    },
+    {
+      "Path": "Modules/Reporting_UpdateFile.xaml",
+      "SortBy": 0,
+      "VariablesSectionElementsOrder": [
+        "strComponentName&Sequence_1",
+        "boolReportExists&Sequence_1"
+      ],
+      "ArgumentsSectionElementsOrder": [
+        "in_strFilePath",
+        "in_dtInquiriesToAdd"
+      ],
+      "ConstantsSectionElementsOrder": [],
+      "AddedNamespaces": null
+    },
+    {
+      "Path": "Modules/CSW_Inquiry_SendResponse.xaml",
+      "SortBy": 0,
+      "VariablesSectionElementsOrder": [
+        "strComponentName&Sequence_1",
+        "boolRouted&Sequence_9",
+        "boolClosed&Sequence_10",
+        "boolRouted&Sequence_19"
+      ],
+      "ArgumentsSectionElementsOrder": [
+        "in_dictConfig",
+        "io_browserCSW",
+        "in_strComment",
+        "in_boolForward",
+        "in_strForwardQueue",
+        "in_strResponse",
+        "in_boolTesting",
+        "in_strTestingForwardQueue"
+      ],
+      "ConstantsSectionElementsOrder": [],
+      "AddedNamespaces": null
+    },
+    {
+      "Path": "Framework/InitAllSettings.xaml",
+      "SortBy": 0,
+      "VariablesSectionElementsOrder": [
+        "dt_SettingsAndConstants&Sequence_5",
+        "dt_Assets&Sequence_6",
+        "AssetValue&Sequence_11"
+      ],
+      "ArgumentsSectionElementsOrder": [
+        "in_ConfigFile",
+        "in_ConfigSheets",
+        "out_Config",
+        "out_dtEXCodes",
+        "out_dtExclusionCodes"
+      ],
+      "ConstantsSectionElementsOrder": [],
+      "AddedNamespaces": null
+    }
+  ]
+}

@@ -1,0 +1,325 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="SS_C_Download" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property sap2010:Annotation.AnnotationText="It receives the runtime folder path in order to place the txt file" Name="RuntimePath_in" Type="InArgument(x:String)" />
+    <x:Property Name="DownloadPath_in" Type="InArgument(x:String)" />
+    <x:Property Name="Sccf_in" Type="InArgument(x:String)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>546,682</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>SS_C_Download_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="21">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="18">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="This workflow is responsible to move downloaded txt file from Downloads location to " DisplayName="SS_C_Download" sap:VirtualizedContainerService.HintSize="526,622" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="s:String[]" sap2010:Annotation.AnnotationText="No need so far" Default="[{&quot;&quot;}]" Name="pp_textFile" />
+      <Variable x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="It receives the path to Downloads to locate the txt file" Name="pp_fileFullPath" />
+      <Variable x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Asset value from Orchestrator that stores the path to MA PPO CLAIMS TEXT FILES folder. " Name="ma_ppo_textFilePath" />
+      <Variable x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Asset name to retrieve the value of the ma_ppo folder path" Default="SS&amp;C_MA_PPO_FolderLocation" Name="ma_ppo_assetName" />
+      <Variable x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="new location to access the downloaded txt file (It will be at runtime folder + sccf_id.txt)" Name="new_pp_fileFullPath" />
+      <Variable x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="It will contain the path to the where download file will be copy to (MA PPO CLAIMS-TEXT FILES) directory" Name="new_ma_ppo_textFilePath" />
+      <Variable x:TypeArguments="x:Boolean" sap2010:Annotation.AnnotationText="Boolean that checks if current file exist. By default set to false" Name="fileExists" />
+      <Variable x:TypeArguments="x:Boolean" sap2010:Annotation.AnnotationText="boolean to check if folder exists. By default set to false" Name="folderExists" />
+      <Variable x:TypeArguments="x:Int32" sap2010:Annotation.AnnotationText="Counter that keeps track of download versions" Name="download_count" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Sequence DisplayName="Save Runtime" sap:VirtualizedContainerService.HintSize="484,66" sap2010:WorkflowViewState.IdRef="Sequence_14">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="436,91" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Info" Message="[&quot;Saving download txt file&quot;]" />
+      <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="436,272" sap2010:WorkflowViewState.IdRef="CommentOut_1">
+        <ui:CommentOut.Body>
+          <Sequence sap2010:Annotation.AnnotationText="Just in case the sccf_id number doesn't work in order to find this file" DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="304,194" sap2010:WorkflowViewState.IdRef="Sequence_2">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+              <Assign.To>
+                <OutArgument x:TypeArguments="s:String[]">[pp_textFile]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="s:String[]">[Directory.GetFiles("C:\Users\mfribeiro\Downloads\","*.txt")]</InArgument>
+              </Assign.Value>
+            </Assign>
+          </Sequence>
+        </ui:CommentOut.Body>
+      </ui:CommentOut>
+      <Assign sap:VirtualizedContainerService.HintSize="436,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[pp_fileFullPath]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[DownloadPath_in]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:MoveFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Move from Downloads to Runtime" Destination="[RuntimePath_in]" DisplayName="Move File to Runtime Folder" sap:VirtualizedContainerService.HintSize="436,188" sap2010:WorkflowViewState.IdRef="MoveFile_2" Overwrite="False" Path="[pp_fileFullPath]">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:MoveFile>
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="436,91" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Info" Message="[Sccf_in+&quot;.txt has been saved in the runtime folder&quot;]" />
+    </Sequence>
+    <If sap2010:Annotation.AnnotationText="If in the path the word &quot;Test&quot; is included, we don't save those at MA PPO directory" Condition="[Not(RuntimePath_in.Contains(&quot;Test&quot;))]" sap:VirtualizedContainerService.HintSize="484,302" sap2010:WorkflowViewState.IdRef="If_4">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <If.Then>
+        <Sequence sap2010:Annotation.AnnotationText="If move file doesn't work, copy file would not work as well. " DisplayName="Copy txt File to MA PPO" sap:VirtualizedContainerService.HintSize="200,123" sap2010:WorkflowViewState.IdRef="Sequence_5">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Assign sap:VirtualizedContainerService.HintSize="1376,60" sap2010:WorkflowViewState.IdRef="Assign_5">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[new_pp_fileFullPath]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[RuntimePath_in+"\"+Sccf_in+".txt"]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <ui:GetRobotAsset TimeoutMS="{x:Null}" AssetName="[ma_ppo_assetName]" DisplayName="Get Asset" sap:VirtualizedContainerService.HintSize="1376,22" sap2010:WorkflowViewState.IdRef="GetRobotAsset_1">
+            <ui:GetRobotAsset.Value>
+              <OutArgument x:TypeArguments="x:String">[ma_ppo_textFilePath]</OutArgument>
+            </ui:GetRobotAsset.Value>
+          </ui:GetRobotAsset>
+          <ui:PathExists DisplayName="Path Exists" Exists="[folderExists]" sap:VirtualizedContainerService.HintSize="1376,89" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="[ma_ppo_textFilePath]" PathType="Folder" />
+          <If Condition="[folderExists]" sap:VirtualizedContainerService.HintSize="1376,355" sap2010:WorkflowViewState.IdRef="If_1">
+            <If.Else>
+              <Sequence sap:VirtualizedContainerService.HintSize="376,207" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:CreateDirectory ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="This will create a folder if it has not found one" DisplayName="Create Directory" sap:VirtualizedContainerService.HintSize="334,115" sap2010:WorkflowViewState.IdRef="CreateDirectory_1" Path="MA PPO CLAIMS-TEXT FILES_bot">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </ui:CreateDirectory>
+              </Sequence>
+            </If.Else>
+          </If>
+          <Assign DisplayName="Assign" sap:VirtualizedContainerService.HintSize="1376,60" sap2010:WorkflowViewState.IdRef="Assign_9">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[new_ma_ppo_textFilePath]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[ma_ppo_textFilePath + "\" +Sccf_in+".txt"]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <ui:PathExists DisplayName="Path Exists" Exists="[fileExists]" sap:VirtualizedContainerService.HintSize="1376,89" sap2010:WorkflowViewState.IdRef="PathExists_4" Path="[new_ma_ppo_textFilePath]" PathType="File" />
+          <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="1376,261" sap2010:WorkflowViewState.IdRef="CommentOut_5">
+            <ui:CommentOut.Body>
+              <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="376,183" sap2010:WorkflowViewState.IdRef="Sequence_13">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Info" Message="[&quot;Copy of &quot; +Sccf_in+&quot;.txt will be sent to &quot; + ma_ppo_textFilePath.Split(&quot;\&quot;c)(5) +&quot; directory&quot;]" />
+              </Sequence>
+            </ui:CommentOut.Body>
+          </ui:CommentOut>
+          <If Condition="[fileExists = False]" sap:VirtualizedContainerService.HintSize="1376,1486" sap2010:WorkflowViewState.IdRef="If_2">
+            <If.Then>
+              <Sequence sap2010:Annotation.AnnotationText="First time .txt download file has been dropped into MA PPO directory" DisplayName="First Download Version" sap:VirtualizedContainerService.HintSize="426,411" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:CopyFile ContinueOnError="{x:Null}" Destination="[new_ma_ppo_textFilePath]" DisplayName="Copy File" sap:VirtualizedContainerService.HintSize="384,157" sap2010:WorkflowViewState.IdRef="CopyFile_4" Overwrite="False" Path="[new_pp_fileFullPath]" />
+                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="384,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[Sccf_in+&quot;.txt has been saved at: &quot; + ma_ppo_textFilePath.Split(&quot;\&quot;c)(5) +&quot; directory&quot;]" />
+              </Sequence>
+            </If.Then>
+            <If.Else>
+              <Sequence sap2010:Annotation.AnnotationText=".txt download file already exists in the directory, so we are sending a new version of it" DisplayName="Multiple Download Version" sap:VirtualizedContainerService.HintSize="905,1338" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <Assign sap2010:Annotation.AnnotationText="Counter to download text file versions" sap:VirtualizedContainerService.HintSize="863,91" sap2010:WorkflowViewState.IdRef="Assign_7">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:Int32">[download_count]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:Int32">1</InArgument>
+                  </Assign.Value>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </Assign>
+                <DoWhile DisplayName="Do While" sap:VirtualizedContainerService.HintSize="863,1084" sap2010:WorkflowViewState.IdRef="DoWhile_1">
+                  <DoWhile.Condition>
+                    <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="fileExists" sap2010:WorkflowViewState.IdRef="VisualBasicValue`1_1" />
+                  </DoWhile.Condition>
+                  <Sequence sap2010:Annotation.AnnotationText="We will check every single file name and the download counter number, then create a new version of it" DisplayName="Create New Version" sap:VirtualizedContainerService.HintSize="817,922" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <Assign DisplayName="Re-Assign" sap:VirtualizedContainerService.HintSize="775,60" sap2010:WorkflowViewState.IdRef="Assign_8">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[new_ma_ppo_textFilePath]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">[ma_ppo_textFilePath + "\" +Sccf_in+" " + "("+download_count.ToString+").txt"]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <ui:PathExists DisplayName="Path Exists" Exists="[fileExists]" sap:VirtualizedContainerService.HintSize="775,89" sap2010:WorkflowViewState.IdRef="PathExists_3" Path="[new_ma_ppo_textFilePath]" PathType="File" />
+                    <If Condition="[fileExists = False]" sap:VirtualizedContainerService.HintSize="775,570" sap2010:WorkflowViewState.IdRef="If_3">
+                      <If.Then>
+                        <Sequence sap2010:Annotation.AnnotationText="First time .txt download file has been dropped into MA PPO directory. The original will be still on the runtime" DisplayName="Creating process " sap:VirtualizedContainerService.HintSize="426,422" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:CopyFile ContinueOnError="{x:Null}" Destination="[new_ma_ppo_textFilePath]" DisplayName="Copy File" sap:VirtualizedContainerService.HintSize="384,157" sap2010:WorkflowViewState.IdRef="CopyFile_2" Overwrite="False" Path="[new_pp_fileFullPath]" />
+                          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="384,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[Sccf_in+&quot; &quot; + &quot;(&quot;+download_count.ToString+&quot;).txt has been saved at: &quot; + ma_ppo_textFilePath.Split(&quot;\&quot;c)(5) + &quot; directory&quot;]" />
+                        </Sequence>
+                      </If.Then>
+                      <If.Else>
+                        <Sequence DisplayName="Keep Looping" sap:VirtualizedContainerService.HintSize="304,183" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <Assign sap2010:Annotation.AnnotationText="Counter to download text file versions" DisplayName="Increment ++" sap:VirtualizedContainerService.HintSize="262,91" sap2010:WorkflowViewState.IdRef="Assign_11">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="x:Int32">[download_count]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="x:Int32">[download_count + 1]</InArgument>
+                            </Assign.Value>
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </Assign>
+                        </Sequence>
+                      </If.Else>
+                    </If>
+                  </Sequence>
+                </DoWhile>
+              </Sequence>
+            </If.Else>
+          </If>
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Sequence DisplayName="Copy Skipped" sap:VirtualizedContainerService.HintSize="200,66" sap2010:WorkflowViewState.IdRef="Sequence_15">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Info" Message="[&quot;This is a test txt file. MA PPO sequence skipped&quot;]" />
+        </Sequence>
+      </If.Else>
+    </If>
+    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="484,51" sap2010:WorkflowViewState.IdRef="CommentOut_2">
+      <ui:CommentOut.Body>
+        <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="304,152" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[PricingTesterFile_out]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[pp_textFile(0)]</InArgument>
+            </Assign.Value>
+          </Assign>
+        </Sequence>
+      </ui:CommentOut.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:CommentOut>
+  </Sequence>
+</Activity>

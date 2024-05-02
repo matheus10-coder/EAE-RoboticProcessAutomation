@@ -1,0 +1,586 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="AMYS_CheckEligibility_SearchMember" this:AMYS_CheckEligibility_SearchMember.in_StrMemberID="01402852W00" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property sap2010:Annotation.AnnotationText="Average timeout of an activity" Name="in_IntTimeoutMedium" Type="InArgument(x:Int32)" />
+    <x:Property sap2010:Annotation.AnnotationText="Maximum timout of an activity" Name="in_IntTimeoutLong" Type="InArgument(x:Int32)" />
+    <x:Property sap2010:Annotation.AnnotationText="Member ID value scraped from Member and Claim details page xmal" Name="in_StrMemberID" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Eligibilty table scraped in the member's eligibility screen" Name="out_DtMemberEligibilityGrid" Type="OutArgument(sd:DataTable)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1137,6503</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>AMYS_CheckEligibility_SearchMember_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="31">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>UiPath.UIAutomationCore.Contracts</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>UiPath.DataTableUtilities</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="29">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>System.Data.Entity</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="AMYS_GetMemberCheckEligibilityTable" sap:VirtualizedContainerService.HintSize="1147,6438" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Default="AMYS_GetMemberCheckEligibilityTable" Name="strComponentName" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="1105,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Start: &quot;+strComponentName]" />
+    <Sequence DisplayName="Pre-Condition: Sequence" sap:VirtualizedContainerService.HintSize="1105,1414" sap2010:WorkflowViewState.IdRef="Sequence_6">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="x:Boolean" Name="boolPreCondition" />
+      </Sequence.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:UiElementExists DisplayName="Element Exists 'MEMBER_NO'" Exists="[boolPreCondition]" sap:VirtualizedContainerService.HintSize="849,106" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
+        <ui:UiElementExists.Target>
+          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="cdc74289-86ed-4b84-8a1c-e600d1e63dab" InformativeScreenshot="a64e8a20cba7ab0faad4275e4b388031" Selector="&lt;html app='chrome.exe' title='*IQ0800*Member Eligibility History*AMISYS*' /&gt;&lt;webctrl src='Controller*IQ0800*' tag='IFRAME' /&gt;&lt;webctrl tag='INPUT' type='TEXT' name='*MEMBER_NO*' /&gt;" TimeoutMS="[in_IntTimeoutLong]">
+            <ui:Target.WaitForReady>
+              <InArgument x:TypeArguments="ui:WaitForReady" />
+            </ui:Target.WaitForReady>
+          </ui:Target>
+        </ui:UiElementExists.Target>
+      </ui:UiElementExists>
+      <If Condition="[boolPreCondition = False]" DisplayName="Checking: Member Number text box" sap:VirtualizedContainerService.HintSize="849,1176" sap2010:WorkflowViewState.IdRef="If_1">
+        <If.Then>
+          <Sequence sap:VirtualizedContainerService.HintSize="813,989" sap2010:WorkflowViewState.IdRef="Sequence_11">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:Boolean" Name="boolPreConditionTwo" />
+              <Variable x:TypeArguments="x:Boolean" Name="BoolOkButton" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:UiElementExists DisplayName="Element Exists 'push button  OK'" Exists="[BoolOkButton]" sap:VirtualizedContainerService.HintSize="771,106" sap2010:WorkflowViewState.IdRef="UiElementExists_3">
+              <ui:UiElementExists.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="1491eb03-63ec-40a1-89b4-71dbe92b3173" InformativeScreenshot="21d115bda885b80072c8fe3f43c9a060" Selector="&lt;wnd app='chrome.exe' title='*Member Eligibility History*AMISYS*' /&gt;&lt;ctrl role='dialog' /&gt;&lt;ctrl name='OK' role='push button' /&gt;" TimeoutMS="9000">
+                  <ui:Target.WaitForReady>
+                    <InArgument x:TypeArguments="ui:WaitForReady" />
+                  </ui:Target.WaitForReady>
+                </ui:Target>
+              </ui:UiElementExists.Target>
+            </ui:UiElementExists>
+            <If Condition="[BoolOkButton]" sap:VirtualizedContainerService.HintSize="771,751" sap2010:WorkflowViewState.IdRef="If_4">
+              <If.Then>
+                <Sequence sap:VirtualizedContainerService.HintSize="526,593" sap2010:WorkflowViewState.IdRef="Sequence_14">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" ClickType="CLICK_SINGLE" sap:VirtualizedContainerService.HintSize="484,68" sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
+                    <ui:Click.CursorPosition>
+                      <ui:CursorPosition Position="Center">
+                        <ui:CursorPosition.OffsetX>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetX>
+                        <ui:CursorPosition.OffsetY>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetY>
+                      </ui:CursorPosition>
+                    </ui:Click.CursorPosition>
+                    <ui:Click.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="a07a7947-6df7-41a0-8e21-bcd2032655dd" Selector="&lt;wnd app='chrome.exe' title='*Member Eligibility History*AMISYS*' /&gt;&lt;ctrl role='dialog' /&gt;&lt;ctrl name='OK' role='push button' /&gt;">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
+                        <ui:Target.WaitForReady>
+                          <InArgument x:TypeArguments="ui:WaitForReady" />
+                        </ui:Target.WaitForReady>
+                      </ui:Target>
+                    </ui:Click.Target>
+                  </ui:Click>
+                  <ui:UiElementExists DisplayName="Element Exists 'MEMBER_NO'" Exists="[boolPreConditionTwo]" sap:VirtualizedContainerService.HintSize="484,106" sap2010:WorkflowViewState.IdRef="UiElementExists_4">
+                    <ui:UiElementExists.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="cdc74289-86ed-4b84-8a1c-e600d1e63dab" InformativeScreenshot="a64e8a20cba7ab0faad4275e4b388031" Selector="&lt;html app='chrome.exe' title='*IQ0800*Member Eligibility History*AMISYS*' /&gt;&lt;webctrl src='Controller*IQ0800*' tag='IFRAME' /&gt;&lt;webctrl tag='INPUT' type='TEXT' name='*MEMBER_NO*' /&gt;" TimeoutMS="[in_IntTimeoutLong]">
+                        <ui:Target.WaitForReady>
+                          <InArgument x:TypeArguments="ui:WaitForReady" />
+                        </ui:Target.WaitForReady>
+                      </ui:Target>
+                    </ui:UiElementExists.Target>
+                  </ui:UiElementExists>
+                  <If Condition="[boolPreConditionTwo = False]" sap:VirtualizedContainerService.HintSize="484,247" sap2010:WorkflowViewState.IdRef="If_5">
+                    <If.Then>
+                      <Throw DisplayName="Throw AE" Exception="[new Exception(&quot;Pre-Condition: Member No text box not found&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_1" />
+                    </If.Then>
+                  </If>
+                </Sequence>
+              </If.Then>
+              <If.Else>
+                <Throw DisplayName="Throw AE" Exception="[new Exception(&quot;Pre-Condition: Member No text box not found&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_4" />
+              </If.Else>
+            </If>
+          </Sequence>
+        </If.Then>
+      </If>
+    </Sequence>
+    <Sequence DisplayName="Action: Sequence" sap:VirtualizedContainerService.HintSize="1105,4251" sap2010:WorkflowViewState.IdRef="Sequence_9">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="1063,4159" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+        <TryCatch.Variables>
+          <Variable x:TypeArguments="ui:Browser" Name="browserMemberEligibility" />
+        </TryCatch.Variables>
+        <TryCatch.Try>
+          <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" BrowserType="Chrome" DisplayName="Attach Browser 'IQ0800 - Member Eligibility History'" sap:VirtualizedContainerService.HintSize="1025,3932" sap2010:WorkflowViewState.IdRef="BrowserScope_1" InformativeScreenshot="f2b8ddd4dbf4aebdf8843e66f3d74162" Selector="&lt;html app='chrome.exe' title='*IQ0800*Member Eligibility History*AMISYS*' /&gt;" UiBrowser="[browserMemberEligibility]">
+            <ui:BrowserScope.Body>
+              <ActivityAction x:TypeArguments="x:Object">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                </ActivityAction.Argument>
+                <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="991,3786" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="x:Boolean" Name="boolEligibilityGrid" />
+                    <Variable x:TypeArguments="x:String" Name="strEligibilityTable" />
+                    <Variable x:TypeArguments="sd:DataTable" Name="dtExtracted" />
+                  </Sequence.Variables>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:TypeInto AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" ClickBeforeTyping="True" DisplayName="Type Into - Member ID" EmptyField="True" sap:VirtualizedContainerService.HintSize="949,96" sap2010:WorkflowViewState.IdRef="TypeInto_1" Text="[in_StrMemberID]">
+                    <ui:TypeInto.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="869d6283-aa60-440c-8cf4-129531e12b66" Selector="&lt;html app='chrome.exe' title='*IQ0800*Member Eligibility History*AMISYS*' /&gt;&lt;webctrl src='Controller*IQ0800*' tag='IFRAME' /&gt;&lt;webctrl tag='INPUT' type='TEXT' name='*MEMBER_NO*' /&gt;">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
+                        <ui:Target.WaitForReady>
+                          <InArgument x:TypeArguments="ui:WaitForReady" />
+                        </ui:Target.WaitForReady>
+                      </ui:Target>
+                    </ui:TypeInto.Target>
+                  </ui:TypeInto>
+                  <ui:SendHotkey ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" Activate="True" DisplayName="Send Hotkey" sap:VirtualizedContainerService.HintSize="949,114" sap2010:WorkflowViewState.IdRef="SendHotkey_1" Key="enter" KeyModifiers="None" SpecialKey="True">
+                    <ui:SendHotkey.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="57a97158-7619-4fa3-9f23-6708bd43c2a3">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
+                        <ui:Target.WaitForReady>
+                          <InArgument x:TypeArguments="ui:WaitForReady" />
+                        </ui:Target.WaitForReady>
+                      </ui:Target>
+                    </ui:SendHotkey.Target>
+                  </ui:SendHotkey>
+                  <ui:UiElementExists DisplayName="Element Exists" Exists="[boolEligibilityGrid]" sap:VirtualizedContainerService.HintSize="949,68" sap2010:WorkflowViewState.IdRef="UiElementExists_2">
+                    <ui:UiElementExists.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="061c7cd5-b261-46f5-b602-6be93d0d45b5" Selector="&lt;webctrl src='*Controller*IQ0800*' tag='IFRAME' /&gt;&lt;webctrl id='gridTable*' tag='TABLE' aaname='*CL*YMDEFF*YMDEND*' parentid='Grid' /&gt;" TimeoutMS="[in_IntTimeoutMedium]">
+                        <ui:Target.WaitForReady>
+                          <InArgument x:TypeArguments="ui:WaitForReady" />
+                        </ui:Target.WaitForReady>
+                      </ui:Target>
+                    </ui:UiElementExists.Target>
+                  </ui:UiElementExists>
+                  <If Condition="[boolEligibilityGrid = False]" DisplayName="Checking : Member Eligibility table" sap:VirtualizedContainerService.HintSize="949,1135" sap2010:WorkflowViewState.IdRef="If_2">
+                    <If.Then>
+                      <Sequence sap:VirtualizedContainerService.HintSize="813,949" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                        <Sequence.Variables>
+                          <Variable x:TypeArguments="x:Boolean" Name="boolOkButtonInner" />
+                        </Sequence.Variables>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:UiElementExists DisplayName="Element Exists 'push button  OK'" Exists="[boolOkButtonInner]" sap:VirtualizedContainerService.HintSize="771,106" sap2010:WorkflowViewState.IdRef="UiElementExists_6">
+                          <ui:UiElementExists.Target>
+                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="1491eb03-63ec-40a1-89b4-71dbe92b3173" InformativeScreenshot="21d115bda885b80072c8fe3f43c9a060" Selector="&lt;wnd app='chrome.exe' title='*Member Eligibility History*AMISYS*' /&gt;&lt;ctrl role='dialog' /&gt;&lt;ctrl name='OK' role='push button' /&gt;" TimeoutMS="9000">
+                              <ui:Target.WaitForReady>
+                                <InArgument x:TypeArguments="ui:WaitForReady" />
+                              </ui:Target.WaitForReady>
+                            </ui:Target>
+                          </ui:UiElementExists.Target>
+                        </ui:UiElementExists>
+                        <If Condition="[boolOkButtonInner]" sap:VirtualizedContainerService.HintSize="771,711" sap2010:WorkflowViewState.IdRef="If_7">
+                          <If.Then>
+                            <Sequence sap:VirtualizedContainerService.HintSize="526,554" sap2010:WorkflowViewState.IdRef="Sequence_17">
+                              <Sequence.Variables>
+                                <Variable x:TypeArguments="x:Boolean" Name="boolEligibilityGridInner" />
+                              </Sequence.Variables>
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" ClickType="CLICK_SINGLE" sap:VirtualizedContainerService.HintSize="484,68" sap2010:WorkflowViewState.IdRef="Click_3" KeyModifiers="None" MouseButton="BTN_LEFT">
+                                <ui:Click.CursorPosition>
+                                  <ui:CursorPosition Position="Center">
+                                    <ui:CursorPosition.OffsetX>
+                                      <InArgument x:TypeArguments="x:Int32" />
+                                    </ui:CursorPosition.OffsetX>
+                                    <ui:CursorPosition.OffsetY>
+                                      <InArgument x:TypeArguments="x:Int32" />
+                                    </ui:CursorPosition.OffsetY>
+                                  </ui:CursorPosition>
+                                </ui:Click.CursorPosition>
+                                <ui:Click.Target>
+                                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="a07a7947-6df7-41a0-8e21-bcd2032655dd" Selector="&lt;wnd app='chrome.exe' title='*Member Eligibility History*AMISYS*' /&gt;&lt;ctrl role='dialog' /&gt;&lt;ctrl name='OK' role='push button' /&gt;">
+                                    <ui:Target.TimeoutMS>
+                                      <InArgument x:TypeArguments="x:Int32" />
+                                    </ui:Target.TimeoutMS>
+                                    <ui:Target.WaitForReady>
+                                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                                    </ui:Target.WaitForReady>
+                                  </ui:Target>
+                                </ui:Click.Target>
+                              </ui:Click>
+                              <ui:UiElementExists DisplayName="Element Exists" Exists="[boolEligibilityGridInner]" sap:VirtualizedContainerService.HintSize="484,68" sap2010:WorkflowViewState.IdRef="UiElementExists_8">
+                                <ui:UiElementExists.Target>
+                                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="061c7cd5-b261-46f5-b602-6be93d0d45b5" Selector="&lt;webctrl src='*Controller*IQ0800*' tag='IFRAME' /&gt;&lt;webctrl id='gridTable*' tag='TABLE' aaname='*CL*YMDEFF*YMDEND*' parentid='Grid' /&gt;" TimeoutMS="[in_IntTimeoutLong]">
+                                    <ui:Target.WaitForReady>
+                                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                                    </ui:Target.WaitForReady>
+                                  </ui:Target>
+                                </ui:UiElementExists.Target>
+                              </ui:UiElementExists>
+                              <If Condition="[boolEligibilityGridInner = False]" sap:VirtualizedContainerService.HintSize="484,246" sap2010:WorkflowViewState.IdRef="If_8">
+                                <If.Then>
+                                  <Throw DisplayName="Throw AE" Exception="[new Exception(&quot;Member Elibility table not found&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_5" />
+                                </If.Then>
+                                <If.Else>
+                                  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_18">
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                  </Sequence>
+                                </If.Else>
+                              </If>
+                            </Sequence>
+                          </If.Then>
+                          <If.Else>
+                            <Throw DisplayName="Throw AE" Exception="[new Exception(&quot;Member Elibility table not found&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_2" />
+                          </If.Else>
+                        </If>
+                      </Sequence>
+                    </If.Then>
+                    <If.Else>
+                      <Sequence sap:VirtualizedContainerService.HintSize="200,83" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </Sequence>
+                    </If.Else>
+                  </If>
+                  <Sequence sap2010:Annotation.AnnotationText="This sequence will handle the issue identified with the multi pages. It will introduce and loop between all the pages in order to retrieve all the possible values" DisplayName="Multi Service Lines" sap:VirtualizedContainerService.HintSize="949,1990" sap2010:WorkflowViewState.IdRef="Sequence_21">
+                    <Sequence.Variables>
+                      <Variable x:TypeArguments="x:String" Name="totalPages" />
+                      <Variable x:TypeArguments="x:Int32" Name="intTotalPages" />
+                      <Variable x:TypeArguments="x:Int32" Name="pageCount" />
+                      <Variable x:TypeArguments="x:Boolean" Default="False" Name="loopBreak" />
+                      <Variable x:TypeArguments="x:Boolean" Name="notLastLine" />
+                    </Sequence.Variables>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:GetAttribute Attribute="aaname" ContinueOnError="True" DisplayName="Get Attribute Total of Pages" sap:VirtualizedContainerService.HintSize="907,164" sap2010:WorkflowViewState.IdRef="GetAttribute_1">
+                      <ui:GetAttribute.Result>
+                        <OutArgument x:TypeArguments="x:String">[totalPages]</OutArgument>
+                      </ui:GetAttribute.Result>
+                      <ui:GetAttribute.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="b10b029e-0cd6-4ac5-bb21-cb93d105a1ac" Selector="&lt;webctrl src='Controller?view=jsp/ScreenDesigner.jsp&amp;amp;screenURL=*' tag='IFRAME' /&gt;&lt;webctrl parentid='paginationTable_0' tag='B' aaname='Total: * ' /&gt;" TimeoutMS="2000" WaitForReady="COMPLETE" />
+                      </ui:GetAttribute.Target>
+                    </ui:GetAttribute>
+                    <If sap2010:Annotation.AnnotationText="Check point to assign the total pages variables, this will indicate how many pages we have in total in case totalPages is not null, otherwise when is null we know we only have one page as total " Condition="[totalPages isNot Nothing]" DisplayName="Check Point Total Page" sap:VirtualizedContainerService.HintSize="907,361" sap2010:WorkflowViewState.IdRef="If_9">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <If.Then>
+                        <ui:MultipleAssign DisplayName="Total Pages Assignment" sap:VirtualizedContainerService.HintSize="431,162" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+                          <ui:MultipleAssign.AssignOperations>
+                            <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
+                              <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
+                                <ui:AssignOperation.To>
+                                  <OutArgument x:TypeArguments="x:String">[totalPages]</OutArgument>
+                                </ui:AssignOperation.To>
+                                <ui:AssignOperation.Value>
+                                  <InArgument x:TypeArguments="x:String">[Trim(totalPages.Split(":"c)(1))]</InArgument>
+                                </ui:AssignOperation.Value>
+                              </ui:AssignOperation>
+                              <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
+                                <ui:AssignOperation.To>
+                                  <OutArgument x:TypeArguments="x:Int32">[intTotalPages]</OutArgument>
+                                </ui:AssignOperation.To>
+                                <ui:AssignOperation.Value>
+                                  <InArgument x:TypeArguments="x:Int32">[Cint(totalPages)]</InArgument>
+                                </ui:AssignOperation.Value>
+                              </ui:AssignOperation>
+                              <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_3">
+                                <ui:AssignOperation.To>
+                                  <OutArgument x:TypeArguments="x:Int32">[pageCount]</OutArgument>
+                                </ui:AssignOperation.To>
+                                <ui:AssignOperation.Value>
+                                  <InArgument x:TypeArguments="x:Int32">1</InArgument>
+                                </ui:AssignOperation.Value>
+                              </ui:AssignOperation>
+                            </scg:List>
+                          </ui:MultipleAssign.AssignOperations>
+                        </ui:MultipleAssign>
+                      </If.Then>
+                      <If.Else>
+                        <ui:MultipleAssign DisplayName="Total Pages Assignment" sap:VirtualizedContainerService.HintSize="431,131" sap2010:WorkflowViewState.IdRef="MultipleAssign_2">
+                          <ui:MultipleAssign.AssignOperations>
+                            <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
+                              <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_4">
+                                <ui:AssignOperation.To>
+                                  <OutArgument x:TypeArguments="x:Int32">[intTotalPages]</OutArgument>
+                                </ui:AssignOperation.To>
+                                <ui:AssignOperation.Value>
+                                  <InArgument x:TypeArguments="x:Int32">1</InArgument>
+                                </ui:AssignOperation.Value>
+                              </ui:AssignOperation>
+                              <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_5">
+                                <ui:AssignOperation.To>
+                                  <OutArgument x:TypeArguments="x:Int32">[pageCount]</OutArgument>
+                                </ui:AssignOperation.To>
+                                <ui:AssignOperation.Value>
+                                  <InArgument x:TypeArguments="x:Int32">1</InArgument>
+                                </ui:AssignOperation.Value>
+                              </ui:AssignOperation>
+                            </scg:List>
+                          </ui:MultipleAssign.AssignOperations>
+                        </ui:MultipleAssign>
+                      </If.Else>
+                    </If>
+                    <ui:InterruptibleWhile Condition="[loopBreak = false]" DisplayName="Loop Pages" sap:VirtualizedContainerService.HintSize="907,1262" sap2010:WorkflowViewState.IdRef="InterruptibleWhile_1">
+                      <ui:InterruptibleWhile.Body>
+                        <Sequence DisplayName="Assign Grid Values" sap:VirtualizedContainerService.HintSize="767,1097" sap2010:WorkflowViewState.IdRef="Sequence_22">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[dtExtracted]" DisplayName="Extract Structured Data 'TABLE '" ExtractMetadata="&lt;extract-table get_columns_name='1' get_empty_columns='1' columns_name_source='Longest'&gt;&lt;column name='Column-0' attr='text' /&gt;&lt;column name='Column-1' attr='text' /&gt;&lt;column name='CL' attr='text' /&gt;&lt;column name='MS' attr='text' /&gt;&lt;column name='YMDEFF' attr='text' /&gt;&lt;column name='YMDEND' attr='text' /&gt;&lt;column name='PG' attr='text' /&gt;&lt;column name='RG' attr='text' /&gt;&lt;column name='NS' attr='text' /&gt;&lt;column name='HS' attr='text' /&gt;&lt;column name='PS' attr='text' /&gt;&lt;column name='RY' attr='text' /&gt;&lt;column name='Void' attr='text' /&gt;&lt;column name='Tc' attr='text' /&gt;&lt;column name='Date' attr='text' /&gt;&lt;column name='OP#' attr='text' /&gt;&lt;column name='Provider' attr='text' /&gt;&lt;column name='Prov Name' attr='text' /&gt;&lt;column name='Wait' attr='text' /&gt;&lt;column name='MULTI' attr='text' /&gt;&lt;column name='Alt Prov' attr='text' /&gt;&lt;column name='Prov Name' attr='text' /&gt;&lt;column name='Prex' attr='text' /&gt;&lt;column name='Spend Down' attr='text' /&gt;&lt;column name='Tobacco Use' attr='text' /&gt;&lt;column name='Division#' attr='text' /&gt;&lt;column name='Ind Prem Amt' attr='text' /&gt;&lt;column name='BP' attr='text' /&gt;&lt;column name='QHP ID' attr='text' /&gt;&lt;/extract-table&gt;" sap:VirtualizedContainerService.HintSize="725,106" sap2010:WorkflowViewState.IdRef="ExtractData_1" MaxNumberOfResults="-1" SimulateClick="True">
+                            <ui:ExtractData.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="ecb26981-0085-4ae2-864a-241b4a8be85d" InformativeScreenshot="2824fef3c26e30fa181cb16bad2000c7" Selector="&lt;webctrl src='*Controller*IQ0800*' tag='IFRAME' /&gt;&lt;webctrl id='gridTable*' tag='TABLE' aaname='*CL*YMDEFF*YMDEND*' parentid='Grid' /&gt;" WaitForReady="COMPLETE">
+                                <ui:Target.TimeoutMS>
+                                  <InArgument x:TypeArguments="x:Int32" />
+                                </ui:Target.TimeoutMS>
+                              </ui:Target>
+                            </ui:ExtractData.Target>
+                          </ui:ExtractData>
+                          <ui:FilterDataTable DataTable="[dtExtracted]" DisplayName="Filter Data Table" FilterRowsMode="Remove" sap:VirtualizedContainerService.HintSize="725,160" sap2010:WorkflowViewState.IdRef="FilterDataTable_1" OutputDataTable="[out_DtMemberEligibilityGrid]" SelectColumnsMode="Keep">
+                            <ui:FilterDataTable.Filters>
+                              <scg:List x:TypeArguments="ui:FilterOperationArgument" Capacity="4">
+                                <ui:FilterOperationArgument BooleanOperator="And" Operator="EQ">
+                                  <ui:FilterOperationArgument.Column>
+                                    <InArgument x:TypeArguments="x:String">["Void"]</InArgument>
+                                  </ui:FilterOperationArgument.Column>
+                                  <ui:FilterOperationArgument.Operand>
+                                    <InArgument x:TypeArguments="x:String">["V"]</InArgument>
+                                  </ui:FilterOperationArgument.Operand>
+                                </ui:FilterOperationArgument>
+                              </scg:List>
+                            </ui:FilterDataTable.Filters>
+                            <ui:FilterDataTable.SelectColumns>
+                              <scg:List x:TypeArguments="InArgument" Capacity="4">
+                                <x:Null />
+                              </scg:List>
+                            </ui:FilterDataTable.SelectColumns>
+                          </ui:FilterDataTable>
+                          <ui:OutputDataTable DataTable="[out_DtMemberEligibilityGrid]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="725,79" sap2010:WorkflowViewState.IdRef="OutputDataTable_1" Text="[strEligibilityTable]" />
+                          <Sequence sap2010:Annotation.AnnotationText="Last line Readerr. If the loop reaches to the last line we will get out of it" DisplayName="Last Line Reader" sap:VirtualizedContainerService.HintSize="725,540" sap2010:WorkflowViewState.IdRef="Sequence_24">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <If Condition="[pageCount &lt; intTotalPages]" DisplayName="Check Point Next Line" sap:VirtualizedContainerService.HintSize="683,417" sap2010:WorkflowViewState.IdRef="If_10">
+                              <If.Then>
+                                <Sequence DisplayName="Next Page" sap:VirtualizedContainerService.HintSize="376,260" sap2010:WorkflowViewState.IdRef="Sequence_23">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <Assign DisplayName="Page Count Increment" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:Int32">[pageCount]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:Int32">[pageCount+1]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <ui:Click DelayBefore="{x:Null}" SendWindowMessages="{x:Null}" AlterIfDisabled="True" ClickType="CLICK_SINGLE" DelayMS="3000" DisplayName="Click Next Page" sap:VirtualizedContainerService.HintSize="334,68" sap2010:WorkflowViewState.IdRef="Click_4" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
+                                    <ui:Click.CursorPosition>
+                                      <ui:CursorPosition Position="Center">
+                                        <ui:CursorPosition.OffsetX>
+                                          <InArgument x:TypeArguments="x:Int32" />
+                                        </ui:CursorPosition.OffsetX>
+                                        <ui:CursorPosition.OffsetY>
+                                          <InArgument x:TypeArguments="x:Int32" />
+                                        </ui:CursorPosition.OffsetY>
+                                      </ui:CursorPosition>
+                                    </ui:Click.CursorPosition>
+                                    <ui:Click.Target>
+                                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="dd0eb02b-86f8-4cf7-95f5-e27ab1d95b5d" Selector="[String.Format(&quot;&lt;webctrl src='Controller?view=jsp/ScreenDesigner.jsp&amp;amp;screenURL=forms/IQ/IQ0800*' tag='IFRAME' /&gt;&lt;webctrl id='*PagesLink' aaname='{0}' /&gt;&quot;, pageCount)]" TimeoutMS="5000" WaitForReady="COMPLETE" />
+                                    </ui:Click.Target>
+                                  </ui:Click>
+                                </Sequence>
+                              </If.Then>
+                              <If.Else>
+                                <Assign DisplayName="That was the last line" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:Boolean">[loopBreak]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                              </If.Else>
+                            </If>
+                          </Sequence>
+                        </Sequence>
+                      </ui:InterruptibleWhile.Body>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </ui:InterruptibleWhile>
+                  </Sequence>
+                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="949,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[strEligibilityTable]" />
+                </Sequence>
+              </ActivityAction>
+            </ui:BrowserScope.Body>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:BrowserScope>
+        </TryCatch.Try>
+        <TryCatch.Catches>
+          <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="1029,21" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ActivityAction x:TypeArguments="s:Exception">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+              </ActivityAction.Argument>
+              <Rethrow sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Rethrow_1" />
+            </ActivityAction>
+          </Catch>
+        </TryCatch.Catches>
+        <TryCatch.Finally>
+          <ui:CloseTab Browser="[browserMemberEligibility]" DisplayName="Close Tab" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="CloseTab_1" />
+        </TryCatch.Finally>
+      </TryCatch>
+    </Sequence>
+    <Sequence DisplayName="Post-Condition: Sequence" sap:VirtualizedContainerService.HintSize="1105,339" sap2010:WorkflowViewState.IdRef="Sequence_4">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="x:Boolean" Name="boolPostCondition" />
+      </Sequence.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <If Condition="[out_DtMemberEligibilityGrid.RowCount = 0]" DisplayName="Checking Member Eligibility Datatable" sap:VirtualizedContainerService.HintSize="484,247" sap2010:WorkflowViewState.IdRef="If_3">
+        <If.Then>
+          <Throw DisplayName="Throw BE" Exception="[new BusinessRuleException(&quot;Member Eligibilty datatable not found&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_3" />
+        </If.Then>
+        <If.Else>
+          <Sequence sap2010:WorkflowViewState.IdRef="Sequence_10">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </Sequence>
+        </If.Else>
+      </If>
+    </Sequence>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="1105,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;End: &quot;+strComponentName]" />
+  </Sequence>
+</Activity>

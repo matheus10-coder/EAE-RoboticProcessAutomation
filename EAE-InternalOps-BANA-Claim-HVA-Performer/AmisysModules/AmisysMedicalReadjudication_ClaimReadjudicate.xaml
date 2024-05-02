@@ -1,0 +1,621 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="AmisysReadjudicate" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property sap2010:Annotation.AnnotationText="This will be used ifor the dynamic timer" Name="in_servLines" Type="InArgument(x:Int32)" />
+    <x:Property Name="io_DictConfig" Type="InOutArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property sap2010:Annotation.AnnotationText="Browser that will be used during the Readjudicate process" Name="io_Browser" Type="InOutArgument(ui:Browser)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1747.2,6756</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>AmisysReadjudicate_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="62">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>UiPath.UIAutomationCore.Contracts</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+      <x:String>ABCBS_Process_Activities.AmisysErrorHandling</x:String>
+      <x:String>UiPath.Excel</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="31">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>ABCBS.Process.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Readjudicate the claim. Use dynamic timer, unresponsive page check, thirty party analysis screen check and others to make sure we have the opportunity to wait the maximum amount in order to readj. " DisplayName="AmisysClaimReadjudicate" sap:VirtualizedContainerService.HintSize="1757.6,6691.2" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:Boolean" Name="boolPreCondition" />
+      <Variable x:TypeArguments="x:Int32" sap2010:Annotation.AnnotationText="counter loop increment" Name="countLoop" />
+      <Variable x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="msg tag html from amysis - innerText attribute" Name="radjMsg" />
+      <Variable x:TypeArguments="x:Int32" sap2010:Annotation.AnnotationText="Total amount of times radj loop will interate" Name="loopBreak" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="1716,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Amisys Claim Readjudicate started&quot;]" />
+    <ui:CommentOut DisplayName="Attach browser for module test" sap:VirtualizedContainerService.HintSize="1716,52.8" sap2010:WorkflowViewState.IdRef="CommentOut_8">
+      <ui:CommentOut.Body>
+        <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="475.2,324.8" sap2010:WorkflowViewState.IdRef="Sequence_56">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" BrowserType="Chrome" DisplayName="TEST PURPOSES Attach Browser 'chrome.exe CL0485'" sap:VirtualizedContainerService.HintSize="433.6,232" sap2010:WorkflowViewState.IdRef="BrowserScope_2" InformativeScreenshot="93adf96ef53575020762adf451b25e7c" Selector="&lt;html app='chrome.exe' title='*Medical Readjudication*AMISYS*' /&gt;" UiBrowser="[io_Browser]">
+            <ui:BrowserScope.Body>
+              <ActivityAction x:TypeArguments="x:Object">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                </ActivityAction.Argument>
+                <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="200,84.8" sap2010:WorkflowViewState.IdRef="Sequence_13">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </Sequence>
+              </ActivityAction>
+            </ui:BrowserScope.Body>
+          </ui:BrowserScope>
+        </Sequence>
+      </ui:CommentOut.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:CommentOut>
+    <Sequence DisplayName="Pre Condition" sap:VirtualizedContainerService.HintSize="1716,1041.6" sap2010:WorkflowViewState.IdRef="Sequence_4">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:UiElementExists sap2010:Annotation.AnnotationText="Convert.ToInt32(io_DictConfig(&quot;TimeoutMedium&quot;).ToString)" DisplayName="Element Exists 'Diagnosis, Procedures &amp; Service Detail'" Exists="[boolPreCondition]" sap:VirtualizedContainerService.HintSize="937.6,112.8" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
+        <ui:UiElementExists.Target>
+          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="02f52416-3b80-4496-a431-53cfb96cbd03" Selector="&lt;html app='chrome.exe' title='*Medical*AMISYS*' /&gt;&lt;webctrl id='Main' tag='IFRAME' /&gt;&lt;webctrl id='Form' tag='IFRAME' /&gt;&lt;webctrl tag='A' aaname='Diagnosis, Procedures &amp;amp; Service Detail*' parentid='*tab2' /&gt;" WaitForReady="COMPLETE">
+            <ui:Target.TimeoutMS>
+              <InArgument x:TypeArguments="x:Int32" />
+            </ui:Target.TimeoutMS>
+          </ui:Target>
+        </ui:UiElementExists.Target>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:UiElementExists>
+      <If Condition="[boolPreCondition = False]" DisplayName="Checking - 'Diagnosis, Procedures &amp; Service Detail'" sap:VirtualizedContainerService.HintSize="937.6,796" sap2010:WorkflowViewState.IdRef="If_1">
+        <If.Then>
+          <Throw DisplayName="Throw AE - Pre Condition" Exception="[new Exception(&quot;Pre Condition : Diagnosis, Procedures &amp; Service detail tab not found&quot;)]" sap:VirtualizedContainerService.HintSize="200,22.4" sap2010:WorkflowViewState.IdRef="Throw_1" />
+        </If.Then>
+        <If.Else>
+          <Sequence sap2010:Annotation.AnnotationText="For the long service lines the increment dynamic as for 5 times more the current serv ln so we will have a bigger loop so we can optimize the maximum amount of chances. Claims with lines above than 20 will have higher chances of failure after 30 min" DisplayName="Loop Break Flag Calculation" sap:VirtualizedContainerService.HintSize="693.6,636.8" sap2010:WorkflowViewState.IdRef="Sequence_36">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="652,132" sap2010:WorkflowViewState.IdRef="MultipleAssign_3">
+              <ui:MultipleAssign.AssignOperations>
+                <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
+                  <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_5">
+                    <ui:AssignOperation.To>
+                      <OutArgument x:TypeArguments="x:Int32">[countLoop]</OutArgument>
+                    </ui:AssignOperation.To>
+                    <ui:AssignOperation.Value>
+                      <InArgument x:TypeArguments="x:Int32">0</InArgument>
+                    </ui:AssignOperation.Value>
+                  </ui:AssignOperation>
+                  <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_6">
+                    <ui:AssignOperation.To>
+                      <OutArgument x:TypeArguments="x:Int32">[loopBreak]</OutArgument>
+                    </ui:AssignOperation.To>
+                    <ui:AssignOperation.Value>
+                      <InArgument x:TypeArguments="x:Int32">0</InArgument>
+                    </ui:AssignOperation.Value>
+                  </ui:AssignOperation>
+                </scg:List>
+              </ui:MultipleAssign.AssignOperations>
+            </ui:MultipleAssign>
+            <If Condition="[in_servLines &lt;= 10]" sap:VirtualizedContainerService.HintSize="652,312" sap2010:WorkflowViewState.IdRef="If_11">
+              <If.Then>
+                <Sequence DisplayName="Loop Break Default" sap:VirtualizedContainerService.HintSize="304,152.8" sap2010:WorkflowViewState.IdRef="Sequence_34">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <Assign sap:VirtualizedContainerService.HintSize="262.4,60" sap2010:WorkflowViewState.IdRef="Assign_11">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:Int32">[loopBreak]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:Int32">[Cint(io_DictConfig.Item("LoopBreakDefault").ToString)]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                </Sequence>
+              </If.Then>
+              <If.Else>
+                <Sequence DisplayName="Dynamic Loop Break" sap:VirtualizedContainerService.HintSize="304,152.8" sap2010:WorkflowViewState.IdRef="Sequence_35">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <Assign sap:VirtualizedContainerService.HintSize="262.4,60" sap2010:WorkflowViewState.IdRef="Assign_12">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:Int32">[loopBreak]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:Int32">[in_servLines + Cint(io_DictConfig.Item("LoopBreakDynamic").ToString)]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                </Sequence>
+              </If.Else>
+            </If>
+          </Sequence>
+        </If.Else>
+      </If>
+    </Sequence>
+    <Sequence DisplayName="Action" sap:VirtualizedContainerService.HintSize="1716,3945.6" sap2010:WorkflowViewState.IdRef="Sequence_5">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:BrowserScope BrowserType="{x:Null}" SearchScope="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" Browser="[io_Browser]" DisplayName="Attach Browser" sap:VirtualizedContainerService.HintSize="1276.8,3852.8" sap2010:WorkflowViewState.IdRef="BrowserScope_1" UiBrowser="[io_Browser]">
+        <ui:BrowserScope.Body>
+          <ActivityAction x:TypeArguments="x:Object">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="RADJ Prep" sap:VirtualizedContainerService.HintSize="1243.2,3744" sap2010:WorkflowViewState.IdRef="Sequence_2">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" sap2010:Annotation.AnnotationText="Convert.ToInt32(io_DictConfig(&quot;TimeoutMedium&quot;).ToString)" ClickType="CLICK_DOUBLE" DisplayName="Double Click - 'Diagnosis, Procedures &amp; Service Detail'" sap:VirtualizedContainerService.HintSize="1201.6,112.8" sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
+                <ui:Click.CursorPosition>
+                  <ui:CursorPosition Position="Center">
+                    <ui:CursorPosition.OffsetX>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:CursorPosition.OffsetX>
+                    <ui:CursorPosition.OffsetY>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:CursorPosition.OffsetY>
+                  </ui:CursorPosition>
+                </ui:Click.CursorPosition>
+                <ui:Click.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="4c69290a-b062-4155-93ef-888cf1a6dd77" Selector="&lt;webctrl id='Main' tag='IFRAME' /&gt;&lt;webctrl id='Form' tag='IFRAME' /&gt;&lt;webctrl id='Atab2' tag='A' /&gt;" WaitForReady="COMPLETE">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                  </ui:Target>
+                </ui:Click.Target>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+              </ui:Click>
+              <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" AlterIfDisabled="True" sap2010:Annotation.AnnotationText="Convert.ToInt32(io_DictConfig(&quot;TimeoutMedium&quot;).ToString)" ClickType="CLICK_SINGLE" DisplayName="Click Readjudicate" sap:VirtualizedContainerService.HintSize="1201.6,112.8" sap2010:WorkflowViewState.IdRef="Click_2" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
+                <ui:Click.CursorPosition>
+                  <ui:CursorPosition Position="Center">
+                    <ui:CursorPosition.OffsetX>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:CursorPosition.OffsetX>
+                    <ui:CursorPosition.OffsetY>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:CursorPosition.OffsetY>
+                  </ui:CursorPosition>
+                </ui:Click.CursorPosition>
+                <ui:Click.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="2f6cd70a-6c2a-4513-9fa2-cf34f2899b64" Selector="&lt;webctrl id='Main' tag='IFRAME' /&gt;&lt;webctrl id='Form' tag='IFRAME' /&gt;&lt;webctrl id='0RADJ' tag='A' /&gt;" WaitForReady="COMPLETE">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                  </ui:Target>
+                </ui:Click.Target>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+              </ui:Click>
+              <Sequence sap2010:Annotation.AnnotationText="Heart of the RADJ Handling system. &#xA;It is based on a two Loop sequences that will read continous the message in Amisys and countLoop will keep track of all the interaction. Below is the description of both scenarions in loop 1 and 2.&#xA;Loop #1 will break in the following scenario:&#xA;1) innerText is not null or empty anymore&#xA;2) countLoop &gt; loopBreak - this means the msg could be still null or empty&#xA;**countLoop will not be reset**&#xA;Loop #2 will break in the following scenario: &#xA;1) If radjMsg is null or empty - (this will direct the flow to an application failure)&#xA;2) radjMsg message: Claim Readjudicate or Check the following... &#xA;3) radjMsg is any message other than: Processing Claim...  - (this will direct the flow to an business exception failure)&#xA;4) countLoop &gt; loopBreak - (this will direct the flow to an application failure)" DisplayName="RADJ Validation" sap:VirtualizedContainerService.HintSize="1201.6,3345.6" sap2010:WorkflowViewState.IdRef="Sequence_54">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:GetAttribute sap2010:Annotation.AnnotationText="We are retrieving innerText from div error msg class" Attribute="innerText" ContinueOnError="True" DisplayName="Get Attribute RADJ msg" sap:VirtualizedContainerService.HintSize="1160,197.6" sap2010:WorkflowViewState.IdRef="GetAttribute_8">
+                  <ui:GetAttribute.Result>
+                    <OutArgument x:TypeArguments="x:String">[radjMsg]</OutArgument>
+                  </ui:GetAttribute.Result>
+                  <ui:GetAttribute.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="768e9ff8-466c-47eb-898a-a97134b5ab0b" Selector="&lt;html app='chrome.exe' title='*Medical Readjudication*AMISYS*' /&gt;&lt;webctrl id='Main' tag='IFRAME' /&gt;&lt;webctrl id='Form' tag='IFRAME' /&gt;&lt;webctrl id='ErrorMsg' tag='DIV' /&gt;" TimeoutMS="5000" WaitForReady="COMPLETE" />
+                  </ui:GetAttribute.Target>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </ui:GetAttribute>
+                <ui:InterruptibleWhile Condition="[String.IsNullOrEmpty(radjMsg) and countLoop &lt; loopBreak]" DisplayName="Loop #1 - Null Msg" sap:VirtualizedContainerService.HintSize="1160,1202.4" sap2010:WorkflowViewState.IdRef="InterruptibleWhile_2">
+                  <ui:InterruptibleWhile.Body>
+                    <Sequence sap2010:Annotation.AnnotationText="&quot;&quot; - RADJ msg is null that means something wrong happened in amisys that provoke the msg or something to disappear, we will add a delay and try again until loop limit has been reached" DisplayName="RADJ Null" sap:VirtualizedContainerService.HintSize="420,1035.2" sap2010:WorkflowViewState.IdRef="Sequence_49">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <ui:CommentOut DisplayName="Disable LogInfo" sap:VirtualizedContainerService.HintSize="378.4,52.8" sap2010:WorkflowViewState.IdRef="CommentOut_7">
+                        <ui:CommentOut.Body>
+                          <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="524.8,498.4" sap2010:WorkflowViewState.IdRef="Sequence_55">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <If sap2010:Annotation.AnnotationText="Log info" Condition="[countLoop &lt; 1]" sap:VirtualizedContainerService.HintSize="483.2,405.6" sap2010:WorkflowViewState.IdRef="If_16">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <If.Then>
+                                <Sequence sap:VirtualizedContainerService.HintSize="375.2,185.6" sap2010:WorkflowViewState.IdRef="Sequence_48">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="333.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_11" Level="Info" Message="[&quot;Claim Readjudicate is null: &quot; + radjMsg]" />
+                                </Sequence>
+                              </If.Then>
+                            </If>
+                          </Sequence>
+                        </ui:CommentOut.Body>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </ui:CommentOut>
+                      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Amisys Dynamic Timer" sap:VirtualizedContainerService.HintSize="378.4,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_11" UnSafe="False" WorkflowFileName="AmisysModules\AmisysDynamicTimer.xaml">
+                        <ui:InvokeWorkflowFile.Arguments>
+                          <InArgument x:TypeArguments="x:Int32" x:Key="in_ServiceLine">[in_servLines]</InArgument>
+                          <InArgument x:TypeArguments="x:Int32" x:Key="in_Attempts">[countLoop]</InArgument>
+                          <InArgument x:TypeArguments="x:Boolean" x:Key="in_IsDelay">True</InArgument>
+                          <OutArgument x:TypeArguments="x:TimeSpan" x:Key="out_DelayOutput" />
+                        </ui:InvokeWorkflowFile.Arguments>
+                      </ui:InvokeWorkflowFile>
+                      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Average of 15s" DisplayName="Page Unresponsive Handler" sap:VirtualizedContainerService.HintSize="378.4,144.8" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_12" UnSafe="False" WorkflowFileName="AmisysModules\AmisysMedicalReadjudication_PageUnresposiveHandler.xaml">
+                        <ui:InvokeWorkflowFile.Arguments>
+                          <scg:Dictionary x:TypeArguments="x:String, Argument" />
+                        </ui:InvokeWorkflowFile.Arguments>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </ui:InvokeWorkflowFile>
+                      <ui:GetAttribute sap2010:Annotation.AnnotationText="We are retrieving innerText from div error msg class" Attribute="innerText" ContinueOnError="True" DisplayName="Get Attribute RADJ msg" sap:VirtualizedContainerService.HintSize="378.4,197.6" sap2010:WorkflowViewState.IdRef="GetAttribute_9">
+                        <ui:GetAttribute.Result>
+                          <OutArgument x:TypeArguments="x:String">[radjMsg]</OutArgument>
+                        </ui:GetAttribute.Result>
+                        <ui:GetAttribute.Target>
+                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="768e9ff8-466c-47eb-898a-a97134b5ab0b" Selector="&lt;html app='chrome.exe' title='*Medical Readjudication*AMISYS*' /&gt;&lt;webctrl id='Main' tag='IFRAME' /&gt;&lt;webctrl id='Form' tag='IFRAME' /&gt;&lt;webctrl id='ErrorMsg' tag='DIV' /&gt;" TimeoutMS="5000" WaitForReady="COMPLETE" />
+                        </ui:GetAttribute.Target>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </ui:GetAttribute>
+                      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Check CL4440 " sap:VirtualizedContainerService.HintSize="378.4,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_16" UnSafe="False" WorkflowFileName="AmisysModules\AmisysClaimsThirtyPartyAnalisysScreen.xaml">
+                        <ui:InvokeWorkflowFile.Arguments>
+                          <scg:Dictionary x:TypeArguments="x:String, Argument" />
+                        </ui:InvokeWorkflowFile.Arguments>
+                      </ui:InvokeWorkflowFile>
+                      <Assign DisplayName="Loop Counter" sap:VirtualizedContainerService.HintSize="378.4,60" sap2010:WorkflowViewState.IdRef="Assign_14">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:Int32">[countLoop]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:Int32">[countLoop + 1]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                    </Sequence>
+                  </ui:InterruptibleWhile.Body>
+                </ui:InterruptibleWhile>
+                <ui:InterruptibleDoWhile DisplayName="Loop #2 - RADJ Waiting Time" sap:VirtualizedContainerService.HintSize="1160,1584.8" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_3">
+                  <ui:InterruptibleDoWhile.Body>
+                    <If Condition="[Not(radjMsg=&quot;&quot; or radjMsg is Nothing)]" sap:VirtualizedContainerService.HintSize="1124.8,1417.6" sap2010:WorkflowViewState.IdRef="If_18">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <If.Then>
+                        <Sequence DisplayName="RADJ Processing" sap:VirtualizedContainerService.HintSize="880.8,1258.4" sap2010:WorkflowViewState.IdRef="Sequence_53">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <If Condition="[radjMsg.Contains(&quot;Claim readjudicated&quot;) or radjMsg.Contains(&quot;Check the following&quot;)]" sap:VirtualizedContainerService.HintSize="839.2,972.8" sap2010:WorkflowViewState.IdRef="If_17">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <If.Then>
+                              <Sequence DisplayName="RADJ Completed" sap:VirtualizedContainerService.HintSize="375.2,185.6" sap2010:WorkflowViewState.IdRef="Sequence_50">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="333.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_12" Level="Info" Message="[&quot;RADJ Message: &quot; + radjMsg]" />
+                              </Sequence>
+                            </If.Then>
+                            <If.Else>
+                              <Sequence sap2010:Annotation.AnnotationText="&quot;Processing Claim...wait&quot; - It will keep check for any other msgn" DisplayName="RADJ Pending" sap:VirtualizedContainerService.HintSize="420,813.6" sap2010:WorkflowViewState.IdRef="Sequence_51">
+                                <Sequence.Variables>
+                                  <Variable x:TypeArguments="x:Boolean" Name="amisysErrorFound" />
+                                  <Variable x:TypeArguments="x:String" Name="errorMsg" />
+                                </Sequence.Variables>
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Amisys Dynamic Timer" sap:VirtualizedContainerService.HintSize="378.4,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_13" UnSafe="False" WorkflowFileName="AmisysModules\AmisysDynamicTimer.xaml">
+                                  <ui:InvokeWorkflowFile.Arguments>
+                                    <InArgument x:TypeArguments="x:Int32" x:Key="in_ServiceLine">[in_servLines]</InArgument>
+                                    <InArgument x:TypeArguments="x:Int32" x:Key="in_Attempts">[countLoop]</InArgument>
+                                    <InArgument x:TypeArguments="x:Boolean" x:Key="in_IsDelay">True</InArgument>
+                                    <OutArgument x:TypeArguments="x:TimeSpan" x:Key="out_DelayOutput" />
+                                  </ui:InvokeWorkflowFile.Arguments>
+                                </ui:InvokeWorkflowFile>
+                                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Closing Amisys Claims Thirty Party Analysis Screen" sap:VirtualizedContainerService.HintSize="378.4,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_15" UnSafe="False" WorkflowFileName="AmisysModules\AmisysClaimsThirtyPartyAnalisysScreen.xaml">
+                                  <ui:InvokeWorkflowFile.Arguments>
+                                    <scg:Dictionary x:TypeArguments="x:String, Argument" />
+                                  </ui:InvokeWorkflowFile.Arguments>
+                                </ui:InvokeWorkflowFile>
+                                <ui:GetAttribute sap2010:Annotation.AnnotationText="We are retrieving innerText from div error msg class" Attribute="innerText" ContinueOnError="True" DisplayName="Get Attribute RADJ msg" sap:VirtualizedContainerService.HintSize="378.4,197.6" sap2010:WorkflowViewState.IdRef="GetAttribute_10">
+                                  <ui:GetAttribute.Result>
+                                    <OutArgument x:TypeArguments="x:String">[radjMsg]</OutArgument>
+                                  </ui:GetAttribute.Result>
+                                  <ui:GetAttribute.Target>
+                                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="768e9ff8-466c-47eb-898a-a97134b5ab0b" Selector="&lt;html app='chrome.exe' title='*Medical Readjudication*AMISYS*' /&gt;&lt;webctrl id='Main' tag='IFRAME' /&gt;&lt;webctrl id='Form' tag='IFRAME' /&gt;&lt;webctrl id='ErrorMsg' tag='DIV' /&gt;" TimeoutMS="5000" WaitForReady="COMPLETE" />
+                                  </ui:GetAttribute.Target>
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                </ui:GetAttribute>
+                                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Average of 15s" DisplayName="Page Unresponsive Handler" sap:VirtualizedContainerService.HintSize="378.4,144.8" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_14" UnSafe="False" WorkflowFileName="AmisysModules\AmisysMedicalReadjudication_PageUnresposiveHandler.xaml">
+                                  <ui:InvokeWorkflowFile.Arguments>
+                                    <scg:Dictionary x:TypeArguments="x:String, Argument" />
+                                  </ui:InvokeWorkflowFile.Arguments>
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                </ui:InvokeWorkflowFile>
+                              </Sequence>
+                            </If.Else>
+                          </If>
+                          <Assign DisplayName="Loop Counter" sap:VirtualizedContainerService.HintSize="839.2,60" sap2010:WorkflowViewState.IdRef="Assign_15">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="x:Int32">[countLoop]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="x:Int32">[countLoop + 1]</InArgument>
+                            </Assign.Value>
+                          </Assign>
+                          <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="839.2,52.8" sap2010:WorkflowViewState.IdRef="CommentOut_6">
+                            <ui:CommentOut.Body>
+                              <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="375.2,161.6" sap2010:WorkflowViewState.IdRef="Sequence_52">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <ui:Activate DelayBefore="{x:Null}" DelayMS="{x:Null}" ContinueOnError="True" sap:VirtualizedContainerService.HintSize="333.6,68.8" sap2010:WorkflowViewState.IdRef="Activate_3">
+                                  <ui:Activate.Target>
+                                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="0739aa12-91bb-4eae-b737-0adad237abea" TimeoutMS="2000" WaitForReady="COMPLETE" />
+                                  </ui:Activate.Target>
+                                </ui:Activate>
+                              </Sequence>
+                            </ui:CommentOut.Body>
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </ui:CommentOut>
+                        </Sequence>
+                      </If.Then>
+                      <If.Else>
+                        <ui:Break sap:VirtualizedContainerService.HintSize="200,22.4" sap2010:WorkflowViewState.IdRef="Break_3" />
+                      </If.Else>
+                    </If>
+                  </ui:InterruptibleDoWhile.Body>
+                  <ui:InterruptibleDoWhile.Condition>
+                    <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="radjMsg.toLower.Contains(&quot;processing claim&quot;) and countLoop &lt; loopBreak" />
+                  </ui:InterruptibleDoWhile.Condition>
+                </ui:InterruptibleDoWhile>
+              </Sequence>
+            </Sequence>
+          </ActivityAction>
+        </ui:BrowserScope.Body>
+      </ui:BrowserScope>
+    </Sequence>
+    <Sequence DisplayName="Pos Condition" sap:VirtualizedContainerService.HintSize="1716,1141.6" sap2010:WorkflowViewState.IdRef="Sequence_6">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <If Condition="[radjMsg.Contains(&quot;Claim readjudicated&quot;) or radjMsg.Contains(&quot;Check the following&quot;)]" DisplayName="Checking Point Readjudication" sap:VirtualizedContainerService.HintSize="1674.4,1048.8" sap2010:WorkflowViewState.IdRef="If_7">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <If.Then>
+          <Sequence sap2010:Annotation.AnnotationText="Readjudication sucess" DisplayName="RADJ Successful" sap:VirtualizedContainerService.HintSize="375.2,216.8" sap2010:WorkflowViewState.IdRef="Sequence_30">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:Boolean" Name="amisysErrorFound" />
+              <Variable x:TypeArguments="x:String" Name="errorMsg" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="333.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Info" Message="[&quot;Claim has successfully been readjudicated&quot;]" />
+          </Sequence>
+        </If.Then>
+        <If.Else>
+          <Sequence sap2010:Annotation.AnnotationText="Readjudication failure. Handling as business exception if we received any message other than claim readjudicated or error on the serv lines. Application exception if we reached loopBreak or the application went down for some reason" DisplayName="RADJ Failed" sap:VirtualizedContainerService.HintSize="1255.2,889.6" sap2010:WorkflowViewState.IdRef="Sequence_33">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <If Condition="[Not(String.IsNullOrEmpty(radjMsg)) and Not(radjMsg.toLower.Contains(&quot;processing claim&quot;))]" DisplayName="Checking Point Exception" sap:VirtualizedContainerService.HintSize="1213.6,752.8" sap2010:WorkflowViewState.IdRef="If_10">
+              <If.Then>
+                <Sequence DisplayName="Business Exception" sap:VirtualizedContainerService.HintSize="375.2,248" sap2010:WorkflowViewState.IdRef="Sequence_31">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="333.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Error" Message="[&quot;Claim has failed to readjudicate. Reason: &quot;+ radjMsg + &quot; - Business Exception&quot;]" />
+                  <Throw DisplayName="Throw BE" Exception="[New BusinessRuleException (&quot;Claim has failed to readjudicate. Reason: &quot;+ radjMsg)]" sap:VirtualizedContainerService.HintSize="333.6,22.4" sap2010:WorkflowViewState.IdRef="Throw_4" />
+                </Sequence>
+              </If.Then>
+              <If.Else>
+                <Sequence DisplayName="Other Exception" sap:VirtualizedContainerService.HintSize="794.4,593.6" sap2010:WorkflowViewState.IdRef="Sequence_32">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <If sap2010:Annotation.AnnotationText="Log Purposes. This " Condition="[radjMsg.toLower.Contains(&quot;processing claim&quot;)]" DisplayName="Checking Point Application Exception" sap:VirtualizedContainerService.HintSize="752.8,438.4" sap2010:WorkflowViewState.IdRef="If_12">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <If.Then>
+                      <Sequence DisplayName="Business Exception" sap:VirtualizedContainerService.HintSize="375.2,248" sap2010:WorkflowViewState.IdRef="Sequence_57">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="333.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Error" Message="[&quot;Claim has failed to readjudicate due to maximum amount of loop interaction reached. Amisys message is still: &quot; +radjMsg + &quot; - Business Exception&quot;]" />
+                        <Throw DisplayName="Throw BE" Exception="[New BusinessRuleException (&quot;Claim has failed to readjudicate due to maximum amount of loop interaction reached. Amisys message is still: &quot; +radjMsg + &quot; - Business Exception&quot;)]" sap:VirtualizedContainerService.HintSize="333.6,22.4" sap2010:WorkflowViewState.IdRef="Throw_7" />
+                      </Sequence>
+                    </If.Then>
+                    <If.Else>
+                      <ui:LogMessage DisplayName="Application Exception Log" sap:VirtualizedContainerService.HintSize="333.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Error" Message="[&quot;Claim has failed to readjudicate. Unhandled error encountered - Application Exception&quot;]" />
+                    </If.Else>
+                  </If>
+                  <Throw DisplayName="Throw AE" Exception="[new Exception (&quot;Claim has failed to readjudicate. Unhandled exception. Check error logs&quot;)]" sap:VirtualizedContainerService.HintSize="752.8,22.4" sap2010:WorkflowViewState.IdRef="Throw_5" />
+                </Sequence>
+              </If.Else>
+            </If>
+          </Sequence>
+        </If.Else>
+      </If>
+    </Sequence>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="1716,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Amisys Claim Readjudicate finished&quot;]" />
+  </Sequence>
+</Activity>
